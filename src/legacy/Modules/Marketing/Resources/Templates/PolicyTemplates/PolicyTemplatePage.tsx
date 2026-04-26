@@ -16,6 +16,7 @@ import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/Appli
 import { PolicyTemplate, PolicyTemplates } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
 import { ResourceCTA } from '../../ResourceCTA';
+import { policyTemplateSlug } from '@/lib/policy-template-slug';
 
 export const PolicyTemplatePage = () => {
   const isSmScreen = IsSmScreen();
@@ -36,10 +37,7 @@ export const PolicyTemplatePage = () => {
 
         Object.keys(typedModule).forEach(exportKey => {
           const template = typedModule[exportKey];
-          const key = template.title
-            .toLowerCase()
-            .replace(/[\s()]/g, '')
-            .replace(/-/g, '');
+          const key = policyTemplateSlug(template.title);
           policyDescriptions[key] = template;
         });
         setPolicyDescriptions(policyDescriptions);
@@ -58,12 +56,12 @@ export const PolicyTemplatePage = () => {
 
   useEffect(() => {
     if (templateName && Object.keys(policyDescriptions).length > 0) {
-      const formattedTemplateName = templateName.replace(/[\s()-]/g, '').toLowerCase();
+      const formattedTemplateName = policyTemplateSlug(templateName ?? '');
       const matchedPolicyTemplate = policyDescriptions[formattedTemplateName];
       setPolicyTemplate(matchedPolicyTemplate ?? null);
 
       if (!matchedPolicyTemplate) {
-        navigate('/error');
+        navigate('/resources/policy-templates/', { replace: true });
       }
     }
   }, [templateName, policyDescriptions, navigate]);
@@ -124,7 +122,7 @@ export const PolicyTemplatePage = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <Stack>
         <ShPaper variant='outlined'>
-          <Stack padding={5} justifyContent='center' alignItems='center'>
+          <Stack justifyContent='center' alignItems='center'>
             <Typography textAlign='center' gutterBottom variant='body2' color={PrimaryThemeColor}>
               HR Templates | Company Policy Templates
             </Typography>
@@ -251,7 +249,7 @@ export const PolicyTemplatePage = () => {
               <Grid container spacing={1} paddingTop={2}>
                 {[...new Set(similarTemplates)].slice(0, 20).map((template, index) => (
                   <Grid item sm={12} md={6} key={index}>
-                    <ShMuiLink noWrap component={RouterLink as any} to={`/resources/policy-templates/${template.toLowerCase().split(' ').join('-')}`} variant='subtitle2' paddingTop={1} noUnderline>
+                    <ShMuiLink noWrap component={RouterLink as any} to={`/resources/policy-templates/${policyTemplateSlug(template)}/`} variant='subtitle2' paddingTop={1} noUnderline>
                       {truncateString(template, 40)}
                     </ShMuiLink>
                   </Grid>

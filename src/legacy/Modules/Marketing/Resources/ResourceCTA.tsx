@@ -15,12 +15,12 @@ export const ResourceCTA = ({ title = "Ready to post your job to 100's of job bo
   return (
     <ResourceCTAStack>
       <ShPaper variant='outlined'>
-        <Typography gutterBottom variant='h6' color='text.primary'>
-          {title}
-        </Typography>
-        <Typography gutterBottom variant='subtitle1' color='text.secondary'>
-          {subtitle}
-        </Typography>
+          <Typography gutterBottom variant='h6' color='text.primary'>
+            {title}
+          </Typography>
+          <Typography gutterBottom variant='subtitle1' color='text.secondary'>
+            {subtitle}
+          </Typography>
         <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' endIcon={<NearMeIcon />}>
           <Typography>{buttonText}</Typography>
         </StyledActionButton>

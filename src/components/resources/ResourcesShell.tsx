@@ -38,6 +38,16 @@ const ShellLayout = styled(Stack)(({ theme }) => ({
 const ShellContent = styled(Box)(({ theme }) => ({
   flex: 1,
   paddingTop: theme.spacing(1),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  [theme.breakpoints.up('md')]: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+  },
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
+  },
 }));
 
 export const ResourcesShell = ({ children }: { children: React.ReactNode }) => {

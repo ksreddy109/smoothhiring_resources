@@ -7,6 +7,7 @@ export const muiTheme = createTheme({
     },
     success: {
       main: "#74C05A",
+      contrastText: "#ffffff",
     },
   },
   shape: {
@@ -53,6 +54,9 @@ export const muiTheme = createTheme({
         sizeLarge: {
           minHeight: 44,
           paddingInline: 20,
+        },
+        containedSuccess: {
+          color: "#ffffff",
         },
       },
     },

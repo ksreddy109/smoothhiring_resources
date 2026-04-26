@@ -20,11 +20,11 @@ export const ResourceCTA = ({
     <ResourceCTAStack>
       <ShPaper variant="outlined">
         <Typography gutterBottom variant="h6" color="text.primary">
-          {title}
-        </Typography>
+            {title}
+          </Typography>
         <Typography gutterBottom variant="subtitle1" color="text.secondary">
-          {subtitle}
-        </Typography>
+            {subtitle}
+          </Typography>
         <Button href={SHSignUpLink} size="large" color="primary" variant="contained" endIcon={<NearMeIcon />} component="a">
           <Typography>{buttonText}</Typography>
         </Button>

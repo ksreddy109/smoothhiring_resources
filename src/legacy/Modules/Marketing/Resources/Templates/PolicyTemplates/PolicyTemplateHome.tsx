@@ -1,40 +1,39 @@
-import { Box, Grid, Grow, InputLabel, MenuItem, Select, Stack, Typography, styled } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
-import { IsSmScreen } from 'helpers/hooks';
+import { Grid, Grow, MenuItem, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { ResourceCTA } from '../../ResourceCTA';
-import { ResourceFormControl, ResourceHeroBody, ResourceHeroTitle, ResourceSectionSubtitle } from '@smoothhiring/smooth-ui';
+import { ResourceHeroBody, ResourceHeroTitle, ResourceSectionSubtitle } from '@smoothhiring/smooth-ui';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
-
-const SearchBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  minWidth: 330,
-  [theme.breakpoints.down('sm')]: {
-    minWidth: '100%',
-  },
-}));
-
-const CategoryHeading = styled(ResourceSectionSubtitle)(({ theme }) => ({
-  paddingInline: theme.spacing(1),
-  paddingBottom: theme.spacing(2),
-}));
+import { loadAllPolicyTemplates, policyTemplateSlug, resolveListLabelToPolicySlug } from '@/lib/policy-template-slug';
+import type { PolicyTemplate } from 'Modules/Marketing/Resources/Templates/TemplateModel';
+import {
+  ResourceTemplateCategoryBlock,
+  ResourceTemplateCategoryHeading,
+  ResourceTemplateFilterControl,
+  ResourceTemplateFilterToolbar,
+  ResourceTemplateListHeroInner,
+  ResourceTemplateSearchBox,
+} from 'Modules/Marketing/Resources/ResourceTemplatePages.styled';
 
 export const PolicyTemplateHome = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const isSmScreen = IsSmScreen();
   const [CompanyPolicies, setCompanyPolicies] = useState<Record<string, string[]>>({});
+  const [allPolicyTemplates, setAllPolicyTemplates] = useState<PolicyTemplate[]>([]);
 
   useEffect(() => {
     import('./PolicyTemplateConstants').then(mod => {
       setCompanyPolicies(mod.CompanyPolicies);
     });
+  }, []);
+
+  useEffect(() => {
+    void loadAllPolicyTemplates().then(setAllPolicyTemplates);
   }, []);
 
   const truncateText = (text: string, maxLength: number): string => {
@@ -48,8 +47,8 @@ export const PolicyTemplateHome = () => {
     setSearchQuery(event.target.value.toLowerCase());
   };
 
-  const handleCategoryChange = (event: SelectChangeEvent<string>) => {
-    setSelectedCategory(event.target.value as string);
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedCategory(event.target.value);
   };
 
   const filteredPolicyTemplates = Object.entries(CompanyPolicies)
@@ -61,12 +60,14 @@ export const PolicyTemplateHome = () => {
 
   const sortedPolicyTemplates = filteredPolicyTemplates.sort((a, b) => a.category.localeCompare(b.category));
 
-  const handleButtonClick = (description: string) => {
-    const formattedTemplateTitle = description
-      .toLowerCase()
-      .replace(/[\s()]/g, '')
-      .replace(/-/g, '');
-    navigate(`${formattedTemplateTitle}`);
+  const handleButtonClick = async (description: string) => {
+    const templates = allPolicyTemplates.length > 0 ? allPolicyTemplates : await loadAllPolicyTemplates();
+    if (allPolicyTemplates.length === 0) {
+      setAllPolicyTemplates(templates);
+    }
+    const resolved =
+      resolveListLabelToPolicySlug(description, templates) ?? policyTemplateSlug(description);
+    void navigate(`/resources/policy-templates/${resolved}/`);
   };
 
   return (
@@ -78,7 +79,7 @@ export const PolicyTemplateHome = () => {
       <ShContainer maxWidth='xl'>
         <ShPaper variant='outlined'>
           <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
-            <Stack padding={isSmScreen ? 2 : 5} marginBottom={4} marginTop={4}>
+            <ResourceTemplateListHeroInner>
               <ResourceSectionSubtitle variant='body2' textAlign='center' gutterBottom>
                 HR Templates | Company Policies
               </ResourceSectionSubtitle>
@@ -89,30 +90,39 @@ export const PolicyTemplateHome = () => {
                 Our extensive collection of company policies is designed to provide clarity, ensure compliance, and foster a positive workplace culture. With over 100 meticulously crafted templates, our policies cover a wide range of topics crucial to modern businesses. These templates are developed to help you establish clear guidelines, maintain consistency, and ensure that all employees
                 understand their roles and responsibilities.
               </ResourceHeroBody>
-            </Stack>
+            </ResourceTemplateListHeroInner>
           </Grow>
         </ShPaper>
-        <Stack direction={isSmScreen ? 'column' : 'row'} spacing={3} marginBottom={4}>
-          <SearchBox>
+        <ResourceTemplateFilterToolbar>
+          <ResourceTemplateSearchBox>
             <ShTextFieldV2 label='Search Company Policy Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />
-          </SearchBox>
-          <ResourceFormControl variant='outlined'>
-            <InputLabel id='category-select-label'>Filter by Category</InputLabel>
-            <Select labelId='category-select-label' id='category-select' value={selectedCategory} onChange={handleCategoryChange} label='Filter by Category'>
-              <MenuItem value=''>All Categories</MenuItem>
+          </ResourceTemplateSearchBox>
+          <ResourceTemplateFilterControl>
+            <TextField
+              select
+              fullWidth
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              size='medium'
+              SelectProps={{
+                displayEmpty: true,
+                renderValue: (value: unknown) => (value ? String(value) : 'Filter by Category'),
+              }}
+            >
+              <MenuItem value=''>Filter by Category</MenuItem>
               {Object.keys(CompanyPolicies).map(category => (
                 <MenuItem key={category} value={category}>
                   {category.split('_').join(' ')}
                 </MenuItem>
               ))}
-            </Select>
-          </ResourceFormControl>
-        </Stack>
+            </TextField>
+          </ResourceTemplateFilterControl>
+        </ResourceTemplateFilterToolbar>
         {sortedPolicyTemplates.map(({ category, descriptions }) => (
-          <Box key={category} marginBottom={5}>
-            <CategoryHeading variant='h6' gutterBottom>
+          <ResourceTemplateCategoryBlock key={category}>
+            <ResourceTemplateCategoryHeading variant='h6' gutterBottom>
               {category.split('_').join(' ')}
-            </CategoryHeading>
+            </ResourceTemplateCategoryHeading>
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
@@ -124,11 +134,9 @@ export const PolicyTemplateHome = () => {
                 </Grid>
               ))}
             </Grid>
-          </Box>
+          </ResourceTemplateCategoryBlock>
         ))}
-        <ShContainer maxWidth='lg'>
-          <ResourceCTA />
-        </ShContainer>
+        <ResourceCTA />
       </ShContainer>
     </>
   );

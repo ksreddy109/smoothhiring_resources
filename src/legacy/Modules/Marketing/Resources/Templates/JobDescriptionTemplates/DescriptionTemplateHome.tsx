@@ -1,7 +1,5 @@
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { Box, Grid, Grow, InputLabel, MenuItem, Select, Stack, Typography, styled } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
-import { IsSmScreen } from 'helpers/hooks';
+import { Grid, Grow, MenuItem, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -9,36 +7,28 @@ import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/Appli
 import { JobDescriptions as templateDescriptions } from './DescriptionTemplateConstants';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
-import { ResourceFormControl, ResourceHeroBody, ResourceHeroTitle, ResourceSectionSubtitle } from '@smoothhiring/smooth-ui';
+import { ResourceHeroBody, ResourceHeroTitle, ResourceSectionSubtitle } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
 import { getResourcesRedirect } from 'shared/utils';
 import { ResourceCTA } from '../../ResourceCTA';
-
-const HeroInput = styled(ShTextFieldV2)({
-  width: '100%',
-  maxWidth: 720,
-});
-
-const SearchBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  minWidth: 330,
-  [theme.breakpoints.down('sm')]: {
-    minWidth: '100%',
-  },
-}));
-
-const CategoryHeading = styled(ResourceSectionSubtitle)(({ theme }) => ({
-  paddingInline: theme.spacing(1),
-  paddingBottom: theme.spacing(2),
-}));
+import {
+  ResourceDescriptionHeroTextField,
+  ResourceTemplateCategoryBlock,
+  ResourceTemplateCategoryHeading,
+  ResourceTemplateFilterControl,
+  ResourceTemplateFilterToolbar,
+  ResourceTemplateListHeroCtaRow,
+  ResourceTemplateListHeroInner,
+  ResourceTemplateListHeroWrapper,
+  ResourceTemplateSearchBox,
+} from 'Modules/Marketing/Resources/ResourceTemplatePages.styled';
 
 export const DescriptionTemplateHome = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const isVisible = true;
-  const isSmScreen = IsSmScreen();
 
   const truncateText = (text: string, maxLength: number): string => {
     if (text.length <= maxLength) {
@@ -51,8 +41,8 @@ export const DescriptionTemplateHome = () => {
     setSearchQuery(event.target.value.toLowerCase());
   };
 
-  const handleCategoryChange = (event: SelectChangeEvent<string>) => {
-    setSelectedCategory(event.target.value as string);
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedCategory(event.target.value);
   };
 
   const filteredJobDescriptions = Object.entries(templateDescriptions)
@@ -75,10 +65,10 @@ export const DescriptionTemplateHome = () => {
         <meta name='description' content="Get customizable job description templates to help you hire more quickly. Use SmoothHiring's assistance to create compelling job advertisements." />
       </Helmet>
       <ShContainer maxWidth='xl'>
-        <Stack marginBottom={4} marginTop={4}>
+        <ResourceTemplateListHeroWrapper>
           <ShPaper variant='outlined'>
             <Grow in={isVisible} timeout={1000} mountOnEnter unmountOnExit>
-              <Stack>
+              <ResourceTemplateListHeroInner>
                 <ResourceSectionSubtitle variant='body2' textAlign='center' gutterBottom>
                   HR Templates | Job descriptions
                 </ResourceSectionSubtitle>
@@ -87,38 +77,47 @@ export const DescriptionTemplateHome = () => {
                 </ResourceHeroTitle>
                 <ResourceHeroBody>Crafted to enhance visibility and optimize for job board approval and SEO, our library of over 500+ job description templates ensures heightened exposure and expedites the hiring process. Enriched with tailored content, these descriptions attract top-tier candidates and facilitate the influx of qualified applicants.</ResourceHeroBody>
 
-                <Stack justifyContent='center' margin={5} spacing={2} direction={isSmScreen ? 'column' : 'row'}>
-                  <HeroInput label='Enter Job Title' variant='outlined' size='medium' />
+                <ResourceTemplateListHeroCtaRow>
+                  <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='medium' />
                   <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
                     <Typography>Post this Job</Typography>
                   </StyledActionButton>
-                </Stack>
-              </Stack>
+                </ResourceTemplateListHeroCtaRow>
+              </ResourceTemplateListHeroInner>
             </Grow>
           </ShPaper>
-        </Stack>
-        <Stack direction={isSmScreen ? 'column' : 'row'} spacing={3} marginBottom={4}>
-          <SearchBox>
+        </ResourceTemplateListHeroWrapper>
+        <ResourceTemplateFilterToolbar>
+          <ResourceTemplateSearchBox>
             <ShTextFieldV2 label='Search Job Description Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />
-          </SearchBox>
-          <ResourceFormControl variant='outlined'>
-            <InputLabel id='category-select-label'>Filter by Category</InputLabel>
-            <Select labelId='category-select-label' id='category-select' value={selectedCategory} onChange={handleCategoryChange} label='Filter by Category'>
-              <MenuItem value=''>All Categories</MenuItem>
+          </ResourceTemplateSearchBox>
+          <ResourceTemplateFilterControl>
+            <TextField
+              select
+              fullWidth
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              size='medium'
+              SelectProps={{
+                displayEmpty: true,
+                renderValue: (value: unknown) => (value ? String(value) : 'Filter by Category'),
+              }}
+            >
+              <MenuItem value=''>Filter by Category</MenuItem>
               {Object.keys(templateDescriptions).map(category => (
                 <MenuItem key={category} value={category}>
                   {category}
                 </MenuItem>
               ))}
-            </Select>
-          </ResourceFormControl>
-        </Stack>
+            </TextField>
+          </ResourceTemplateFilterControl>
+        </ResourceTemplateFilterToolbar>
 
         {sortedJobDescriptions.map(({ category, descriptions }) => (
-          <Box key={category} marginBottom={5}>
-            <CategoryHeading variant='h6' gutterBottom>
+          <ResourceTemplateCategoryBlock key={category}>
+            <ResourceTemplateCategoryHeading variant='h6' gutterBottom>
               {category.replace('_', ' ')}
-            </CategoryHeading>
+            </ResourceTemplateCategoryHeading>
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
@@ -130,7 +129,7 @@ export const DescriptionTemplateHome = () => {
                 </Grid>
               ))}
             </Grid>
-          </Box>
+          </ResourceTemplateCategoryBlock>
         ))}
         <ResourceCTA />
       </ShContainer>
