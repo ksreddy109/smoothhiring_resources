@@ -1,6 +1,12 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
+
+const EmbeddedFrame = styled('iframe')({
+  border: 'none',
+  width: '100%',
+  height: '100%',
+});
 
 export const ResourcesEmbedded = () => {
   const location = useLocation();
@@ -11,7 +17,7 @@ export const ResourcesEmbedded = () => {
 
   return (
     <Box width='100%' height='100vh' overflow='hidden'>
-      <iframe title='SmoothHiring Resources' src={src} style={{ border: 'none', width: '100%', height: '100%' }} loading='lazy' />
+      <EmbeddedFrame title='SmoothHiring Resources' src={src} loading='lazy' />
     </Box>
   );
 };

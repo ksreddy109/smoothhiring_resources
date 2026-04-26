@@ -123,7 +123,7 @@ const StyledActionButtonBase = styled(Button, {
   extraLarge?: boolean;
 }>(({ theme, postJob, add, cancel, edit, delete: deleteProp, save, close, search, filter, download, upload, refresh, settings, confirm, size, borderRadius: br, textColor, minWidth, marginLeft, extraLarge }) => {
   return {
-    borderRadius: br !== undefined ? br : theme.shape.borderRadius * 2,
+    borderRadius: br !== undefined ? br : theme.shape.borderRadius + 2,
     ...(textColor !== undefined ? { color: textColor } : {}),
     ...(minWidth !== undefined ? { minWidth } : {}),
     ...(marginLeft !== undefined ? { marginLeft } : {}),
@@ -140,11 +140,9 @@ const StyledActionButtonBase = styled(Button, {
     transition: 'all 0.2s ease-in-out',
     border: `1.5px solid ${theme.palette.divider}`,
     [theme.breakpoints.down('sm')]: {
-      fontSize: '0.7rem',
-      padding: theme.spacing(0.25, 0.75),
-      minHeight: 26,
-      borderRadius: 4,
-      marginLeft: theme.spacing(5.5),
+      fontSize: '0.75rem',
+      padding: theme.spacing(0.375, 1),
+      minHeight: 30,
     },
     '&:hover': {
       borderColor: theme.palette.primary.main,

@@ -1,5 +1,5 @@
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { Box, Grid, Grow, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { Box, Grid, Grow, InputLabel, MenuItem, Select, Stack, Typography, styled } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { IsSmScreen } from 'helpers/hooks';
 import { useState } from 'react';
@@ -14,6 +14,24 @@ import { ShPaper } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
 import { getResourcesRedirect } from 'shared/utils';
 import { ResourceCTA } from '../../ResourceCTA';
+
+const HeroInput = styled(ShTextFieldV2)({
+  width: '100%',
+  maxWidth: 720,
+});
+
+const SearchBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  minWidth: 330,
+  [theme.breakpoints.down('sm')]: {
+    minWidth: '100%',
+  },
+}));
+
+const CategoryHeading = styled(ResourceSectionSubtitle)(({ theme }) => ({
+  paddingInline: theme.spacing(1),
+  paddingBottom: theme.spacing(2),
+}));
 
 export const DescriptionTemplateHome = () => {
   const navigate = useNavigate();
@@ -56,7 +74,7 @@ export const DescriptionTemplateHome = () => {
         <title>Free Job Description Templates | SmoothHiring</title>
         <meta name='description' content="Get customizable job description templates to help you hire more quickly. Use SmoothHiring's assistance to create compelling job advertisements." />
       </Helmet>
-      <ShContainer maxWidth='xl' height='100%' margin='auto'>
+      <ShContainer maxWidth='xl'>
         <Stack marginBottom={4} marginTop={4}>
           <ShPaper variant='outlined'>
             <Grow in={isVisible} timeout={1000} mountOnEnter unmountOnExit>
@@ -70,9 +88,9 @@ export const DescriptionTemplateHome = () => {
                 <ResourceHeroBody>Crafted to enhance visibility and optimize for job board approval and SEO, our library of over 500+ job description templates ensures heightened exposure and expedites the hiring process. Enriched with tailored content, these descriptions attract top-tier candidates and facilitate the influx of qualified applicants.</ResourceHeroBody>
 
                 <Stack justifyContent='center' margin={5} spacing={2} direction={isSmScreen ? 'column' : 'row'}>
-                  <ShTextFieldV2 label='Enter Job Title' variant='outlined' size='medium' sx={{ minWidth: { xs: 200 }, maxWidth: { md: 500 }, width: { lg: 700 } }} />
+                  <HeroInput label='Enter Job Title' variant='outlined' size='medium' />
                   <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
-                    <Typography minWidth='max-content'>Post this Job</Typography>
+                    <Typography>Post this Job</Typography>
                   </StyledActionButton>
                 </Stack>
               </Stack>
@@ -80,9 +98,9 @@ export const DescriptionTemplateHome = () => {
           </ShPaper>
         </Stack>
         <Stack direction={isSmScreen ? 'column' : 'row'} spacing={3} marginBottom={4}>
-          <Box display='flex' sx={{ minWidth: { xs: '100%', sm: 330 } }}>
+          <SearchBox>
             <ShTextFieldV2 label='Search Job Description Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />
-          </Box>
+          </SearchBox>
           <ResourceFormControl variant='outlined'>
             <InputLabel id='category-select-label'>Filter by Category</InputLabel>
             <Select labelId='category-select-label' id='category-select' value={selectedCategory} onChange={handleCategoryChange} label='Filter by Category'>
@@ -98,9 +116,9 @@ export const DescriptionTemplateHome = () => {
 
         {sortedJobDescriptions.map(({ category, descriptions }) => (
           <Box key={category} marginBottom={5}>
-            <ResourceSectionSubtitle variant='h6' gutterBottom sx={{ px: 1, pb: 2 }}>
+            <CategoryHeading variant='h6' gutterBottom>
               {category.replace('_', ' ')}
-            </ResourceSectionSubtitle>
+            </CategoryHeading>
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>

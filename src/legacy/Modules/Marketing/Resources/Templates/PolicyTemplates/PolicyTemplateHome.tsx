@@ -1,4 +1,4 @@
-import { Box, Grid, Grow, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { Box, Grid, Grow, InputLabel, MenuItem, Select, Stack, Typography, styled } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { IsSmScreen } from 'helpers/hooks';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,19 @@ import { ResourceFormControl, ResourceHeroBody, ResourceHeroTitle, ResourceSecti
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
+
+const SearchBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  minWidth: 330,
+  [theme.breakpoints.down('sm')]: {
+    minWidth: '100%',
+  },
+}));
+
+const CategoryHeading = styled(ResourceSectionSubtitle)(({ theme }) => ({
+  paddingInline: theme.spacing(1),
+  paddingBottom: theme.spacing(2),
+}));
 
 export const PolicyTemplateHome = () => {
   const navigate = useNavigate();
@@ -62,7 +75,7 @@ export const PolicyTemplateHome = () => {
         <title>Free HR Policy Templates | SmoothHiring</title>
         <meta name='description' content='Enjoy free HR Policy templates to streamline the mundane parts of your buisness. Download professionally crafted policy templates for free at SmoothHiring' />
       </Helmet>
-      <ShContainer maxWidth='xl' height='100%' margin='auto'>
+      <ShContainer maxWidth='xl'>
         <ShPaper variant='outlined'>
           <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
             <Stack padding={isSmScreen ? 2 : 5} marginBottom={4} marginTop={4}>
@@ -80,9 +93,9 @@ export const PolicyTemplateHome = () => {
           </Grow>
         </ShPaper>
         <Stack direction={isSmScreen ? 'column' : 'row'} spacing={3} marginBottom={4}>
-          <Box display='flex' sx={{ minWidth: { xs: '100%', sm: 330 } }}>
+          <SearchBox>
             <ShTextFieldV2 label='Search Company Policy Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />
-          </Box>
+          </SearchBox>
           <ResourceFormControl variant='outlined'>
             <InputLabel id='category-select-label'>Filter by Category</InputLabel>
             <Select labelId='category-select-label' id='category-select' value={selectedCategory} onChange={handleCategoryChange} label='Filter by Category'>
@@ -97,9 +110,9 @@ export const PolicyTemplateHome = () => {
         </Stack>
         {sortedPolicyTemplates.map(({ category, descriptions }) => (
           <Box key={category} marginBottom={5}>
-            <ResourceSectionSubtitle variant='h6' gutterBottom sx={{ px: 1, pb: 2 }}>
+            <CategoryHeading variant='h6' gutterBottom>
               {category.split('_').join(' ')}
-            </ResourceSectionSubtitle>
+            </CategoryHeading>
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
@@ -113,7 +126,7 @@ export const PolicyTemplateHome = () => {
             </Grid>
           </Box>
         ))}
-        <ShContainer margin='auto' maxWidth='lg'>
+        <ShContainer maxWidth='lg'>
           <ResourceCTA />
         </ShContainer>
       </ShContainer>

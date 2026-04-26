@@ -1,6 +1,6 @@
 import { Box, LinkProps, Link, Stack, TextField, styled } from '@mui/material';
 
-export const ResourceElementsBorderRadius = 20;
+export const ResourceElementsBorderRadius = 12;
 
 export const ResourcesWrapperBox = styled(Box)(() => ({
   flex: 1,
@@ -23,14 +23,10 @@ export const ResourceTitleStack = styled(Stack)(({ theme }) => ({
 }));
 
 export const ResourceHomeTextField = styled(TextField)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    minWidth: '200px',
-  },
-  [theme.breakpoints.up('md')]: {
-    maxWidth: '500px',
-  },
-  [theme.breakpoints.up('lg')]: {
-    minWidth: '700px',
+  width: '100%',
+  maxWidth: 720,
+  '& .MuiInputBase-root': {
+    minHeight: 44,
   },
 }));
 

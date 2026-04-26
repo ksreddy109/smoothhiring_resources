@@ -1,6 +1,6 @@
 import ArticleIcon from '@mui/icons-material/Article';
 import SearchIcon from '@mui/icons-material/Search';
-import { Grid, Grow, InputAdornment, Stack, Typography } from '@mui/material';
+import { Grid, Grow, InputAdornment, Stack, Typography, styled } from '@mui/material';
 import { IsSmScreen } from 'helpers/hooks';
 import { ChangeEvent, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -12,6 +12,22 @@ import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShMuiLink } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
 import { offerTemplates } from './OfferTemplateConstants';
+
+const Subtitle = styled(ResourceSectionSubtitle)(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+}));
+
+const SearchStack = styled(Stack)(({ theme }) => ({
+  padding: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
+  marginInline: 'auto',
+  maxWidth: theme.breakpoints.values.sm,
+  flexDirection: 'row',
+}));
+
+const TemplateDescription = styled(ResourceCardDescription)({
+  maxWidth: 'none',
+});
 
 export const OfferTemplateHome = () => {
   const isSmScreen = IsSmScreen();
@@ -34,16 +50,16 @@ export const OfferTemplateHome = () => {
             <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
               <Stack alignItems='center' justifyContent='center' padding={isSmScreen ? 2 : 5}>
                 <ArticleIcon color='primary' />
-                <ResourceSectionSubtitle variant='body2' textAlign='center' gutterBottom sx={{ pt: 1 }}>
+                <Subtitle variant='body2' textAlign='center' gutterBottom>
                   HR Templates | Offer Templates
-                </ResourceSectionSubtitle>
+                </Subtitle>
                 <ResourceHeroTitle component='h1' gutterBottom>
                   Job Offer Templates
                 </ResourceHeroTitle>
                 <ResourceHeroBody>Job offer templates are standardized documents used by companies to extend employment offers to prospective candidates. These templates serve as a blueprint, outlining the key components of an employment offer, ensuring consistency, compliance, and efficiency throughout the hiring process.</ResourceHeroBody>
               </Stack>
             </Grow>
-            <Stack padding={3} margin='auto' maxWidth='sm' paddingBottom={3} direction='row'>
+            <SearchStack>
               <ShTextFieldV2
                 label='Search Templates'
                 variant='outlined'
@@ -58,7 +74,7 @@ export const OfferTemplateHome = () => {
                   ),
                 }}
               />
-            </Stack>
+            </SearchStack>
           </ShPaper>
         </Stack>
         <Grid paddingBottom={3} container spacing={2}>
@@ -70,9 +86,9 @@ export const OfferTemplateHome = () => {
                     <Typography variant='subtitle1' fontWeight={600} color='text.primary' textAlign='left'>
                       {template.title}
                     </Typography>
-                    <ResourceCardDescription variant='body2' sx={{ maxWidth: 'none' }} textAlign='left'>
+                    <TemplateDescription variant='body2' textAlign='left'>
                       {template.description}
-                    </ResourceCardDescription>
+                    </TemplateDescription>
                   </Stack>
                 </ShPaper>
               </ShMuiLink>

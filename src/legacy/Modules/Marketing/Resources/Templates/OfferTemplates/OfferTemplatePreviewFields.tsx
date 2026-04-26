@@ -1,11 +1,21 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Typography, Box, Chip, Collapse, Grid, InputAdornment, Stack } from '@mui/material';
+import { Typography, Box, Chip, Collapse, Grid, InputAdornment, Stack, styled } from '@mui/material';
 import React, { useState } from 'react';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
 import { ResourceCTASideContainer } from '../../ResourceCTASideContainer';
 import { JobOfferFormProps } from '../TemplateModel';
+
+const BenefitInput = styled(ShTextFieldV2)({
+  maxWidth: 350,
+});
+
+const ExpandToggle = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+});
 
 export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
   isSmScreen,
@@ -70,7 +80,7 @@ export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
           </Stack>
           <Stack spacing={2}>
             <Typography variant='h6'>Add benefits</Typography>
-            <ShTextFieldV2 style={{ maxWidth: '350px' }} label='Add Benefits' helperText='Press Enter to add' onKeyDown={handleKeyDown} size='small' />
+            <BenefitInput label='Add Benefits' helperText='Press Enter to add' onKeyDown={handleKeyDown} size='small' />
             <Stack spacing={2} overflow='auto' maxHeight='150px' direction={isSmScreen ? 'column' : 'row'} justifyContent='flex-start'>
               <Grid container spacing={1}>
                 {benefits.map((benefit, index) => (
@@ -83,12 +93,12 @@ export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
           </Stack>
           <Stack spacing={2}>
             <Stack direction={isSmScreen ? 'column' : 'row'}>
-              <Box onClick={handleExpandClick} display='flex' alignItems='center' style={{ cursor: 'pointer' }}>
+              <ExpandToggle onClick={handleExpandClick}>
                 <Typography color='black' variant='h6'>
                   More Options
                 </Typography>
                 {expanded ? <ExpandLessIcon color='action' /> : <ExpandMoreIcon color='action' />}
-              </Box>
+              </ExpandToggle>
             </Stack>
             <Collapse in={expanded} timeout='auto'>
               <Stack>

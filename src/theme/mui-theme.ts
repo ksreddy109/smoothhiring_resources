@@ -21,4 +21,68 @@ export const muiTheme = createTheme({
     h5: { fontWeight: 600 },
     h6: { fontWeight: 600 },
   },
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+        },
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+          textTransform: "none",
+          fontWeight: 600,
+        },
+        sizeSmall: {
+          minHeight: 36,
+          paddingInline: 14,
+        },
+        sizeMedium: {
+          minHeight: 40,
+          paddingInline: 16,
+        },
+        sizeLarge: {
+          minHeight: 44,
+          paddingInline: 20,
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+          fontWeight: 500,
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        size: "small",
+        fullWidth: true,
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+        },
+      },
+    },
+  },
 });

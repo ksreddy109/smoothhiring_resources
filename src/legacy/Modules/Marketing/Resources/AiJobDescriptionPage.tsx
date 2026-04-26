@@ -3,7 +3,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import ThreePIcon from '@mui/icons-material/ThreeP';
-import { Box, CircularProgress, Container, Grow, List, ListItem, ListItemText, Rating, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Container, Grow, List, ListItem, ListItemText, Rating, Stack, Typography, styled } from '@mui/material';
 import { Notification, useNotification } from 'Modules/Core/Notification';
 import JobDescription from 'assets/Images/JobDescription.svg';
 import TopCandidates from 'assets/Images/TopCandidates.svg';
@@ -19,6 +19,10 @@ import { getAiJobDescriptionByTitle } from 'store/slices/app/resources-slice';
 import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { AI_TOOLS_DETAILS_JOB_DESCRIPTION, AI_TOOLS_TITLE_JOB_DESCRIPTION, CUSTOMER_TESTIMONIAL, JOB_DESCRIPTION_DESC_CARD_1, JOB_DESCRIPTION_DESC_CARD_2, JOB_DESCRIPTION_TITLE_CARD_1, JOB_DESCRIPTION_TITLE_CARD_2 } from './ResourcesConstants';
 import { Helmet } from 'react-helmet-async';
+
+const BulletListItem = styled(ListItem)({
+  listStyleType: 'disc',
+});
 
 export const AiJobDescriptionPage = () => {
   const dispatch = useAppDispatch();
@@ -44,9 +48,9 @@ export const AiJobDescriptionPage = () => {
           {line}
         </Typography>
       ) : isListElement ? (
-        <ListItem key={index} dense sx={{ listStyleType: 'disc' }}>
+        <BulletListItem key={index} dense>
           <ListItemText primary={line.replace(/^-|\d+\./, '•')} />
-        </ListItem>
+        </BulletListItem>
       ) : (
         <List key={index} dense>
           <ListItemText primary={line} />
