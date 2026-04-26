@@ -63,7 +63,7 @@ export const AiInterviewQuestionsPage = () => {
         <Notification />
         <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
           <Box marginTop={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
-            <Typography component={'h1'} textAlign='center' gutterBottom fontSize={35} fontWeight={700} color={PrimaryThemeColor}>
+            <Typography component='h1' variant='h3' textAlign='center' gutterBottom color={PrimaryThemeColor}>
               {AI_TOOLS_TITLE_INTERVIEW_KIT}
             </Typography>
             <Typography textAlign='center' variant='subtitle1' marginBottom={{ xs: 4, sm: 4, md: 5, lg: 6 }}>
