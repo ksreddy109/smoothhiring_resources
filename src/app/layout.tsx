@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
+import { MuiAppProviders } from "@/components/MuiAppProviders";
 import "./globals.css";
 import { SITE_URL } from "@/lib/resources-data";
 
@@ -29,6 +31,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "YXtpRnHiDI-gqxrKJSOnrCJDLQqZYcCmplqpHHtzKYQ",
+  },
 };
 
 export default function RootLayout({
@@ -38,7 +43,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <Script id="gtm-smoothhiring-resources" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-N46J9TNH');`}
+        </Script>
+        <MuiAppProviders>{children}</MuiAppProviders>
+      </body>
     </html>
   );
 }

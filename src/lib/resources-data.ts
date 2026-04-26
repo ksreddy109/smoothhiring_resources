@@ -1,3 +1,11 @@
+import {
+  interviewTemplateSlugs,
+  jobDescriptionTemplateSlugs,
+  offerTemplateSlugs,
+  policyTemplateSlugs,
+  rejectionTemplateSlugs,
+} from "./deriveTemplateSlugs";
+
 export type ResourceCategory = "generator" | "template";
 
 export type ResourceItem = {
@@ -42,18 +50,40 @@ export const RESOURCE_ITEMS: ResourceItem[] = [
   },
 ];
 
-export const JOB_TEMPLATE_SLUGS = [
-  "software-engineer",
-  "sales-manager",
-  "human-resources-manager",
-  "customer-support-specialist",
-  "marketing-coordinator",
-];
+const unique = (values: string[]) => [...new Set(values)];
 
-export const POLICY_TEMPLATE_SLUGS = [
-  "attendance-policy",
-  "code-of-conduct",
-  "remote-work-policy",
-  "leave-policy",
-  "anti-harassment-policy",
-];
+export const JOB_TEMPLATE_SLUGS = unique(jobDescriptionTemplateSlugs);
+export const POLICY_TEMPLATE_SLUGS = unique(policyTemplateSlugs);
+export const OFFER_TEMPLATE_SLUGS = unique(offerTemplateSlugs);
+export const INTERVIEW_TEMPLATE_SLUGS = unique(interviewTemplateSlugs);
+export const REJECTION_TEMPLATE_SLUGS = unique(rejectionTemplateSlugs);
+
+export function allResourceCatchAllPathParams(): { path: string[] }[] {
+  const items: { path: string[] }[] = [];
+  const add = (p: string[]) => {
+    items.push({ path: p });
+  };
+  add([]);
+  for (const it of RESOURCE_ITEMS) {
+    add([it.slug]);
+  }
+  add(["email-templates"]);
+  add(["rejection-letter-templates"]);
+  add(["interview-letter-templates"]);
+  for (const s of JOB_TEMPLATE_SLUGS) {
+    add(["job-description-templates", s]);
+  }
+  for (const s of POLICY_TEMPLATE_SLUGS) {
+    add(["policy-templates", s]);
+  }
+  for (const s of OFFER_TEMPLATE_SLUGS) {
+    add(["offer-letter-templates", s]);
+  }
+  for (const s of INTERVIEW_TEMPLATE_SLUGS) {
+    add(["interview-letter-templates", s]);
+  }
+  for (const s of REJECTION_TEMPLATE_SLUGS) {
+    add(["rejection-letter-templates", s]);
+  }
+  return items;
+}

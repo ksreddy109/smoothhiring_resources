@@ -1,0 +1,58 @@
+name: Deploy static site to S3 and CloudFront
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-east-1
+  S3_BUCKET: smoothhiring-resources-production
+  CLOUDFRONT_DISTRIBUTION_ID: E185ZBO2WGN7JH
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout resources app
+        uses: actions/checkout@v4
+        with:
+          path: app
+
+      - name: Checkout smooth-ui (public)
+        uses: actions/checkout@v4
+        with:
+          repository: KetSoftware/smooth_ui
+          path: smooth_ui
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Build smooth-ui
+        working-directory: smooth_ui
+        run: npm ci && npm run build
+
+      - name: Install and build Next export
+        working-directory: app
+        run: npm ci && npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Sync to S3
+        working-directory: app
+        run: aws s3 sync ./out "s3://${S3_BUCKET}/"
+
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"

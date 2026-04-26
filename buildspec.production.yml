@@ -1,21 +1,56 @@
 version: 0.2
 
+env:
+  variables:
+    S3_RESOURCES_BUCKET: smoothhiring-resources-production
+    CLOUDFRONT_DISTRIBUTION_ID: E185ZBO2WGN7JH
+  git-credential-helper: yes
+
 phases:
+  pre_build:
+    commands:
+      - |
+        if [ -f "$CODEBUILD_SRC_DIR/smoothhiring_resources/package.json" ]; then
+          echo 'export RES_DIR="'"$CODEBUILD_SRC_DIR/smoothhiring_resources"'"' > /tmp/resenv.sh
+          echo 'export SMOOTH_UI_DIR="'"$CODEBUILD_SRC_DIR/smooth_ui"'"' >> /tmp/resenv.sh
+        else
+          echo 'export RES_DIR="'"$CODEBUILD_SRC_DIR"'"' > /tmp/resenv.sh
+          echo 'export SMOOTH_UI_DIR="$(cd "$RES_DIR/.." && pwd)/smooth_ui"' >> /tmp/resenv.sh
+        fi
+        . /tmp/resenv.sh
+        if [ ! -f "$SMOOTH_UI_DIR/package.json" ] && [ -n "$SMOOTH_UI_REPO_URL" ]; then
+          git clone --depth 1 "$SMOOTH_UI_REPO_URL" "$SMOOTH_UI_DIR"
+        fi
+        . /tmp/resenv.sh
+        test -f "$SMOOTH_UI_DIR/package.json" || (echo "Add smooth-ui sibling, CodeCommit path, or SMOOTH_UI_REPO_URL" && exit 1)
+        (cd "$SMOOTH_UI_DIR" && npm ci && npm run build)
   install:
     runtime-versions:
       nodejs: 20
     commands:
-      - npm --version
-      - node --version
+      - . /tmp/resenv.sh
+      - cd "$RES_DIR"
+      - node -v
+      - npm -v
       - npm ci
   build:
     commands:
+      - . /tmp/resenv.sh
+      - cd "$RES_DIR"
       - npm run build
   post_build:
     commands:
-      - aws s3 sync ./out s3://smoothhiring-resources-production --delete
-      - aws cloudfront create-invalidation --distribution-id E185ZBO2WGN7JH --paths "/resources/*" "/sitemap.xml" "/robots.txt"
+      - . /tmp/resenv.sh
+      - cd "$RES_DIR"
+      - |
+        if [ "${S3_SYNC_DELETE:-}" = "1" ] || [ "${S3_SYNC_DELETE:-}" = "true" ]; then
+          aws s3 sync ./out "s3://${S3_RESOURCES_BUCKET}/" --delete
+        else
+          aws s3 sync ./out "s3://${S3_RESOURCES_BUCKET}/"
+        fi
+      - aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
 
 cache:
   paths:
     - /root/.npm/**/*
+    - node_modules/**/*
