@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm --version
+      - node --version
+      - npm ci
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - aws s3 sync ./out s3://smoothhiring-resources-production --delete
+      - aws cloudfront create-invalidation --distribution-id E185ZBO2WGN7JH --paths "/resources/*" "/sitemap.xml" "/robots.txt"
+
+cache:
+  paths:
+    - /root/.npm/**/*
