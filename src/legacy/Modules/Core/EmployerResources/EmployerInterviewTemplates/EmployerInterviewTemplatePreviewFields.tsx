@@ -1,7 +1,6 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Collapse, Grid, Stack } from '@mui/material';
-import { ResourceTypography } from 'Modules/Marketing/Resources/Resources.styled';
+import { Typography, Box, Collapse, Grid, Stack } from '@mui/material';
 import { JobInterviewFormProps } from 'Modules/Marketing/Resources/Templates/TemplateModel';
 import React, { useState } from 'react';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
@@ -17,7 +16,7 @@ export const EmployerInterivewTemplatePreviewFields: React.FC<JobInterviewFormPr
     <Stack direction={'row'}>
       <Stack spacing={3}>
         <Stack spacing={2}>
-          <ResourceTypography variant='h6'>Basic Fields</ResourceTypography>
+          <Typography variant='h6'>Basic Fields</Typography>
           <ShTextFieldV2 label='Company Name' value={companyName} onChange={e => setCompanyName(e.target.value)} size='small' fullWidth />
           <ShTextFieldV2 label='Candidate Name' value={candidateName} onChange={e => setCandidateName(e.target.value)} size='small' fullWidth />
           <ShTextFieldV2 label='Job Title' value={jobTitle} onChange={e => setJobTitle(e.target.value)} size='small' fullWidth />
@@ -25,9 +24,9 @@ export const EmployerInterivewTemplatePreviewFields: React.FC<JobInterviewFormPr
         <Stack spacing={2}>
           <Stack direction={isSmScreen ? 'column' : 'row'}>
             <Box onClick={handleExpandClick} display='flex' alignItems='center' style={{ cursor: 'pointer' }}>
-              <ResourceTypography color='black' variant='h6'>
+              <Typography color='black' variant='h6'>
                 Options
-              </ResourceTypography>
+              </Typography>
               {expanded ? <ExpandLessIcon color='action' /> : <ExpandMoreIcon color='action' />}
             </Box>
           </Stack>

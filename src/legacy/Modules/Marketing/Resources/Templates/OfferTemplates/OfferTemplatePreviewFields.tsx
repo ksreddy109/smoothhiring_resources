@@ -1,11 +1,10 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Chip, Collapse, Grid, InputAdornment, Stack } from '@mui/material';
+import { Typography, Box, Chip, Collapse, Grid, InputAdornment, Stack } from '@mui/material';
 import React, { useState } from 'react';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
 import { ResourceCTASideContainer } from '../../ResourceCTASideContainer';
-import { ResourceTypography } from '../../Resources.styled';
 import { JobOfferFormProps } from '../TemplateModel';
 
 export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
@@ -60,7 +59,7 @@ export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
       <ShContainer maxWidth='lg' margin={'auto'}>
         <Stack spacing={3}>
           <Stack spacing={2}>
-            <ResourceTypography variant='h6'>Basic Fields</ResourceTypography>
+            <Typography variant='h6'>Basic Fields</Typography>
             <Stack spacing={2} direction={isSmScreen ? 'column' : 'row'} justifyContent='flex-start'>
               <ShTextFieldV2 InputProps={{ startAdornment: <InputAdornment position='start'>$</InputAdornment> }} label='Salary' value={salary} onChange={e => setSalary(e.target.value)} size='small' />
               <ShTextFieldV2 label='Start Date' value={startDate} onChange={e => setStartDate(e.target.value)} size='small' />
@@ -70,7 +69,7 @@ export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
             </Stack>
           </Stack>
           <Stack spacing={2}>
-            <ResourceTypography variant='h6'>Add benefits</ResourceTypography>
+            <Typography variant='h6'>Add benefits</Typography>
             <ShTextFieldV2 style={{ maxWidth: '350px' }} label='Add Benefits' helperText='Press Enter to add' onKeyDown={handleKeyDown} size='small' />
             <Stack spacing={2} overflow='auto' maxHeight='150px' direction={isSmScreen ? 'column' : 'row'} justifyContent='flex-start'>
               <Grid container spacing={1}>
@@ -85,9 +84,9 @@ export const OfferTemplatePreviewFields: React.FC<JobOfferFormProps> = ({
           <Stack spacing={2}>
             <Stack direction={isSmScreen ? 'column' : 'row'}>
               <Box onClick={handleExpandClick} display='flex' alignItems='center' style={{ cursor: 'pointer' }}>
-                <ResourceTypography color='black' variant='h6'>
+                <Typography color='black' variant='h6'>
                   More Options
-                </ResourceTypography>
+                </Typography>
                 {expanded ? <ExpandLessIcon color='action' /> : <ExpandMoreIcon color='action' />}
               </Box>
             </Stack>

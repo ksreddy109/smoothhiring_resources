@@ -1,7 +1,6 @@
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { Chip, Grow, Stack } from '@mui/material';
-import { ResourceTypography } from 'Modules/Marketing/Resources/Resources.styled';
+import { Typography, Chip, Grow, Stack } from '@mui/material';
 import { Packer } from 'docx';
 import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { saveAs } from 'file-saver';
@@ -95,27 +94,20 @@ const JobOfferTemplatePage = () => {
           <ShPaper variant='outlined'>
             <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
               <Stack padding={isSmScreen ? 2 : 5}>
-                <ResourceTypography textAlign='center' gutterBottom variant='body2' fontWeight={700} color={PrimaryWordpressThemeColor}>
+                <Typography textAlign='center' gutterBottom variant='body2' fontWeight={700} color={PrimaryWordpressThemeColor}>
                   HR Resources | Crafted by Industry Experts
-                </ResourceTypography>
-                {isSmScreen ? (
-                  <ResourceTypography textAlign='center' gutterBottom fontSize={15} fontWeight={700}>
-                    General Job Offer Template
-                  </ResourceTypography>
-                ) : (
-                  <ResourceTypography textAlign='center' gutterBottom fontSize={25} fontWeight={700}>
-                    General Job Offer Template
-                  </ResourceTypography>
-                )}
-                {isSmScreen ? (
-                  <ResourceTypography textAlign='center' fontSize={13}>
-                    These templates simplify the creation of compelling job offers, ensuring your hiring process is streamlined and efficient. Customize the details such as salary, start date, benefits, and more. Download the finalized offer as a Word document for easy distribution.
-                  </ResourceTypography>
-                ) : (
-                  <ResourceTypography textAlign='center' fontSize={15}>
-                    These templates simplify the creation of compelling job offers, ensuring your hiring process is streamlined and efficient. Customize the details such as salary, start date, benefits, and more. Download the finalized offer as a Word document for easy distribution.
-                  </ResourceTypography>
-                )}
+                </Typography>
+                <Typography
+                  textAlign='center'
+                  gutterBottom
+                  fontWeight={700}
+                  variant={isSmScreen ? 'h6' : 'h4'}
+                >
+                  General Job Offer Template
+                </Typography>
+                <Typography textAlign='center' variant={isSmScreen ? 'body2' : 'body1'}>
+                  These templates simplify the creation of compelling job offers, ensuring your hiring process is streamlined and efficient. Customize the details such as salary, start date, benefits, and more. Download the finalized offer as a Word document for easy distribution.
+                </Typography>
                 <Stack paddingTop={3} justifyContent='center' paddingBottom={1} direction={isSmScreen ? 'column' : 'row'} spacing={1}>
                   <Chip icon={<VerifiedIcon />} label='Customizable Offers' color='primary' variant='outlined' />
                   <Chip icon={<VerifiedIcon />} label='Easy Download' color='primary' variant='outlined' />

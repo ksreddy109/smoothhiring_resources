@@ -1,7 +1,6 @@
 /* eslint-disable */
+import { Typography } from '@mui/material';
 import { Document, Paragraph, TextRun } from 'docx';
-import { ResourceTypography } from '../../Resources.styled';
-
 export const TEMPLATE_TYPE: 'formal' | 'auto' | 'informal' = 'formal';
 
 export interface JobRejectionProps {
@@ -22,33 +21,33 @@ export const GenerateRejectionLetterPreview = (props: JobRejectionProps) => {
   const { companyName, candidateName, jobTitle, department, yourName, signature } = props;
   return (
     <>
-      <ResourceTypography variant='body1'>
+      <Typography variant='body1'>
         <strong>{companyName}</strong> Rejection Letter
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Dear <strong>{candidateName}</strong>,
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Thank you for your interest in the <strong>{jobTitle}</strong> position at <strong>{companyName}</strong>. We appreciate the time and effort you put into your application and the opportunity to learn more about your qualifications and experiences.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         This decision was not easy, as we received many impressive applications. While your application was strong, we have decided to proceed with candidates whose skills and experiences more closely align with our current needs and goals.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         We encourage you to apply for future openings at <strong>{companyName}</strong> that align with your skills and career aspirations. We will keep your resume on file for potential opportunities and will reach out if a suitable position becomes available.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Thank you once again for your interest in joining our team. We wish you the best of luck in your job search and future professional endeavors.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Best regards,
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{yourName}</strong>
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{signature}</strong>
-      </ResourceTypography>
+      </Typography>
     </>
   );
 };
@@ -141,39 +140,39 @@ export const GenerateInformalRejectionLetterPreview = (props: JobRejectionProps)
   const { companyName, candidateName, jobTitle, department, yourName, signature } = props;
   return (
     <>
-      <ResourceTypography variant='body1'>
+      <Typography variant='body1'>
         <strong>{companyName}</strong> Rejection Letter
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Hi <strong>{candidateName}</strong>,
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Thanks so much for applying for the <strong>{jobTitle}</strong> position at <strong>{companyName}</strong>. We really enjoyed getting to know you through your application.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         After careful consideration, we've decided to move forward with other candidates who more closely match what we're looking for at this time. It was a tough decision because we saw a lot of great qualities in your background.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         We encourage you to keep an eye on our job openings and apply again if something else catches your eye in the future. We think you have a lot to offer, and we'd love to see you apply for another role that might be a better fit.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Wishing you all the best in your job search and future endeavors.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Thank you again for your interest in <strong>{companyName}</strong> . If you have any questions or would like feedback on your application, please do not hesitate to reach out.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Best regards,
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{yourName}</strong>
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{companyName}</strong>
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{signature}</strong>
-      </ResourceTypography>
+      </Typography>
     </>
   );
 };
@@ -278,36 +277,36 @@ export const GenerateAutoRejectionLetterPreview = (props: JobRejectionProps) => 
   const { companyName, candidateName, jobTitle, department, yourName, signature } = props;
   return (
     <>
-      <ResourceTypography variant='body1'>
+      <Typography variant='body1'>
         <strong>{companyName}</strong> Rejection Letter
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Dear <strong>{candidateName}</strong>,
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Thank you for your interest in the <strong>{jobTitle}</strong> position at <strong>{companyName}</strong> and for taking the time to apply. We appreciate your enthusiasm in wanting to join our team.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         After careful review of your application, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our requirements for this role.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Please understand that this decision does not reflect your abilities or achievements, but rather the specific needs of this particular position. We encourage you to keep an eye on our careers page for future openings that might better fit your skills and experiences.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         We wish you the best of luck in your job search and in all your future endeavors.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Thank you once again for your interest in <strong>{companyName}</strong>.
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         Best regards,
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{yourName}</strong>
-      </ResourceTypography>
-      <ResourceTypography gutterBottom variant='body1'>
+      </Typography>
+      <Typography gutterBottom variant='body1'>
         <strong>{signature}</strong>
-      </ResourceTypography>
+      </Typography>
     </>
   );
 };

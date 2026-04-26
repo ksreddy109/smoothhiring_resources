@@ -1,3 +1,4 @@
+import { getSiteUrl } from "./site";
 import {
   interviewTemplateSlugs,
   jobDescriptionTemplateSlugs,
@@ -15,7 +16,7 @@ export type ResourceItem = {
   category: ResourceCategory;
 };
 
-export const SITE_URL = "https://resources.smoothhiring.com";
+export const SITE_URL = getSiteUrl();
 
 export const RESOURCE_ITEMS: ResourceItem[] = [
   {

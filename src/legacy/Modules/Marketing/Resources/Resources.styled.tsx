@@ -1,4 +1,4 @@
-import { Box, LinkProps, Link, ListItem, ListItemText, Stack, TextField, Typography, styled } from '@mui/material';
+import { Box, LinkProps, Link, ListItem, ListItemText, Stack, TextField, styled } from '@mui/material';
 import { Link as href } from 'react-router-dom';
 
 interface ShListItemProps {
@@ -34,11 +34,6 @@ export const ResourceTitleStack = styled(Stack)(({ theme }) => ({
     transform: 'translate(0%, -50%)',
   },
 }));
-
-export const ResourceTypography = styled(Typography)({
-  lineHeight: 1.75,
-  textDecoration: 'none',
-});
 
 export const ResourceHomeTextField = styled(TextField)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {

@@ -2,30 +2,39 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { MuiAppProviders } from "@/components/MuiAppProviders";
+import { SeoWebSiteJsonLd } from "@/components/SeoWebSiteJsonLd";
+import { getSiteUrl, sitePath } from "@/lib/site";
 import "./globals.css";
-import { SITE_URL } from "@/lib/resources-data";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
+const rootDesc =
+  "Free hiring resources, interview kits, and HR templates to help teams hire better and faster.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "Hiring Resources and Templates | SmoothHiring",
     template: "%s | SmoothHiring Resources",
   },
-  description: "Free hiring resources, interview kits, and HR templates to help teams hire better and faster.",
+  description: rootDesc,
   alternates: {
-    canonical: "/resources",
+    canonical: sitePath("/resources/"),
   },
   openGraph: {
     type: "website",
-    url: SITE_URL,
+    url: getSiteUrl(),
     title: "Hiring Resources and Templates | SmoothHiring",
-    description: "Free hiring resources, interview kits, and HR templates to help teams hire better and faster.",
+    description: rootDesc,
     siteName: "SmoothHiring Resources",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hiring Resources and Templates | SmoothHiring",
+    description: rootDesc,
   },
   robots: {
     index: true,
@@ -44,6 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
+        <SeoWebSiteJsonLd />
         <Script id="gtm-smoothhiring-resources" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

@@ -1,8 +1,7 @@
 'use client';
 
 import EastIcon from '@mui/icons-material/East';
-import { Link, Stack, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Link, Stack, Typography } from '@mui/material';
 import { ResourceCTAColorBase, ShAppBar } from '@/integrations/smooth-hiring-ui';
 import { ResourceWrapperStyle, ResourcesWrapperBox } from '@/components/resources/Resources.styled';
 import { ResourceWrapperCTAConstantMessage } from '@/lib/resources-constants';
@@ -13,12 +12,15 @@ export const ResourcesShell = ({ children }: { children: React.ReactNode }) => {
   return (
     <ResourcesWrapperBox>
       <ResourceWrapperStyle justifyContent="center" direction="row" bgcolor={ResourceCTAColorBase}>
-        <Typography fontSize={15} textAlign="center">
+        <Typography variant="body2" align="center" component="p">
           {ResourceWrapperCTAConstantMessage.message}
-          <Link href={ResourceWrapperCTAConstantMessage.redirection_url} underline="none" color="inherit" justifyContent="center" alignContent="center" display="inline-flex">
-            <strong> {ResourceWrapperCTAConstantMessage.messageCTA}</strong>
-            &nbsp;
-            <EastIcon />
+          <Link href={ResourceWrapperCTAConstantMessage.redirection_url} underline="none" color="inherit" display="inline-flex" alignItems="center">
+            <Box component="strong" marginLeft={0.5}>
+              {ResourceWrapperCTAConstantMessage.messageCTA}
+            </Box>
+            <Box component="span" marginLeft={0.5} display="inline-flex" alignItems="center">
+              <EastIcon fontSize="small" />
+            </Box>
           </Link>
         </Typography>
       </ResourceWrapperStyle>

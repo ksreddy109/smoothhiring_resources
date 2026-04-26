@@ -14,7 +14,6 @@ import { ShMuiLink } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
 import { PrimaryThemeColor } from '@smoothhiring/smooth-ui';
 import { getResourcesRedirect } from 'shared/utils';
-import { ResourceTypography } from '../../Resources.styled';
 import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { JobDescription, JobDescriptions } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
@@ -128,22 +127,22 @@ export const DescriptionTemplatePage = () => {
     <Stack>
       <ShPaper variant='outlined'>
         <Stack padding={5} justifyContent='center' alignItems='center'>
-          <ResourceTypography textAlign='center' gutterBottom variant='body2' color={PrimaryThemeColor}>
+          <Typography textAlign='center' gutterBottom variant='body2' color={PrimaryThemeColor}>
             HR Templates | Job descriptions
-          </ResourceTypography>
+          </Typography>
           <Typography textAlign='center' padding={2} maxWidth={500} variant='h4' gutterBottom>
             {title}
           </Typography>
-          <ResourceTypography textAlign='center' maxWidth={1000} variant='body1' paragraph>
+          <Typography textAlign='center' maxWidth={1000} variant='body1' paragraph>
             {jobRole}
-          </ResourceTypography>
+          </Typography>
 
           <Stack margin={1} spacing={2} direction={isXsScreen ? 'column' : 'row'} alignContent='center' justifyContent='center'>
             <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
-              <ResourceTypography>Post this Job</ResourceTypography>
+              <Typography>Post this Job</Typography>
             </StyledActionButton>
             <StyledActionButton component={RouterLink as any} to={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />}>
-              <ResourceTypography>Create AI Job Description</ResourceTypography>
+              <Typography>Create AI Job Description</Typography>
             </StyledActionButton>
           </Stack>
           <Stack margin={2} spacing={2} direction='row' alignContent='center'>
@@ -173,40 +172,40 @@ export const DescriptionTemplatePage = () => {
 
       <ShContainer maxWidth='md' height='100%' margin='auto'>
         <Stack padding={3}>
-          <ResourceTypography gutterBottom variant='body1' paragraph>
+          <Typography gutterBottom variant='body1' paragraph>
             {preRead}
-          </ResourceTypography>
+          </Typography>
           {sections.map((section, index) => (
             <Box key={index} marginBottom={3}>
-              <ResourceTypography variant='h6' gutterBottom>
+              <Typography variant='h6' gutterBottom>
                 {section.heading}
-              </ResourceTypography>
+              </Typography>
               {Array.isArray(section.paragraphs) ? (
                 <List>
                   {section.paragraphs.map((bullet, bulletIndex) => (
                     <ListItemText key={bulletIndex}>
-                      <ResourceTypography noWrap variant='body1'>
+                      <Typography noWrap variant='body1'>
                         - {bullet}
-                      </ResourceTypography>
+                      </Typography>
                     </ListItemText>
                   ))}
                 </List>
               ) : (
-                <ResourceTypography variant='body1' paragraph>
+                <Typography variant='body1' paragraph>
                   {section.paragraph}
-                </ResourceTypography>
+                </Typography>
               )}
 
               {index === 1 && (
                 <Stack padding={1} paddingBottom={5} paddingTop={5}>
                   <ShPaper elevation={4}>
                     <Stack spacing={2}>
-                      <ResourceTypography gutterBottom variant='h6'>
+                      <Typography gutterBottom variant='h6'>
                         Hiring for {title.replace('Job Description', '').trim()} Role?
-                      </ResourceTypography>
-                      <ResourceTypography gutterBottom variant='subtitle1'>
+                      </Typography>
+                      <Typography gutterBottom variant='subtitle1'>
                         LinkedIn, Talent.com, career page - place your job on multiple platforms for FREE with just one click. Plus get a Full HR recruiting suite.
-                      </ResourceTypography>
+                      </Typography>
                       <Stack paddingBottom={1} direction={isSmScreen ? 'column' : 'row'} spacing={1}>
                         <Chip icon={<VerifiedIcon />} label='Sponsored Jobs' color='primary' variant='outlined' />
                         <Chip icon={<VerifiedIcon />} label='Predictive Assessments' color='primary' variant='outlined' />
@@ -225,10 +224,10 @@ export const DescriptionTemplatePage = () => {
         </Stack>
         {jobDescription && (
           <Stack padding={3}>
-            <ResourceTypography variant='h6' paddingBottom={2}>
+            <Typography variant='h6' paddingBottom={2}>
               {' '}
               Similar Job Description Templates
-            </ResourceTypography>
+            </Typography>
             <Divider />
             <Grid container spacing={1} paddingTop={2}>
               {similarTemplates.slice(0, 20).map((template, index) => (

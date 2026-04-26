@@ -12,7 +12,6 @@ import { ShContainer } from '@smoothhiring/smooth-ui';
 import { ShMuiLink } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
 import { PrimaryThemeColor } from '@smoothhiring/smooth-ui';
-import { ResourceTypography } from '../../Resources.styled';
 import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { PolicyTemplate, PolicyTemplates } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
@@ -126,15 +125,15 @@ export const PolicyTemplatePage = () => {
       <Stack>
         <ShPaper variant='outlined'>
           <Stack padding={5} justifyContent='center' alignItems='center'>
-            <ResourceTypography textAlign='center' gutterBottom variant='body2' color={PrimaryThemeColor}>
+            <Typography textAlign='center' gutterBottom variant='body2' color={PrimaryThemeColor}>
               HR Templates | Company Policy Templates
-            </ResourceTypography>
+            </Typography>
             <Typography textAlign='center' padding={2} maxWidth={500} variant='body1' gutterBottom>
               {title}
             </Typography>
-            <ResourceTypography textAlign='center' maxWidth={1000} variant='body2' paragraph>
+            <Typography textAlign='center' maxWidth={1000} variant='body2' paragraph>
               {policyBlurb}
-            </ResourceTypography>
+            </Typography>
 
             <Stack margin={2} spacing={2} direction='row' alignContent='center'>
               <ShareIcon fontSize='small' />
@@ -163,10 +162,10 @@ export const PolicyTemplatePage = () => {
 
         <ShContainer maxWidth='md' height='100%' margin='auto'>
           <Stack padding={3}>
-            <ResourceTypography gutterBottom variant='subtitle1' paragraph>
+            <Typography gutterBottom variant='subtitle1' paragraph>
               {preRead}
-            </ResourceTypography>
-            <ResourceTypography variant='h6'>Table of Contents</ResourceTypography>
+            </Typography>
+            <Typography variant='h6'>Table of Contents</Typography>
             <List>
               {sections.map(
                 (section, index) =>
@@ -183,10 +182,10 @@ export const PolicyTemplatePage = () => {
                         }
                       }}
                     >
-                      <ResourceTypography>
+                      <Typography>
                         {' '}
                         {index}. {section.heading}{' '}
-                      </ResourceTypography>
+                      </Typography>
                     </ShMuiLink>
                   )
               )}
@@ -194,9 +193,9 @@ export const PolicyTemplatePage = () => {
             {sections.map((section, index) => (
               <Box key={index} marginBottom={3} id={`section${index}`}>
                 {!section.heading.toLowerCase().includes('table of contents') && (
-                  <ResourceTypography variant='h6' gutterBottom>
+                  <Typography variant='h6' gutterBottom>
                     {section.heading}
-                  </ResourceTypography>
+                  </Typography>
                 )}
                 {Array.isArray(section.paragraphs) ? (
                   <List>
@@ -204,28 +203,28 @@ export const PolicyTemplatePage = () => {
                       (bullet, bulletIndex) =>
                         !section.heading.toLowerCase().includes('table of contents') && (
                           <ListItemText key={bulletIndex}>
-                            <ResourceTypography variant='body2' paddingTop={bullet.length > 80 ? 1 : 0}>
+                            <Typography variant='body2' paddingTop={bullet.length > 80 ? 1 : 0}>
                               {bullet.length < 60 && `${bulletIndex + 1}.`} {bullet}
-                            </ResourceTypography>
+                            </Typography>
                           </ListItemText>
                         )
                     )}
                   </List>
                 ) : (
-                  <ResourceTypography variant='body2' paragraph>
+                  <Typography variant='body2' paragraph>
                     {section.paragraph}
-                  </ResourceTypography>
+                  </Typography>
                 )}
                 {index === 1 && (
                   <Stack paddingBottom={5} paddingTop={5}>
                     <ShPaper elevation={4}>
                       <Stack spacing={2} padding={1}>
-                        <ResourceTypography gutterBottom variant='h6'>
+                        <Typography gutterBottom variant='h6'>
                           Struggling to find qualified candidates for your Job?
-                        </ResourceTypography>
-                        <ResourceTypography gutterBottom variant='subtitle1'>
+                        </Typography>
+                        <Typography gutterBottom variant='subtitle1'>
                           Discover how SmoothHiring's patented predictive analytics assessment ensures you find only the most qualified candidates!
-                        </ResourceTypography>
+                        </Typography>
                         <Stack paddingBottom={1} direction={isSmScreen ? 'column' : 'row'} spacing={1}>
                           <Chip icon={<VerifiedIcon />} label='Sponsored Jobs' color='primary' variant='outlined' />
                           <Chip icon={<VerifiedIcon />} label='Predictive Assessments' color='primary' variant='outlined' />
@@ -244,10 +243,10 @@ export const PolicyTemplatePage = () => {
           </Stack>
           {policyTemplate && (
             <Stack padding={3}>
-              <ResourceTypography variant='h6' paddingBottom={2}>
+              <Typography variant='h6' paddingBottom={2}>
                 {' '}
                 Similar Policy Templates
-              </ResourceTypography>
+              </Typography>
               <Divider />
               <Grid container spacing={1} paddingTop={2}>
                 {[...new Set(similarTemplates)].slice(0, 20).map((template, index) => (

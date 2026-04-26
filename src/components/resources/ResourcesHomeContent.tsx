@@ -31,7 +31,7 @@ export const ResourcesHomeContent = () => {
   return (
     <>
       <ShContainer maxWidth="lg" margin="auto">
-        <Stack paddingTop={4} paddingBottom={2}>
+        <Stack paddingTop={3} paddingBottom={2}>
           <ShPaper variant="outlined">
             <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
               <Stack justifyContent="center" padding={isSmScreen ? 2 : 5}>
@@ -54,7 +54,7 @@ export const ResourcesHomeContent = () => {
             </Grow>
           </ShPaper>
         </Stack>
-        <ResourceSectionHeading spacing={1} direction="row" justifyContent="center" paddingY={2}>
+        <ResourceSectionHeading spacing={1} direction="row" justifyContent="center" paddingY={1}>
           <AutoAwesomeIcon color="primary" />
           <Typography variant="h6">AI Generation Tools</Typography>
         </ResourceSectionHeading>
@@ -148,8 +148,8 @@ export const ResourcesHomeContent = () => {
           </Grid>
         </Grid>
         <Grow in={true} timeout={3000} mountOnEnter unmountOnExit>
-          <ResourceCTAStack direction={isSmScreen ? 'column' : 'row'} spacing={2} justifyContent="center" alignItems="center" marginTop={6}>
-            <ShPaper variant="outlined" style={{ borderRadius: 20 }}>
+          <ResourceCTAStack direction={isSmScreen ? 'column' : 'row'} spacing={2} justifyContent="center" alignItems="stretch" marginTop={4}>
+            <ShPaper variant="outlined">
               <CardContent>
                 <Stack marginBottom={2} paddingLeft={2}>
                   <FeedIcon color="info" fontSize="medium" />
@@ -167,11 +167,12 @@ export const ResourcesHomeContent = () => {
                 </Stack>
               </CardContent>
             </ShPaper>
-            <ShPaper variant="outlined" style={{ borderRadius: 20, marginTop: isSmScreen ? 20 : 0 }}>
-              <CardContent>
-                <Stack marginBottom={2} paddingLeft={2}>
-                  <PersonSearchIcon color="info" fontSize="medium" />
-                </Stack>
+            <Box width="100%" marginTop={isSmScreen ? 2.5 : 0}>
+              <ShPaper variant="outlined">
+                <CardContent>
+                  <Stack marginBottom={2} paddingLeft={2}>
+                    <PersonSearchIcon color="info" fontSize="medium" />
+                  </Stack>
                 <Typography variant="h6" paddingLeft={2} marginBottom={2}>
                   {HIRE_BEST_CANDIDATES}
                 </Typography>
@@ -184,8 +185,9 @@ export const ResourcesHomeContent = () => {
                     <KeyboardArrowRightOutlinedIcon />
                   </Button>
                 </Stack>
-              </CardContent>
-            </ShPaper>
+                </CardContent>
+              </ShPaper>
+            </Box>
           </ResourceCTAStack>
         </Grow>
       </ShContainer>

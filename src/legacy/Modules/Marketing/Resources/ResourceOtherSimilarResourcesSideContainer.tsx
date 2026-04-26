@@ -1,7 +1,6 @@
-import { Divider, Grid, Link, Stack } from '@mui/material';
+import { Typography, Divider, Grid, Link, Stack } from '@mui/material';
 import { IsMdScreen } from 'helpers/hooks';
 import { Link as RouterLink } from 'react-router-dom';
-import { ResourceTypography } from './Resources.styled';
 import { offerTemplates } from './Templates/OfferTemplates/OfferTemplateConstants';
 
 export const ResourceOtherSimilarResourcesSideContainer = () => {
@@ -18,10 +17,10 @@ export const ResourceOtherSimilarResourcesSideContainer = () => {
     <>
       {!isMdScreen && (
         <Stack>
-          <ResourceTypography variant='h6' fontWeight='bold' paddingBottom={2}>
+          <Typography variant='h6' fontWeight='bold' paddingBottom={2}>
             {' '}
             Similar Offer Letter Templates
-          </ResourceTypography>
+          </Typography>
           <Divider />
           <Grid container spacing={1} paddingTop={2}>
             {offerTemplates.slice(0, 20).map((template, index) => (
