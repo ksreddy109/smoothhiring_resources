@@ -216,7 +216,7 @@ export const PolicyTemplatePage = () => {
                 {index === 1 && (
                   <Stack paddingBottom={5} paddingTop={5}>
                     <ShPaper elevation={4}>
-                      <Stack spacing={2} padding={1}>
+                      <Stack spacing={2}>
                         <Typography gutterBottom variant='h6'>
                           Struggling to find qualified candidates for your Job?
                         </Typography>

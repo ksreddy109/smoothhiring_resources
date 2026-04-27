@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
       helpers: path.join(appSrc, "helpers"),
       configs: path.join(appSrc, "configs"),
       assets: path.join(appSrc, "assets"),
+      components: path.join(appSrc, "components"),
     };
     const rules = config.module?.rules;
     if (Array.isArray(rules)) {

@@ -92,19 +92,18 @@ const InternalJobOfferTemplatePage = () => {
           <ShPaper variant='outlined'>
             <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
               <Stack padding={isSmScreen ? 2 : 5}>
-                <Typography textAlign='center' gutterBottom variant='body2' fontWeight={700} color={PrimaryWordpressThemeColor}>
-                  HR Resources | Crafted by Industry Experts
+                <Typography textAlign='center' gutterBottom variant="body2" color="primary">
+                  HR Resources | Offer Letter Templates
                 </Typography>
                 <Typography
                   textAlign='center'
                   gutterBottom
-                  fontWeight={700}
                   variant={isSmScreen ? 'h6' : 'h4'}
                 >
                   Internal Job Offer Template
                 </Typography>
                 <Typography textAlign='center' variant={isSmScreen ? 'body2' : 'body1'}>
-                  These templates simplify the creation of compelling job offers, ensuring your hiring process is streamlined and efficient. Customize the details such as salary, start date, benefits, and more. Download the finalized offer as a Word document for easy distribution.
+                  Customize the salary, start date, benefits, and other details below, then download as a Word document ready to send.
                 </Typography>
                 <Stack paddingTop={3} justifyContent='center' paddingBottom={1} direction={isSmScreen ? 'column' : 'row'} spacing={1}>
                   <Chip icon={<VerifiedIcon />} label='Customizable Offers' color='primary' variant='outlined' />

@@ -1,17 +1,17 @@
 import ArticleIcon from '@mui/icons-material/Article';
-import { Grid, Grow, Stack, Typography, styled } from '@mui/material';
+import { Grid, Stack, Typography, styled } from '@mui/material';
 import { IsSmScreen } from 'helpers/hooks';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { ResourceCTA } from './ResourceCTA';
-import { ResourceCardDescription, ResourceHeroBody, ResourceHeroTitle, ResourceSectionSubtitle } from '@smoothhiring/smooth-ui';
+import { ResourceCardDescription } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
 import { ShMuiLink } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
+import { TemplateCardHover, TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
 import { rejectionTemplates } from 'Modules/Marketing/Resources/Templates/RejectionTemplates/RejectionTemplateConstants';
 
-const Subtitle = styled(ResourceSectionSubtitle)(({ theme }) => ({
-  paddingTop: theme.spacing(1),
+const CardBody = styled(Stack)(({ theme }) => ({
+  padding: theme.spacing(2.5),
 }));
 
 const TemplateDescription = styled(ResourceCardDescription)({
@@ -30,44 +30,45 @@ export const RejectionTemplateHome = () => {
           content='Professional rejection letter templates to communicate with candidates respectfully. Customize and download for free at SmoothHiring.'
         />
       </Helmet>
+
+      <TemplateHeroBox>
+        <TemplateHeroInner>
+          <TemplateHeroEyebrow>
+            <ArticleIcon sx={{ fontSize: '0.75rem' }} />
+            HR Templates
+          </TemplateHeroEyebrow>
+          <Typography
+            component='h1'
+            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
+          >
+            Rejection Letter Templates
+          </Typography>
+          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 520, lineHeight: 1.65 }}>
+            How you decline a candidate matters. These templates help your team communicate respectfully — protecting your employer brand at every stage of the process.
+          </Typography>
+        </TemplateHeroInner>
+      </TemplateHeroBox>
+
       <ShContainer maxWidth='xl' height='100%' margin='auto'>
-        <Stack paddingBottom={3} paddingTop={3}>
-          <ShPaper variant='outlined'>
-            <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
-              <Stack alignItems='center' justifyContent='center' padding={isSmScreen ? 2 : 5}>
-                <ArticleIcon color='primary' />
-                <Subtitle variant='body2' textAlign='center' gutterBottom>
-                  HR Templates | Rejection Letter Templates
-                </Subtitle>
-                <ResourceHeroTitle component='h1' gutterBottom>
-                  Rejection Letter Templates
-                </ResourceHeroTitle>
-                <ResourceHeroBody>Rejection letter templates help your team send clear, professional declines while protecting your candidate experience.</ResourceHeroBody>
-              </Stack>
-            </Grow>
-          </ShPaper>
-        </Stack>
-        <Grid paddingBottom={3} container spacing={2}>
+        <Grid paddingBottom={4} container spacing={2}>
           {rejectionTemplates.map((template, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <ShMuiLink noUnderline component={RouterLink as any} to={`/resources/rejection-letter-templates${template.path}`}>
-                <ShPaper variant='outlined'>
-                  <Stack padding={3} minHeight={isSmScreen ? 100 : 150} justifyContent='center'>
-                    <Typography variant='subtitle1' fontWeight={600} color='text.primary' textAlign='left'>
+              <ShMuiLink noUnderline component={RouterLink as any} to={`/resources/rejection-letter-templates${template.path}`} sx={{ display: 'block', height: '100%' }}>
+                <TemplateCardHover>
+                  <CardBody minHeight={isSmScreen ? 90 : 130} justifyContent='center'>
+                    <Typography variant='subtitle2' fontWeight={600} color='text.primary'>
                       {template.title}
                     </Typography>
-                    <TemplateDescription variant='body2' textAlign='left'>
+                    <TemplateDescription variant='body2'>
                       {template.description}
                     </TemplateDescription>
-                  </Stack>
-                </ShPaper>
+                  </CardBody>
+                </TemplateCardHover>
               </ShMuiLink>
             </Grid>
           ))}
         </Grid>
-        <Stack paddingBottom={3} margin='auto' maxWidth='lg'>
-          <ResourceCTA />
-        </Stack>
+        <ResourceCTA />
       </ShContainer>
     </>
   );

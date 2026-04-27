@@ -23,10 +23,10 @@ export const EmployerInterviewTemplateSinglePage = () => {
       case 'formal':
         setTabValue('1');
         break;
-      case 'auto':
+      case 'informal':
         setTabValue('2');
         break;
-      case 'informal':
+      case 'auto':
         setTabValue('3');
         break;
       default:
@@ -95,10 +95,10 @@ export const EmployerInterviewTemplateSinglePage = () => {
         setTemplateType('formal');
         break;
       case '2':
-        setTemplateType('auto');
+        setTemplateType('informal');
         break;
       case '3':
-        setTemplateType('informal');
+        setTemplateType('auto');
         break;
       default:
         setTemplateType('formal');

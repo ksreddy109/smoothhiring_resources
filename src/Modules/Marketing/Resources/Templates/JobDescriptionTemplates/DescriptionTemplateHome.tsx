@@ -1,5 +1,6 @@
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { Grid, Grow, MenuItem, TextField, Typography } from '@mui/material';
+import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -7,8 +8,6 @@ import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/Appli
 import { JobDescriptions as templateDescriptions } from './DescriptionTemplateConstants';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
-import { ResourceHeroBody, ResourceHeroTitle, ResourceSectionSubtitle } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
 import { getResourcesRedirect } from 'shared/utils';
 import { ResourceCTA } from '../../ResourceCTA';
@@ -19,21 +18,17 @@ import {
   ResourceTemplateFilterControl,
   ResourceTemplateFilterToolbar,
   ResourceTemplateListHeroCtaRow,
-  ResourceTemplateListHeroInner,
-  ResourceTemplateListHeroWrapper,
   ResourceTemplateSearchBox,
 } from 'Modules/Marketing/Resources/ResourceTemplatePages.styled';
+import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
 
 export const DescriptionTemplateHome = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const isVisible = true;
 
   const truncateText = (text: string, maxLength: number): string => {
-    if (text.length <= maxLength) {
-      return text;
-    }
+    if (text.length <= maxLength) return text;
     return text.slice(0, maxLength) + '...';
   };
 
@@ -47,7 +42,7 @@ export const DescriptionTemplateHome = () => {
 
   const filteredJobDescriptions = Object.entries(templateDescriptions)
     .map(([category, descriptions]) => {
-      const filteredDescriptions = descriptions.filter(description => description.toLowerCase().includes(searchQuery));
+      const filteredDescriptions = descriptions.filter(d => d.toLowerCase().includes(searchQuery));
       return { category, descriptions: filteredDescriptions };
     })
     .filter(({ category, descriptions }) => descriptions.length > 0 && (selectedCategory === '' || category === selectedCategory));
@@ -58,35 +53,39 @@ export const DescriptionTemplateHome = () => {
     const formattedTemplateTitle = description.toLowerCase().replace(/ /g, '-');
     navigate(`${getResourcesRedirect('jobTemplatesHome')}/${formattedTemplateTitle}`);
   };
+
   return (
     <>
       <Helmet>
         <title>Free Job Description Templates | SmoothHiring</title>
         <meta name='description' content="Get customizable job description templates to help you hire more quickly. Use SmoothHiring's assistance to create compelling job advertisements." />
       </Helmet>
-      <ShContainer maxWidth='xl'>
-        <ResourceTemplateListHeroWrapper>
-          <ShPaper variant='outlined'>
-            <Grow in={isVisible} timeout={1000} mountOnEnter unmountOnExit>
-              <ResourceTemplateListHeroInner>
-                <ResourceSectionSubtitle variant='body2' textAlign='center' gutterBottom>
-                  HR Templates | Job descriptions
-                </ResourceSectionSubtitle>
-                <ResourceHeroTitle component='h1' gutterBottom>
-                  Job Description Templates
-                </ResourceHeroTitle>
-                <ResourceHeroBody>Crafted to enhance visibility and optimize for job board approval and SEO, our library of over 500+ job description templates ensures heightened exposure and expedites the hiring process. Enriched with tailored content, these descriptions attract top-tier candidates and facilitate the influx of qualified applicants.</ResourceHeroBody>
 
-                <ResourceTemplateListHeroCtaRow>
-                  <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='medium' />
-                  <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
-                    <Typography>Post this Job</Typography>
-                  </StyledActionButton>
-                </ResourceTemplateListHeroCtaRow>
-              </ResourceTemplateListHeroInner>
-            </Grow>
-          </ShPaper>
-        </ResourceTemplateListHeroWrapper>
+      <TemplateHeroBox>
+        <TemplateHeroInner>
+          <TemplateHeroEyebrow>
+            <DescriptionOutlinedIcon sx={{ fontSize: '0.75rem' }} />
+            HR Templates
+          </TemplateHeroEyebrow>
+          <Typography
+            component='h1'
+            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
+          >
+            Job Description Templates
+          </Typography>
+          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 560, lineHeight: 1.65 }}>
+            500+ templates across every industry and role type. Each one is written to perform well on job boards and attract qualified candidates.
+          </Typography>
+          <ResourceTemplateListHeroCtaRow>
+            <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='medium' />
+            <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
+              Post this Job
+            </StyledActionButton>
+          </ResourceTemplateListHeroCtaRow>
+        </TemplateHeroInner>
+      </TemplateHeroBox>
+
+      <ShContainer maxWidth='xl'>
         <ResourceTemplateFilterToolbar>
           <ResourceTemplateSearchBox>
             <ShTextFieldV2 label='Search Job Description Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />

@@ -1,92 +1,47 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-export const muiTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#417ee3",
+export const muiTheme = responsiveFontSizes(
+  createTheme({
+    palette: {
+      primary: { main: "#417ee3" },
+      success: { main: "#74C05A", contrastText: "#ffffff" },
     },
-    success: {
-      main: "#74C05A",
-      contrastText: "#ffffff",
+    shape: {
+      borderRadius: 4,
     },
-  },
-  shape: {
-    borderRadius: 8,
-  },
-  typography: {
-    fontFamily: 'var(--font-inter), "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: { fontWeight: 600 },
-    h2: { fontWeight: 600 },
-    h3: { fontWeight: 600 },
-    h4: { fontWeight: 600 },
-    h5: { fontWeight: 600 },
-    h6: { fontWeight: 600 },
-  },
-  components: {
-    MuiPaper: {
-      defaultProps: {
-        elevation: 0,
-      },
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-        },
-      },
+    typography: {
+      fontFamily: 'var(--font-poppins), "Poppins", "Roboto", sans-serif',
+      fontSize: 11,
+      h1: { fontSize: "2.125rem" },
+      h2: { fontSize: "1.8125rem" },
+      h3: { fontSize: "1.5625rem" },
+      h4: { fontSize: "1.3125rem" },
+      h5: { fontSize: "1.1875rem" },
+      h6: { fontSize: "1.0625rem" },
+      body1: { fontSize: "0.80125rem" },
+      body2: { fontSize: "0.70875rem" },
+      button: { fontSize: "0.74125rem" },
+      caption: { fontSize: "0.6625rem" },
+      overline: { fontSize: "0.6625rem" },
     },
-    MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-      },
-      styleOverrides: {
-        root: {
-          borderRadius: 10,
-          textTransform: "none",
-          fontWeight: 600,
-        },
-        sizeSmall: {
-          minHeight: 36,
-          paddingInline: 14,
-        },
-        sizeMedium: {
-          minHeight: 40,
-          paddingInline: 16,
-        },
-        sizeLarge: {
-          minHeight: 44,
-          paddingInline: 20,
-        },
-        containedSuccess: {
-          color: "#ffffff",
+    components: {
+      MuiPaper: {
+        defaultProps: { elevation: 0 },
+        styleOverrides: {
+          outlined: { borderRadius: 4 },
+          elevation: { borderRadius: 4 },
         },
       },
-    },
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 10,
+      MuiButton: {
+        defaultProps: { disableElevation: true },
+        styleOverrides: {
+          root: { textTransform: "none" },
+          containedSuccess: { color: "#ffffff" },
         },
       },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          borderRadius: 10,
-          fontWeight: 500,
-        },
+      MuiTextField: {
+        defaultProps: { size: "small", fullWidth: true },
       },
     },
-    MuiTextField: {
-      defaultProps: {
-        size: "small",
-        fullWidth: true,
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          borderRadius: 10,
-        },
-      },
-    },
-  },
-});
+  }),
+);

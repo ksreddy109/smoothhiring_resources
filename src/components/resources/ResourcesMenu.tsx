@@ -137,7 +137,8 @@ export const ResourcesMenu = () => {
     function renderMenu() {
         const nav = document.querySelector('.sh-menu-container .nav-links');
         if (!nav) return;
-        
+        nav.innerHTML = '';
+
         Object.entries(MENU_CONFIG.menus).forEach(([key, menu]) => {
             const li = document.createElement('li');
             li.className = 'nav-item';
@@ -268,7 +269,8 @@ export const ResourcesMenu = () => {
     function renderActions() {
         const actions = document.querySelector('.sh-menu-container .actions-section');
         if (!actions) return;
-        
+        actions.innerHTML = '';
+
         const toggleContainer = document.createElement('div');
         toggleContainer.className = 'actions-toggle-container';
         
@@ -295,7 +297,8 @@ export const ResourcesMenu = () => {
     function renderMobileMenu() {
         const mobileNav = document.getElementById('mobile-nav-links');
         if (!mobileNav) return;
-        
+        mobileNav.innerHTML = '';
+
         Object.entries(MENU_CONFIG.menus).forEach(([key, menu]) => {
             const li = document.createElement('li');
             li.className = 'mobile-nav-item';

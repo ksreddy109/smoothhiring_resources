@@ -1,8 +1,6 @@
-import NearMeIcon from '@mui/icons-material/NearMe';
-import { Typography } from '@mui/material';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
-import { ResourceCTAStack } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Button, Stack, Typography } from '@mui/material';
+import { ResourceCTAStack, ShPaper } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
 
 interface ResourceCTAProps {
@@ -11,19 +9,38 @@ interface ResourceCTAProps {
   buttonText?: string;
 }
 
-export const ResourceCTA = ({ title = "Ready to post your job to 100's of job boards?", subtitle = 'LinkedIn, Talent.com, career page - place your job on multiple platforms for FREE with just one click', buttonText = 'Post a Free Job' }: ResourceCTAProps) => {
+export const ResourceCTA = ({
+  title = 'Ready to put these resources to work?',
+  subtitle = 'Post to LinkedIn, Indeed, Talent.com, and 100+ boards — one click, always free.',
+  buttonText = 'Post a Free Job',
+}: ResourceCTAProps) => {
   return (
     <ResourceCTAStack>
       <ShPaper variant='outlined'>
-          <Typography gutterBottom variant='h6' color='text.primary'>
-            {title}
-          </Typography>
-          <Typography gutterBottom variant='subtitle1' color='text.secondary'>
-            {subtitle}
-          </Typography>
-        <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' endIcon={<NearMeIcon />}>
-          <Typography>{buttonText}</Typography>
-        </StyledActionButton>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          justifyContent='space-between'
+          gap={2}
+        >
+          <Stack gap={0.5}>
+            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='body2' color='text.secondary'>
+              {subtitle}
+            </Typography>
+          </Stack>
+          <Button
+            href={SHSignUpLink}
+            component='a'
+            variant='contained'
+            color='primary'
+            size='medium'
+            endIcon={<ArrowForwardIcon />}
+            sx={{ whiteSpace: 'nowrap', flexShrink: 0 }}
+          >
+            {buttonText}
+          </Button>
+        </Stack>
       </ShPaper>
     </ResourceCTAStack>
   );

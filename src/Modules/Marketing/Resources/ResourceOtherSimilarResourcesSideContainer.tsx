@@ -17,7 +17,7 @@ export const ResourceOtherSimilarResourcesSideContainer = () => {
     <>
       {!isMdScreen && (
         <Stack>
-          <Typography variant='h6' fontWeight='bold' paddingBottom={2}>
+          <Typography variant='h6' paddingBottom={2}>
             {' '}
             Similar Offer Letter Templates
           </Typography>

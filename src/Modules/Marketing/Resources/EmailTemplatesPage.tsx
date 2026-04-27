@@ -1,132 +1,160 @@
-import { Box, Stack, Typography } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { Box, Chip, Grid, Stack, Typography, styled } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
-import { IsXsScreen } from 'helpers/hooks';
+import { ResourceCTA } from './ResourceCTA';
 import { ShContainer } from '@smoothhiring/smooth-ui';
+import { ShPaper } from '@smoothhiring/smooth-ui';
+import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+
+const CategoryLabel = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  color: theme.palette.text.primary,
+}));
+
+const TemplatePreviewBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[50],
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(1.75),
+  marginTop: theme.spacing(0.75),
+}));
+
+const emailCategories = [
+  {
+    label: 'Application Received',
+    chip: 'Acknowledgment',
+    chipColor: 'primary' as const,
+    subject: 'We received your application — [Job Title] at [Company]',
+    preview:
+      "Hi [Candidate Name], thank you for applying to [Job Title]. We've received your application and our team will review it shortly. We'll be in touch within [X] business days.",
+  },
+  {
+    label: 'Interview Invitation',
+    chip: 'Scheduling',
+    chipColor: 'success' as const,
+    subject: 'Interview Invitation — [Job Title] at [Company]',
+    preview:
+      "Hi [Candidate Name], we were impressed with your background and would love to learn more. We'd like to invite you to interview for the [Job Title] role. Please use the link below to select a time that works for you.",
+  },
+  {
+    label: 'Post-Interview Follow-Up',
+    chip: 'Follow-Up',
+    chipColor: 'primary' as const,
+    subject: 'Thank you for meeting with us — [Job Title]',
+    preview:
+      "Hi [Candidate Name], thank you for taking the time to speak with us about the [Job Title] position. It was great learning more about your experience. We'll be in touch with next steps shortly.",
+  },
+  {
+    label: 'Offer Letter',
+    chip: 'Offer',
+    chipColor: 'success' as const,
+    subject: "We'd love to have you join the team — [Job Title] Offer",
+    preview:
+      "Hi [Candidate Name], we're excited to extend an offer for the [Job Title] position at [Company]. Please find your formal offer letter attached. We'd love for you to join us and look forward to your response.",
+  },
+  {
+    label: 'Rejection Notice',
+    chip: 'Declination',
+    chipColor: 'default' as const,
+    subject: 'Your application to [Company] — [Job Title]',
+    preview:
+      "Hi [Candidate Name], thank you for your interest in the [Job Title] position and for the time you invested in your application. After careful consideration, we've decided to move forward with other candidates. We appreciate your interest and wish you well.",
+  },
+  {
+    label: 'Onboarding Welcome',
+    chip: 'Onboarding',
+    chipColor: 'success' as const,
+    subject: "Welcome to the team! Here's what to expect on day one",
+    preview:
+      "Hi [Name], we're thrilled to have you joining us as [Job Title] on [Start Date]. Here's everything you need to know before your first day, including where to report, who to ask for, and what to bring.",
+  },
+];
 
 export const EmailTemplatesPage = () => {
-  const paddingValue = IsXsScreen() ? 1 : 3;
-
   return (
     <>
+      <Helmet>
+        <title>Hiring Email Templates | SmoothHiring</title>
+        <meta
+          name='description'
+          content='Free hiring email templates for every stage of the recruiting process — application confirmations, interview invites, offers, rejections, and onboarding. Ready to use and fully customizable.'
+        />
+      </Helmet>
+
+      <TemplateHeroBox>
+        <TemplateHeroInner>
+          <TemplateHeroEyebrow>
+            <EmailOutlinedIcon sx={{ fontSize: '0.75rem' }} />
+            HR Templates
+          </TemplateHeroEyebrow>
+          <Typography
+            component='h1'
+            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
+          >
+            Hiring Email Templates
+          </Typography>
+          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 560, lineHeight: 1.65 }}>
+            Consistent candidate communication builds trust and protects your employer brand. These templates cover every stage — from the first acknowledgment to the welcome email on day one.
+          </Typography>
+        </TemplateHeroInner>
+      </TemplateHeroBox>
+
       <ShContainer maxWidth='xl' margin='auto'>
-        <Stack direction='row'>
-          <Stack padding={paddingValue}>
-            <Typography variant='body1' gutterBottom>
-              Email Template Management
-            </Typography>
-            <Typography variant='body1' paragraph>
-              Create professional, consistent email communications with our comprehensive email template system. Design templates for various hiring scenarios including application confirmations, interview invitations, offer letters, and rejection notifications. Maintain your brand voice and ensure all candidate communications are professional and engaging.
-            </Typography>
+        <Grid container spacing={2} paddingBottom={3}>
+          {emailCategories.map((cat, index) => (
+            <Grid item xs={12} md={6} key={index}>
+              <ShPaper variant='outlined' sx={{ height: '100%' }}>
+                <Stack padding={3} gap={1} height='100%'>
+                  <Stack direction='row' alignItems='center' justifyContent='space-between' gap={1}>
+                    <CategoryLabel variant='subtitle2'>{cat.label}</CategoryLabel>
+                    <Chip label={cat.chip} color={cat.chipColor} size='small' variant='outlined' />
+                  </Stack>
+                  <Typography variant='caption' color='text.secondary' fontWeight={500}>
+                    Subject: {cat.subject}
+                  </Typography>
+                  <TemplatePreviewBox>
+                    <Typography variant='body2' color='text.secondary' sx={{ lineHeight: 1.7 }}>
+                      {cat.preview}
+                    </Typography>
+                  </TemplatePreviewBox>
+                </Stack>
+              </ShPaper>
+            </Grid>
+          ))}
+        </Grid>
 
-            <Typography variant='body1' gutterBottom>
-              Template Creation and Design
+        <ShPaper variant='outlined' sx={{ marginBottom: 4 }}>
+          <Stack padding={3} gap={1.5}>
+            <Typography variant='subtitle1' fontWeight={600}>
+              Manage Email Templates Inside SmoothHiring
             </Typography>
-            <Typography variant='body2' paragraph>
-              Design email templates that reflect your company's brand and culture. Use our drag-and-drop editor to create visually appealing templates with your company logo, colors, and fonts. Include professional formatting, clear call-to-action buttons, and mobile-responsive design to ensure optimal viewing across all devices.
+            <Typography variant='body2' color='text.secondary'>
+              SmoothHiring's built-in email template system lets you create, personalize, and send candidate emails automatically as they move through your pipeline. Trigger emails based on stage changes, add custom fields, and keep your entire team aligned.
             </Typography>
-            <Typography variant='body2' paragraph>
-              Create templates for different stages of the hiring process, each with appropriate tone and content. Application confirmation emails should be welcoming and informative, while interview invitations should be professional and detailed. Offer letters should be celebratory and comprehensive.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Personalization and Dynamic Content
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Use dynamic content fields to personalize your email templates with candidate-specific information. Include candidate names, job titles, company names, interview dates, and other relevant details automatically. This personalization makes emails more engaging and professional.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Set up conditional content that changes based on candidate status, job requirements, or other criteria. For example, include different interview instructions for remote vs. in-person interviews, or customize offer details based on the specific position.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Template Categories and Organization
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Organize your email templates into logical categories for easy management and access. Create separate template libraries for application communications, interview processes, offer management, and general candidate communications. Use naming conventions that make it easy to find and select the right template.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Maintain version control for your templates to track changes and ensure consistency. Archive old versions and create new iterations when updating templates to maintain a clear history of changes and improvements.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              A/B Testing and Optimization
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Test different email templates to optimize engagement and response rates. Use A/B testing to compare subject lines, content variations, call-to-action buttons, and design elements. Track open rates, click-through rates, and response rates to identify the most effective templates.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Analyze email performance data to continuously improve your templates. Identify patterns in what works best for different types of candidates and hiring stages. Use this data to refine your templates and improve overall candidate experience.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Compliance and Legal Considerations
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Ensure your email templates comply with relevant laws and regulations including CAN-SPAM, GDPR, and other privacy laws. Include necessary disclaimers, unsubscribe options, and privacy notices where required. Review templates regularly to ensure ongoing compliance with changing regulations.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Include equal opportunity statements and non-discrimination language in your communications. Ensure that all email content is inclusive and accessible to candidates with disabilities. Consider providing alternative formats for candidates who may need accommodations.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Automation and Workflow Integration
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Integrate email templates with your hiring workflow automation to send timely, relevant communications automatically. Set up triggers to send emails when candidates move through different stages of your hiring process. This ensures consistent communication and reduces manual work for your team.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Create email sequences for complex hiring processes that require multiple communications. For example, set up a series of emails for interview preparation, follow-up, and next steps. Use delays and conditions to ensure emails are sent at appropriate times.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Team Collaboration and Approval
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Enable team collaboration on email template creation and management. Set up approval workflows for new templates or significant changes to ensure quality and consistency. Allow team members to suggest improvements and share best practices for effective email communication.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Create template libraries that can be shared across different departments or hiring teams. Establish guidelines for template usage and ensure all team members understand how to use templates effectively and consistently.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Analytics and Performance Tracking
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Track the performance of your email templates with detailed analytics and reporting. Monitor delivery rates, open rates, click-through rates, and response rates for each template. Use this data to identify opportunities for improvement and optimize your email communication strategy.
-            </Typography>
-            <Typography variant='body2' paragraph>
-              Generate reports on email effectiveness by candidate type, job category, or hiring stage. Use this information to refine your templates and improve overall candidate engagement and response rates.
-            </Typography>
-
-            <Typography variant='body1' gutterBottom>
-              Best Practices for Email Templates
-            </Typography>
-            <Typography variant='body2' paragraph>
-              • Use clear, professional subject lines that encourage opens
-            </Typography>
-            <Typography variant='body2' paragraph>
-              • Keep content concise and focused on the key message
-            </Typography>
-            <Typography variant='body2' paragraph>
-              • Include clear call-to-action buttons and next steps
-            </Typography>
-            <Typography variant='body2' paragraph>
-              • Test templates across different email clients and devices
-            </Typography>
-            <Typography variant='body2' paragraph>
-              • Personalize content with candidate-specific information
-            </Typography>
-            <Typography variant='body2' paragraph>
-              • Regularly review and update templates based on performance data
-            </Typography>
-
-            <Box paddingTop={2} paddingBottom={3}>
-              <StyledActionButton href="https://app.smoothhiring.com/employer/settings/tools/templates/application-received" color="primary" variant="contained" component="a">
+            <Stack direction='row' flexWrap='wrap' gap={1} paddingTop={0.5}>
+              {['Auto-send on stage change', 'Custom merge fields', 'Team shared templates', 'Mobile responsive'].map(
+                (feature) => (
+                  <Chip key={feature} label={feature} size='small' variant='outlined' color='primary' />
+                )
+              )}
+            </Stack>
+            <Box paddingTop={0.5}>
+              <StyledActionButton
+                href='https://app.smoothhiring.com/employer/settings/tools/templates/application-received'
+                color='primary'
+                variant='contained'
+                component='a'
+                endIcon={<ArrowForwardIcon fontSize='small' />}
+              >
                 Manage Email Templates
               </StyledActionButton>
             </Box>
           </Stack>
-        </Stack>
+        </ShPaper>
+
+        <ResourceCTA />
       </ShContainer>
     </>
   );

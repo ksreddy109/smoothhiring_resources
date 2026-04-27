@@ -5,65 +5,64 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import XIcon from '@mui/icons-material/X';
 import WorkIcon from '@mui/icons-material/Work';
-import { Box, Grid, Stack, Typography, IconButton, styled } from '@mui/material';
-import { PrimaryWordpressThemeColor, ShContainer } from '@/integrations/smooth-hiring-ui';
+import { Box, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material';
+import { ShContainer } from '@/integrations/smooth-hiring-ui';
 import { ResourceMuiLink } from './Resources.styled';
 
-const FooterRoot = styled(ShContainer)(({ theme }) => ({
-  margin: '0 auto',
-}));
-
-const LogoWrap = styled(Box)(({ theme }) => ({
-  width: 175,
-  height: 50,
-  display: 'flex',
-  alignItems: 'center',
+const FooterRoot = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(6),
+  paddingTop: theme.spacing(4),
+  paddingBottom: theme.spacing(2),
+  borderTop: `1px solid ${theme.palette.divider}`,
 }));
 
 const LogoImg = styled('img')({
-  maxWidth: '100%',
-  maxHeight: '100%',
+  height: 32,
   objectFit: 'contain',
 });
 
 const FooterLinkGroup = styled(Stack)(({ theme }) => ({
-  gap: theme.spacing(1),
+  gap: theme.spacing(0.75),
+}));
+
+const FooterHeading = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  marginBottom: theme.spacing(0.5),
+  color: theme.palette.text.primary,
 }));
 
 const BottomBar = styled(Stack)(({ theme }) => ({
-  color: theme.palette.common.white,
-  backgroundColor: PrimaryWordpressThemeColor,
-  padding: theme.spacing(2, 2, 5),
-  width: '100vw',
-  position: 'relative',
-  left: '50%',
-  right: '50%',
-  marginLeft: '-50vw',
-  marginRight: '-50vw',
-  justifyContent: 'center',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
   alignItems: 'center',
   gap: theme.spacing(1),
-  [theme.breakpoints.down('md')]: {
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
     alignItems: 'flex-start',
   },
-  [theme.breakpoints.up('md')]: {
-    flexDirection: 'row',
-  },
+}));
+
+const ContactRow = styled(Stack)(({ theme }) => ({
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  gap: theme.spacing(2),
+  alignItems: 'center',
 }));
 
 const SocialRow = styled(Stack)(({ theme }) => ({
   flexDirection: 'row',
-  gap: theme.spacing(1),
-}));
-
-const SocialAnchor = styled('a')(({ theme }) => ({
-  color: theme.palette.common.white,
-  display: 'inline-flex',
+  gap: theme.spacing(0.5),
 }));
 
 const SocialButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.common.white,
-  padding: 0,
+  color: theme.palette.text.secondary,
+  padding: theme.spacing(0.5),
+  '&:hover': {
+    color: theme.palette.primary.main,
+  },
 }));
 
 const footerSections = [
@@ -91,9 +90,9 @@ const footerSections = [
     title: 'Features',
     links: [
       { href: 'https://smoothhiring.com/all-features', label: 'All Features' },
-      { href: 'https://smoothhiring.com/job-distribution', label: 'Post to Many Job Boards' },
-      { href: 'https://smoothhiring.com/predictive-analytics', label: 'Predict Best Employees' },
-      { href: 'https://smoothhiring.com/applicant-tracking/', label: 'Applicant Tracking System (ATS)' },
+      { href: 'https://smoothhiring.com/job-distribution', label: 'Job Board Distribution' },
+      { href: 'https://smoothhiring.com/predictive-analytics', label: 'Predictive Analytics' },
+      { href: 'https://smoothhiring.com/applicant-tracking/', label: 'Applicant Tracking (ATS)' },
       { href: 'https://smoothhiring.com/careers-pages/', label: 'Careers Page' },
       { href: 'https://smoothhiring.com/onboarding/', label: 'Onboarding' },
     ],
@@ -101,74 +100,77 @@ const footerSections = [
   {
     title: 'Resources',
     links: [
-      { href: 'https://resources.smoothhiring.com/resources/job-description-templates', label: 'Job Description Templates' },
-      { href: 'https://resources.smoothhiring.com/resources/ai-interview-kit', label: 'Interview Questions' },
-      { href: 'https://resources.smoothhiring.com/resources/offer-letter-templates', label: 'Offer Templates' },
-      { href: 'https://resources.smoothhiring.com/resources/ai-job-description', label: 'AI Tools' },
+      { href: '/resources/job-description-templates', label: 'Job Description Templates' },
+      { href: '/resources/offer-letter-templates', label: 'Offer Letter Templates' },
+      { href: '/resources/policy-templates', label: 'Policy Templates' },
+      { href: '/resources/rejection-letter-templates', label: 'Rejection Letter Templates' },
+      { href: '/resources/interview-letter-templates', label: 'Interview Letter Templates' },
+      { href: '/resources/ai-job-description', label: 'AI Job Description Generator' },
     ],
   },
 ] as const;
 
+const socialLinks = [
+  { href: 'https://www.linkedin.com/company/smoothhiring', icon: <LinkedInIcon fontSize="small" />, label: 'LinkedIn' },
+  { href: 'https://www.facebook.com/smoothhiring', icon: <FacebookIcon fontSize="small" />, label: 'Facebook' },
+  { href: 'https://twitter.com/smoothhiring', icon: <XIcon fontSize="small" />, label: 'Twitter' },
+  { href: 'https://www.instagram.com/smoothhiring', icon: <InstagramIcon fontSize="small" />, label: 'Instagram' },
+  { href: 'https://www.indeed.com/cmp/SmoothHiring', icon: <WorkIcon fontSize="small" />, label: 'Indeed' },
+];
+
 export const ResourceFooter = () => {
   return (
-    <FooterRoot maxWidth='xl'>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={2.5}>
-          <Stack>
-            <LogoWrap>
-              <LogoImg src='https://smoothhiring.com/wp-content/uploads/2024/07/SH_AI_Logo.png' alt='SmoothHiring' />
-            </LogoWrap>
-            <Typography variant='body2'>SmoothHiring, built on predictive analytics, is an all-in-one hiring solution for SMBs.</Typography>
-          </Stack>
-        </Grid>
-        {footerSections.map((section) => (
-          <Grid key={section.title} item xs={12} sm={3} md={2}>
-            <FooterLinkGroup>
-              <Typography variant='subtitle1'>{section.title}</Typography>
-              {section.links.map((link) => (
-                <ResourceMuiLink key={link.href} href={link.href} variant='body2' color='inherit'>
-                  {link.label}
-                </ResourceMuiLink>
-              ))}
-            </FooterLinkGroup>
+    <FooterRoot>
+      <ShContainer maxWidth="xl">
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={3}>
+            <Stack gap={1.5}>
+              <LogoImg
+                src="https://smoothhiring.com/wp-content/uploads/2024/07/SH_AI_Logo.png"
+                alt="SmoothHiring"
+              />
+              <Typography variant="body2" color="text.secondary">
+                SmoothHiring is an all-in-one hiring platform for small and mid-size businesses, built on
+                predictive analytics to help you hire with confidence.
+              </Typography>
+            </Stack>
           </Grid>
-        ))}
-
-        <Grid item xs={12}>
-          <BottomBar>
-            <Typography variant='body2'>1 877 789 8767 </Typography>
-            <Typography variant='body2'>help@smoothhiring.com</Typography>
-            <Typography variant='body2'>Suite #106, 6797 N High Street, Worthington, Ohio-43085</Typography>
-            <SocialRow>
-              <SocialAnchor href='https://www.linkedin.com/company/smoothhiring' target='_blank' rel='noopener noreferrer' aria-label='LinkedIn'>
-                <SocialButton>
-                  <LinkedInIcon fontSize='small' />
-                </SocialButton>
-              </SocialAnchor>
-              <SocialAnchor href='https://www.facebook.com/smoothhiring' target='_blank' rel='noopener noreferrer' aria-label='Facebook'>
-                <SocialButton>
-                  <FacebookIcon fontSize='small' />
-                </SocialButton>
-              </SocialAnchor>
-              <SocialAnchor href='https://twitter.com/smoothhiring' target='_blank' rel='noopener noreferrer' aria-label='Twitter'>
-                <SocialButton>
-                  <XIcon fontSize='small' />
-                </SocialButton>
-              </SocialAnchor>
-              <SocialAnchor href='https://www.instagram.com/smoothhiring' target='_blank' rel='noopener noreferrer' aria-label='Instagram'>
-                <SocialButton>
-                  <InstagramIcon fontSize='small' />
-                </SocialButton>
-              </SocialAnchor>
-              <SocialAnchor href='https://www.indeed.com/cmp/SmoothHiring' target='_blank' rel='noopener noreferrer' aria-label='Indeed'>
-                <SocialButton>
-                  <WorkIcon fontSize='small' />
-                </SocialButton>
-              </SocialAnchor>
-            </SocialRow>
-          </BottomBar>
+          {footerSections.map((section) => (
+            <Grid key={section.title} item xs={6} sm={3} md={2.25}>
+              <FooterLinkGroup>
+                <FooterHeading variant="body2">{section.title}</FooterHeading>
+                {section.links.map((link) => (
+                  <ResourceMuiLink key={link.href} href={link.href} variant="body2" color="text.secondary">
+                    {link.label}
+                  </ResourceMuiLink>
+                ))}
+              </FooterLinkGroup>
+            </Grid>
+          ))}
         </Grid>
-      </Grid>
+
+        <Divider sx={{ mt: 4, mb: 0 }} />
+
+        <BottomBar>
+          <ContactRow>
+            <Typography variant="caption" color="text.secondary">1 877 789 8767</Typography>
+            <Typography variant="caption" color="text.secondary">help@smoothhiring.com</Typography>
+            <Typography variant="caption" color="text.secondary">Suite #106, 6797 N High Street, Worthington, OH 43085</Typography>
+          </ContactRow>
+          <SocialRow>
+            {socialLinks.map((s) => (
+              <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+                <SocialButton size="small" aria-label={s.label}>
+                  {s.icon}
+                </SocialButton>
+              </a>
+            ))}
+          </SocialRow>
+        </BottomBar>
+        <Typography variant="caption" color="text.secondary" display="block" textAlign="center" pb={2}>
+          © {new Date().getFullYear()} SmoothHiring. All rights reserved.
+        </Typography>
+      </ShContainer>
     </FooterRoot>
   );
 };

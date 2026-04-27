@@ -126,7 +126,7 @@ export const DescriptionTemplatePage = () => {
   return (
     <Stack>
       <ShPaper variant='outlined'>
-        <Stack padding={5} justifyContent='center' alignItems='center'>
+        <Stack justifyContent='center' alignItems='center'>
           <Typography textAlign='center' gutterBottom variant='body2' color={PrimaryThemeColor}>
             HR Templates | Job descriptions
           </Typography>
@@ -139,7 +139,7 @@ export const DescriptionTemplatePage = () => {
 
           <Stack margin={1} spacing={2} direction={isXsScreen ? 'column' : 'row'} alignContent='center' justifyContent='center'>
             <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
-              <Typography>Post this Job</Typography>
+              Post this Job
             </StyledActionButton>
             <StyledActionButton component={RouterLink as any} to={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />}>
               <Typography>Create AI Job Description</Typography>
@@ -213,7 +213,7 @@ export const DescriptionTemplatePage = () => {
                         <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                       </Stack>
                       <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
-                        <Typography>Post this Job</Typography>
+                        Post this Job
                       </StyledActionButton>
                     </Stack>
                   </ShPaper>

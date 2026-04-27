@@ -26,7 +26,8 @@
       "shared/*": ["./src/shared/*"],
       "helpers/*": ["./src/helpers/*"],
       "configs/*": ["./src/configs/*"],
-      "assets/*": ["./src/assets/*"]
+      "assets/*": ["./src/assets/*"],
+      "components/*": ["./src/components/*"]
     }
   },
   "include": [

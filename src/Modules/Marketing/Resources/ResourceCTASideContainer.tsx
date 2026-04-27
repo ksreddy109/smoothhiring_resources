@@ -21,7 +21,7 @@ export const ResourceCTASideContainer = () => {
             <Box width='200px' height='50px'>
               <ShLogo />
             </Box>
-            <Typography paddingTop={2} variant='h6' fontWeight='bold' gutterBottom>
+            <Typography paddingTop={2} variant='h6' gutterBottom>
               Need to Hire?
             </Typography>
             <Typography variant='body1' maxWidth='150px' paddingBottom={2}>

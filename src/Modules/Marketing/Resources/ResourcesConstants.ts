@@ -1,36 +1,36 @@
 import { SHSignUpLink } from 'shared/constants';
 
 // ResourceHome.tsx content
-export const AI_TOOLS_TITLE_JOB_DESCRIPTION = 'Free AI-Powered Job Description Generator';
-export const AI_TOOLS_TITLE_INTERVIEW_KIT = 'Free AI-Powered Interview Kit with Questions & Answers';
-export const AI_TOOLS_DETAILS_JOB_DESCRIPTION = 'Effortlessly craft detailed job descriptions using the latest AI technology. Our platform streamlines the process for free, helping you save time and ensure consistency in your job postings.';
-export const AI_TOOLS_DETAILS_INTERVIEW_KIT = 'Generate interview kits effortlessly with our modern AI technology. Our platform simplifies the process for free, helping you save time and ensuring a consistent interviewing experience.';
+export const AI_TOOLS_TITLE_JOB_DESCRIPTION = 'Free AI Job Description Generator';
+export const AI_TOOLS_TITLE_INTERVIEW_KIT = 'Free AI Interview Kit Generator';
+export const AI_TOOLS_DETAILS_JOB_DESCRIPTION = 'Enter a job title and let our AI generate a complete, polished job description in seconds — optimized for job boards and ready to post.';
+export const AI_TOOLS_DETAILS_INTERVIEW_KIT = 'Enter a role and let AI build you a structured interview kit — complete with questions and sample answers tailored to the position.';
 export const EXPLORE_SMOOTH_HIRING = "Explore SmoothHiring's ATS Software";
 export const EXPLORE_SMOOTH_HIRING_DETAILS = "Seamlessly navigate the hiring process with precision and reach thousands of qualified candidates effortlessly through SmoothHiring's comprehensive hiring suite.";
 export const HIRE_BEST_CANDIDATES = 'Hire the Best Candidates';
 export const HIRE_BEST_CANDIDATES_DETAILS = "How does a list of the best employees for your job sound? Utilize SmoothHiring's patented predictive analytics technology to discover top-tier talent.";
 
 //Job Description card content
-export const JOB_DESCRIPTION_TITLE_CARD_1 = 'Attract Top Candidates';
-export const JOB_DESCRIPTION_DESC_CARD_1 = 'Our platform tailors job descriptions with industry-specific keywords and compelling language, aiming to captivate high-caliber professionals. This strategic method boosts applicant numbers and guarantees that your listings attract the finest talent, establishing your company as a preferred destination for elite professionals.';
-export const JOB_DESCRIPTION_TITLE_CARD_2 = 'Create Professional Job Descriptions';
-export const JOB_DESCRIPTION_DESC_CARD_2 = " Our tool enhances job descriptions, making them more readable and concise. Studies show that, on average, candidates spend only about 15 seconds reading a job description. In today's fast-paced era, capturing someone's attention is challenging. Therefore, it's crucial for your job descriptions to be well-formatted and easy to read.";
+export const JOB_DESCRIPTION_TITLE_CARD_1 = 'Write for the right candidates';
+export const JOB_DESCRIPTION_DESC_CARD_1 = 'Good job descriptions do two things: they attract qualified applicants and screen out poor fits before they apply. Our AI uses role-specific language to help you do both.';
+export const JOB_DESCRIPTION_TITLE_CARD_2 = 'Format that gets read';
+export const JOB_DESCRIPTION_DESC_CARD_2 = 'Most candidates spend fewer than 15 seconds on a job description. Our tool creates well-structured, scannable postings that communicate the essentials quickly and clearly.';
 
 //Interview Kit card content
-export const JOB_INTERVIEW_KIT_TITLE_CARD_1 = 'Interview Candidates Easily';
-export const JOB_INTERVIEW_KIT_DESC_CARD_1 = "Whether you're a hiring manager, recruiter, or business owner, our comprehensive interview kit for candidates easily equips you with the knowledge and tools needed to make informed hiring decisions and build a talented workforce. Unlock the potential of your recruitment process and elevate your company's success with our expert guidance.";
-export const JOB_INTERVIEW_KIT_TITLE_CARD_2 = 'Save Time with Our Interview Kits ';
+export const JOB_INTERVIEW_KIT_TITLE_CARD_1 = 'Go into every interview prepared';
+export const JOB_INTERVIEW_KIT_DESC_CARD_1 = 'Each kit includes role-specific questions, suggested follow-ups, and evaluation guidance — so every interviewer on your team walks in ready, regardless of experience level.';
+export const JOB_INTERVIEW_KIT_TITLE_CARD_2 = 'Cut interview prep time significantly';
 export const JOB_INTERVIEW_KIT_DESC_CARD_2 =
-  'Effortlessly save time with our Interview Kits. AI curated and packed with industry-specific questions and tips, they streamline your interview process for quicker, smarter hiring decisions. From industry-specific questions to insightful tips and best practices, our Interview Kits are designed to help you make informed hiring decisions quickly and confidently.';
+  'Building interview questions from scratch takes time. Our AI generates a complete, structured kit in seconds — covering technical skills, culture fit, and role-specific competencies.';
 
 export const CUSTOMER_TESTIMONIAL = {
-  testimonial: "SmoothHiring's AI job description generator is a game-changer, saving us hours and ensuring top-notch job descriptions in seconds. Its made crafting compelling roles effortless and efficient!",
-  name: 'John Smith (HR Manager)',
+  testimonial: "SmoothHiring's job description generator saved us hours. We went from a blank page to a polished, ready-to-post description in under a minute.",
+  name: 'John Smith, HR Manager',
   rating: 5,
 };
 
 export const ResourceWrapperCTAConstantMessage = {
-  message: '🚀 Give our patented predictive analytics platform a try and avoid making bad hires ',
-  messageCTA: 'Try it free',
+  message: 'Post your job to 100+ boards in one click — ',
+  messageCTA: 'Try SmoothHiring free',
   redirection_url: `${SHSignUpLink}`,
 };

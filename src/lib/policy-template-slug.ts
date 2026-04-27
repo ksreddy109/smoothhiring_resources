@@ -3,8 +3,9 @@ import type { PolicyTemplate } from "Modules/Marketing/Resources/Templates/Templ
 export function policyTemplateSlug(s: string): string {
   return s
     .toLowerCase()
-    .replace(/[\s()]/g, "")
-    .replace(/-/g, "");
+    .replace(/[()]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
 }
 
 export function resolveListLabelToPolicySlug(

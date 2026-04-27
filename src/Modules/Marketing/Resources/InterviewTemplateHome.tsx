@@ -1,46 +1,109 @@
-import { Grid, Stack, Typography } from "@mui/material";
-import { StyledActionButton } from "Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles";
-import { interviewTemplates } from "Modules/Marketing/Resources/Templates/InterviewTemplates/InterviewTemplateConstants";
-import { IsSmScreen } from "helpers/hooks";
-import { Link as RouterLink } from "react-router-dom";
-import { ShContainer } from "@smoothhiring/smooth-ui";
-import { ShPaper } from "@smoothhiring/smooth-ui";
+import ArticleIcon from '@mui/icons-material/Article';
+import SearchIcon from '@mui/icons-material/Search';
+import { Grid, InputAdornment, Stack, Typography, styled } from '@mui/material';
+import { IsSmScreen } from 'helpers/hooks';
+import { ChangeEvent, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link as RouterLink } from 'react-router-dom';
+import { ResourceCTA } from './ResourceCTA';
+import { ResourceCardDescription } from '@smoothhiring/smooth-ui';
+import { ShContainer } from '@smoothhiring/smooth-ui';
+import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
+import { ShMuiLink } from '@smoothhiring/smooth-ui';
+import { TemplateCardHover, TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+import { interviewTemplates } from 'Modules/Marketing/Resources/Templates/InterviewTemplates/InterviewTemplateConstants';
+
+const SearchRow = styled(Stack)(({ theme }) => ({
+  paddingTop: theme.spacing(2),
+  width: '100%',
+  maxWidth: 520,
+}));
+
+const CardBody = styled(Stack)(({ theme }) => ({
+  padding: theme.spacing(2.5),
+}));
+
+const TemplateDescription = styled(ResourceCardDescription)({
+  maxWidth: 'none',
+});
 
 export const InterviewTemplateHome = () => {
   const isSmScreen = IsSmScreen();
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredTemplates = interviewTemplates.filter(t =>
+    t.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
-    <ShContainer maxWidth="xl" height="100%">
-      <Stack paddingTop={4} maxWidth="85%">
-        <Typography variant="h6" paddingBottom={3} paddingLeft={1}>
-          Interview Letter Templates
-        </Typography>
-        <Grid container spacing={2}>
-          {interviewTemplates.map((template, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <ShPaper flex={0.5} variant="outlined" height="100%">
-                <Stack minHeight={isSmScreen ? "100px" : "150px"} justifyContent="space-between" height="100%" padding={1} spacing={0.5}>
-                  <Typography textAlign="left" fontWeight="bold" fontSize={isSmScreen ? 15 : 17}>
-                    {template.title}
-                  </Typography>
-                  <Typography textAlign="left" color="gray" variant="caption" fontSize={isSmScreen ? 11 : 12}>
-                    {template.description}
-                  </Typography>
-                  <StyledActionButton
-                    component={RouterLink as any}
-                    to={`/resources/interview-letter-templates${template.path}`}
-                    variant="contained"
-                    size="small"
-                  >
-                    View Template
-                  </StyledActionButton>
-                </Stack>
-              </ShPaper>
+    <>
+      <Helmet>
+        <title>Free Interview Letter Templates | SmoothHiring</title>
+        <meta
+          name='description'
+          content='Professional interview letter templates to invite candidates to interviews. Formal, informal, and automated options — customize and download for free at SmoothHiring.'
+        />
+      </Helmet>
+
+      <TemplateHeroBox>
+        <TemplateHeroInner>
+          <TemplateHeroEyebrow>
+            <ArticleIcon sx={{ fontSize: '0.75rem' }} />
+            HR Templates
+          </TemplateHeroEyebrow>
+          <Typography
+            component='h1'
+            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
+          >
+            Interview Letter Templates
+          </Typography>
+          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 520, lineHeight: 1.65 }}>
+            Clear, professional interview invitations set candidates up for a great experience from the start. Browse templates for phone screens, technical rounds, and panel interviews.
+          </Typography>
+          <SearchRow>
+            <ShTextFieldV2
+              label='Search templates'
+              variant='outlined'
+              fullWidth
+              value={searchQuery}
+              onChange={handleSearchChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon fontSize='small' />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </SearchRow>
+        </TemplateHeroInner>
+      </TemplateHeroBox>
+
+      <ShContainer maxWidth='xl' height='100%' margin='auto'>
+        <Grid paddingBottom={4} container spacing={2}>
+          {filteredTemplates.map((template, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <ShMuiLink noUnderline component={RouterLink as any} to={`/resources/interview-letter-templates${template.path}`} sx={{ display: 'block', height: '100%' }}>
+                <TemplateCardHover>
+                  <CardBody minHeight={isSmScreen ? 90 : 130} justifyContent='center'>
+                    <Typography variant='subtitle2' fontWeight={600} color='text.primary'>
+                      {template.title}
+                    </Typography>
+                    <TemplateDescription variant='body2'>
+                      {template.description}
+                    </TemplateDescription>
+                  </CardBody>
+                </TemplateCardHover>
+              </ShMuiLink>
             </Grid>
           ))}
         </Grid>
-      </Stack>
-    </ShContainer>
+        <ResourceCTA />
+      </ShContainer>
+    </>
   );
 };
 
