@@ -30,9 +30,6 @@ function titleFromPath(path: string[]) {
   if (path.length === 1) {
     const it = itemBySlug.get(path[0]);
     if (it) return it.title;
-    if (path[0] === "email-templates") return "Email Templates";
-    if (path[0] === "rejection-letter-templates") return "Rejection Letter Templates";
-    if (path[0] === "interview-letter-templates") return "Interview Letter Templates";
     return humanizeSegment(path[0]);
   }
   const [a, b] = path;

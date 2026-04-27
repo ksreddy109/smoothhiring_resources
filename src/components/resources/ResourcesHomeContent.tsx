@@ -72,6 +72,27 @@ const templateCards = [
     buttonText: 'View Policy Templates',
     buttonColor: 'success' as const,
   },
+  {
+    title: 'Rejection Letter Templates',
+    description: 'Streamline your rejection process with our collection of rejection letter templates.',
+    href: '/resources/rejection-letter-templates/',
+    buttonText: 'Create Rejection Template',
+    buttonColor: 'primary' as const,
+  },
+  {
+    title: 'Interview Letter Templates',
+    description: 'Streamline your interview process with our collection of interview letter templates.',
+    href: '/resources/interview-letter-templates/',
+    buttonText: 'Create Interview Template',
+    buttonColor: 'primary' as const,
+  },
+  {
+    title: 'Email Templates',
+    description: 'Use ready-to-send hiring email templates for outreach, interviews, and follow-ups.',
+    href: '/resources/email-templates/',
+    buttonText: 'Browse Email Templates',
+    buttonColor: 'primary' as const,
+  },
 ];
 
 export const ResourcesHomeContent = () => {

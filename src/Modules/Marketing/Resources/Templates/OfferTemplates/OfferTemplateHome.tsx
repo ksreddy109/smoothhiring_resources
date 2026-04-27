@@ -51,10 +51,10 @@ export const OfferTemplateHome = () => {
               <Stack alignItems='center' justifyContent='center' padding={isSmScreen ? 2 : 5}>
                 <ArticleIcon color='primary' />
                 <Subtitle variant='body2' textAlign='center' gutterBottom>
-                  HR Templates | Offer Templates
+                  HR Templates | Offer Letter Templates
                 </Subtitle>
                 <ResourceHeroTitle component='h1' gutterBottom>
-                  Job Offer Templates
+                  Offer Letter Templates
                 </ResourceHeroTitle>
                 <ResourceHeroBody>Job offer templates are standardized documents used by companies to extend employment offers to prospective candidates. These templates serve as a blueprint, outlining the key components of an employment offer, ensuring consistency, compliance, and efficiency throughout the hiring process.</ResourceHeroBody>
               </Stack>

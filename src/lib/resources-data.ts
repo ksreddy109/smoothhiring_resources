@@ -49,6 +49,24 @@ export const RESOURCE_ITEMS: ResourceItem[] = [
     description: "Access policy templates to standardize HR communication and operations.",
     category: "template",
   },
+  {
+    slug: "rejection-letter-templates",
+    title: "Rejection Letter Templates",
+    description: "Streamline your rejection process with our collection of rejection letter templates.",
+    category: "template",
+  },
+  {
+    slug: "interview-letter-templates",
+    title: "Interview Letter Templates",
+    description: "Streamline your interview process with our collection of interview letter templates.",
+    category: "template",
+  },
+  {
+    slug: "email-templates",
+    title: "Email Templates",
+    description: "Use ready-to-send hiring email templates for outreach, interviews, and follow-ups.",
+    category: "template",
+  },
 ];
 
 const unique = (values: string[]) => [...new Set(values)];
@@ -68,9 +86,6 @@ export function allResourceCatchAllPathParams(): { path: string[] }[] {
   for (const it of RESOURCE_ITEMS) {
     add([it.slug]);
   }
-  add(["email-templates"]);
-  add(["rejection-letter-templates"]);
-  add(["interview-letter-templates"]);
   for (const s of JOB_TEMPLATE_SLUGS) {
     add(["job-description-templates", s]);
   }

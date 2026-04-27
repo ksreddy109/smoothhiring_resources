@@ -1,7 +1,7 @@
 export const rejectionTemplates = [
   {
     title: 'Formal Rejection Letter Template',
-    description: 'Customized for fomally rejecting applicants',
+    description: 'Customized for formally rejecting applicants',
     path: '/formal-rejection-letter-template',
   },
   {

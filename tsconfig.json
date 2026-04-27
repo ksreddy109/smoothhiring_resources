@@ -20,13 +20,13 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "Modules/*": ["./src/legacy/Modules/*"],
-      "store": ["./src/legacy/store"],
-      "store/*": ["./src/legacy/store/*"],
-      "shared/*": ["./src/legacy/shared/*"],
-      "helpers/*": ["./src/legacy/helpers/*"],
-      "configs/*": ["./src/legacy/configs/*"],
-      "assets/*": ["./src/legacy/assets/*"]
+      "Modules/*": ["./src/Modules/*"],
+      "store": ["./src/store"],
+      "store/*": ["./src/store/*"],
+      "shared/*": ["./src/shared/*"],
+      "helpers/*": ["./src/helpers/*"],
+      "configs/*": ["./src/configs/*"],
+      "assets/*": ["./src/assets/*"]
     }
   },
   "include": [
