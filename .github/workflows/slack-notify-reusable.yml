@@ -28,6 +28,8 @@ jobs:
             WEBHOOK=$(aws secretsmanager get-secret-value --secret-id smoothhiring/cicd/slack-deploy-webhook --region us-east-1 --query SecretString --output text 2>/dev/null || true)
           fi
           case "$WEBHOOK" in ""|*TODO*|*REPLACE*) exit 0;; esac
-          curl -sS -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"*${{ github.repository }}* ${LABEL} deploy: *${CONCLUSION}*\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}" \
-            "$WEBHOOK"
+          EMOJI=":large_blue_circle:"
+          case "$CONCLUSION" in success) EMOJI=":white_check_mark:";; failure) EMOJI=":x:";; cancelled) EMOJI=":no_entry_sign:";; skipped) EMOJI=":fast_forward:";; esac
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          TEXT="${EMOJI} *GitHub Actions* — *${{ github.repository }}*"$'\n'"*Deploy:* ${LABEL}"$'\n'"*Result:* *${CONCLUSION}*"$'\n'"${RUN_URL}"
+          curl -sS -X POST -H 'Content-type: application/json' --data "$(jq -n --arg text "$TEXT" '{text: $text}')" "$WEBHOOK"
