@@ -58,3 +58,12 @@ jobs:
 
       - name: Invalidate CloudFront
         run: aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
+
+  slack-notify:
+    needs: deploy
+    if: always()
+    uses: ./.github/workflows/slack-notify-reusable.yml
+    with:
+      label: production
+      conclusion: ${{ needs.deploy.result }}
+    secrets: inherit

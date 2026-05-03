@@ -1,0 +1,33 @@
+name: Slack notify
+
+on:
+  workflow_call:
+    inputs:
+      label:
+        type: string
+        required: true
+      conclusion:
+        type: string
+        required: true
+
+jobs:
+  slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack notify
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+          LABEL: ${{ inputs.label }}
+          CONCLUSION: ${{ inputs.conclusion }}
+        run: |
+          WEBHOOK="${SLACK_WEBHOOK_URL:-}"
+          if [ -z "$WEBHOOK" ] && [ -n "$AWS_ACCESS_KEY_ID" ]; then
+            WEBHOOK=$(aws secretsmanager get-secret-value --secret-id smoothhiring/cicd/slack-deploy-webhook --region us-east-1 --query SecretString --output text 2>/dev/null || true)
+          fi
+          case "$WEBHOOK" in ""|*TODO*|*REPLACE*) exit 0;; esac
+          curl -sS -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"*${{ github.repository }}* ${LABEL} deploy: *${CONCLUSION}*\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}" \
+            "$WEBHOOK"

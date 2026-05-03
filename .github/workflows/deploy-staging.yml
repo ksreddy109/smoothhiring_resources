@@ -70,3 +70,12 @@ jobs:
         if: ${{ vars.CLOUDFRONT_STAGING_DISTRIBUTION_ID != '' }}
         run: |
           aws cloudfront create-invalidation --distribution-id "${{ vars.CLOUDFRONT_STAGING_DISTRIBUTION_ID }}" --paths "/*"
+
+  slack-notify:
+    needs: deploy
+    if: always()
+    uses: ./.github/workflows/slack-notify-reusable.yml
+    with:
+      label: staging
+      conclusion: ${{ needs.deploy.result }}
+    secrets: inherit
