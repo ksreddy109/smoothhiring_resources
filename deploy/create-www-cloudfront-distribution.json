@@ -3,8 +3,8 @@
   "Comment": "smoothhiring.com WordPress (Flywheel) + /resources* static app",
   "Enabled": true,
   "Aliases": {
-    "Quantity": 1,
-    "Items": ["smoothhiring.com"]
+    "Quantity": 2,
+    "Items": ["smoothhiring.com", "www.smoothhiring.com"]
   },
   "ViewerCertificate": {
     "ACMCertificateArn": "arn:aws:acm:us-east-1:507071832009:certificate/13203bf6-b48c-4d4e-a193-4c7698198687",
@@ -65,8 +65,23 @@
     }
   },
   "CacheBehaviors": {
-    "Quantity": 2,
+    "Quantity": 3,
     "Items": [
+      {
+        "PathPattern": "/resources/*",
+        "TargetOriginId": "smoothhiring-resources-origin",
+        "ViewerProtocolPolicy": "redirect-to-https",
+        "AllowedMethods": {
+          "Quantity": 2,
+          "Items": ["GET", "HEAD"],
+          "CachedMethods": {
+            "Quantity": 2,
+            "Items": ["GET", "HEAD"]
+          }
+        },
+        "Compress": true,
+        "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6"
+      },
       {
         "PathPattern": "/_next*",
         "TargetOriginId": "smoothhiring-resources-origin",

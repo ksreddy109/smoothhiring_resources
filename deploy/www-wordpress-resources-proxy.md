@@ -15,8 +15,8 @@ CloudFront used **HTTP** to Flywheel → Flywheel `301` to `https://smoothhiring
 | CloudFront distribution | `E2O2WRCWTC6KI6` (`d2bdluyam2rf0m.cloudfront.net`) |
 | WordPress origin | `origin.smoothhiring.com` → Flywheel IP (`151.101.2.159`), HTTPS |
 | Resources origin | `smoothhiring-resources-production` S3 website |
-| Route 53 | `smoothhiring.com` A (alias) → CloudFront |
-| `www.smoothhiring.com` | CNAME → `smoothhiring.com` (unchanged) |
+| Route 53 | `smoothhiring.com` and `www.smoothhiring.com` A (alias) → `d2bdluyam2rf0m.cloudfront.net` |
+| Aliases on distribution | `smoothhiring.com`, `www.smoothhiring.com` |
 
 ### Cache behaviors (order)
 
