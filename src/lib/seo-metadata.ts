@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import {
-  INTERVIEW_TEMPLATE_SLUGS,
-  JOB_TEMPLATE_SLUGS,
-  OFFER_TEMPLATE_SLUGS,
-  POLICY_TEMPLATE_SLUGS,
-  REJECTION_TEMPLATE_SLUGS,
-  RESOURCE_ITEMS,
-} from "./resources-data";
+  interviewTitleBySlug,
+  jobDescriptionTitleBySlug,
+  offerTitleBySlug,
+  policyLabelBySlug,
+  rejectionTitleBySlug,
+} from "./deriveTemplateSlugs";
+import { RESOURCE_ITEMS } from "./resources-data";
 import { getSiteUrl, sitePath } from "./site";
 
 const ORG = "SmoothHiring";
@@ -34,19 +34,19 @@ function titleFromPath(path: string[]) {
   }
   const [a, b] = path;
   if (a === "job-description-templates" && b) {
-    if (JOB_TEMPLATE_SLUGS.includes(b)) return `${humanizeSegment(b)} Job Description Template`;
+    return jobDescriptionTitleBySlug.get(b) ?? `${humanizeSegment(b)} Job Description Template`;
   }
   if (a === "policy-templates" && b) {
-    if (POLICY_TEMPLATE_SLUGS.includes(b)) return `${humanizeSegment(b)} HR Policy Template`;
+    return policyLabelBySlug.get(b) ?? `${humanizeSegment(b)} HR Policy Template`;
   }
   if (a === "offer-letter-templates" && b) {
-    if (OFFER_TEMPLATE_SLUGS.includes(b)) return `${humanizeSegment(b)} Offer Letter Template`;
+    return offerTitleBySlug.get(b) ?? `${humanizeSegment(b)} Offer Letter Template`;
   }
   if (a === "interview-letter-templates" && b) {
-    if (INTERVIEW_TEMPLATE_SLUGS.includes(b)) return `${humanizeSegment(b)} Interview Letter Template`;
+    return interviewTitleBySlug.get(b) ?? humanizeSegment(b);
   }
   if (a === "rejection-letter-templates" && b) {
-    if (REJECTION_TEMPLATE_SLUGS.includes(b)) return `${humanizeSegment(b)} Rejection Letter Template`;
+    return rejectionTitleBySlug.get(b) ?? humanizeSegment(b);
   }
   return path.map(humanizeSegment).join(" | ");
 }

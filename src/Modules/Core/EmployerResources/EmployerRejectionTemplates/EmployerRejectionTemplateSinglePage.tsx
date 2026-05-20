@@ -5,36 +5,20 @@ import { Packer } from 'docx';
 import { saveAs } from 'file-saver';
 import { IsSmScreen, useAppDispatch } from 'helpers/hooks';
 import React, { useEffect, useState } from 'react';
-import { ShPaper } from '@smoothhiring/smooth-ui';
+import { ShButton, ShPaper } from '@smoothhiring/smooth-ui';
 import { EmployerRejectionTemplatePreviewFields } from './EmployerRejectionTemplatePreviewFields';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { tabDataRejection } from '../EmployerResourcesConstants';
 import { setCurrentBreadCrumb } from 'store/slices/app/breadcrumb-slice';
 import { templateFunctions } from './EmployerRejectionTemplateMapping';
+import { letterTemplateDisplayName, letterTemplateTypeFromSlug, type LetterTemplateType } from '@/lib/letter-template-slug';
+
+const tabValueForType = (type: LetterTemplateType) => (type === 'formal' ? '1' : type === 'informal' ? '2' : '3');
 
 export const EmployerRejectionTemplateSinglePage = () => {
   const location = useLocation();
-  useEffect(() => {
-    const pathParts = location.pathname.split('/');
-    const type = pathParts[pathParts.length - 1].split('-')[0] as 'formal' | 'auto' | 'informal';
-    setTemplateType(type);
-
-    switch (type) {
-      case 'formal':
-        setTabValue('1');
-        break;
-      case 'informal':
-        setTabValue('2');
-        break;
-      case 'auto':
-        setTabValue('3');
-        break;
-      default:
-        setTabValue('1');
-        break;
-    }
-  }, [location.pathname]);
-  const [templateType, setTemplateType] = useState<'formal' | 'auto' | 'informal'>('formal');
+  const { rejectionLetterName } = useParams<{ rejectionLetterName: string }>();
+  const [templateType, setTemplateType] = useState<LetterTemplateType>(() => letterTemplateTypeFromSlug(rejectionLetterName));
   const { generateDocument, generatePreviewContent } = templateFunctions[templateType];
   const [companyName, setCompanyName] = useState(jobRejectionTemplateData.companyName);
   const [candidateName, setCandidateName] = useState(jobRejectionTemplateData.candidateName);
@@ -44,17 +28,17 @@ export const EmployerRejectionTemplateSinglePage = () => {
   const [yourName, setYourName] = useState(jobRejectionTemplateData.yourName);
   const [signature, setSignature] = useState(jobRejectionTemplateData.signature);
   const isSmScreen = IsSmScreen();
-  const [tabValue, setTabValue] = useState('1');
+  const [tabValue, setTabValue] = useState(() => tabValueForType(templateType));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const crumbName =
-      location.pathname
-        .split('/')
-        .pop()
-        ?.split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ') || '';
+    const next = letterTemplateTypeFromSlug(rejectionLetterName);
+    setTemplateType(next);
+    setTabValue(tabValueForType(next));
+  }, [rejectionLetterName]);
+
+  useEffect(() => {
+    const crumbName = letterTemplateDisplayName(rejectionLetterName);
     const bc = {
       pathname: location.pathname,
       breadcrumbs: [
@@ -69,7 +53,7 @@ export const EmployerRejectionTemplateSinglePage = () => {
       ],
     };
     dispatch(setCurrentBreadCrumb({ breadcrumb: bc }));
-  }, [location.pathname, dispatch]);
+  }, [location.pathname, rejectionLetterName, dispatch]);
 
   const handleDownload = async () => {
     try {
@@ -88,22 +72,9 @@ export const EmployerRejectionTemplateSinglePage = () => {
     } catch (error) {}
   };
 
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
-    switch (newValue) {
-      case '1':
-        setTemplateType('formal');
-        break;
-      case '2':
-        setTemplateType('informal');
-        break;
-      case '3':
-        setTemplateType('auto');
-        break;
-      default:
-        setTemplateType('formal');
-        break;
-    }
+    setTemplateType(newValue === '1' ? 'formal' : newValue === '2' ? 'informal' : 'auto');
   };
 
   return (
@@ -135,30 +106,25 @@ export const EmployerRejectionTemplateSinglePage = () => {
           setYourName={setYourName}
           setSignature={setSignature}
         />
-        <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
-          <Stack padding={isSmScreen ? 0 : 3} paddingBottom={10} maxWidth={'1050px'}>
+        <Grow in timeout={1000} mountOnEnter unmountOnExit>
+          <Stack padding={isSmScreen ? 0 : 3} paddingBottom={10} maxWidth='1050px' width='100%'>
             <ShPaper variant='outlined' overflow='auto' height='850px'>
-              <Stack padding={2} direction={'row'} spacing={3} justifyContent={'space-between'}>
-                <StyledActionButton onClick={handleDownload} variant='contained' color='primary' size='small'>
-                  {' '}
-                  Download (.docx){' '}
-                </StyledActionButton>
-                <Chip color='success' style={{ color: 'white', maxWidth: '110px' }} label='Live Preview' />
+              <Stack padding={2} direction='row' spacing={3} justifyContent='space-between' flexWrap='wrap'>
+                <ShButton onClick={handleDownload} variant='contained' color='primary' size='small'>
+                  Download (.docx)
+                </ShButton>
+                <Chip color='success' sx={{ color: 'white', maxWidth: 110 }} label='Live Preview' />
               </Stack>
-              <Stack padding={2} direction={'column'} spacing={3}>
-                <Stack spacing={3}>
-                  {generatePreviewContent({
-                    companyName: companyName,
-                    candidateName: candidateName,
-                    jobTitle: jobTitle,
-
-                    department: department,
-
-                    contactDetails: contactDetails,
-                    yourName: yourName,
-                    signature: signature,
-                  })}
-                </Stack>
+              <Stack padding={2} direction='column' spacing={3}>
+                {generatePreviewContent({
+                  companyName,
+                  candidateName,
+                  jobTitle,
+                  department,
+                  contactDetails,
+                  yourName,
+                  signature,
+                })}
               </Stack>
             </ShPaper>
           </Stack>
