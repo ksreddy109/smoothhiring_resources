@@ -1,6 +1,22 @@
 # smoothhiring.com + WordPress + /resources (path proxy)
 
-WordPress (Flywheel) stays the default site. The Next.js resources app is served at **`https://smoothhiring.com/resources/`** via CloudFront path routing.
+> **Status (2026-05-20):** Apex DNS was **rolled back** to Flywheel (`151.101.2.159`) after a redirect loop. Do **not** point `smoothhiring.com` at distribution `E2O2WRCWTC6KI6` until the origin HTTPS issue below is resolved.
+
+## Redirect loop (incident)
+
+CloudFront used **HTTP** to Flywheel. Flywheel responds with `301 Location: https://smoothhiring.com/`. The browser was already on `https://smoothhiring.com/`, so it looped (“redirected you too many times”).
+
+HTTPS to `origin.smoothhiring.com` fails CloudFront TLS validation (cert is for `smoothhiring.com`, SNI is `origin.smoothhiring.com` → **502**).
+
+**Fix options before re-enabling DNS:**
+
+1. Ask **Flywheel** for a CDN/origin hostname with valid TLS for edge proxy (recommended).
+2. Use **Cloudflare** (or similar) in front of WordPress with a `/resources*` worker/proxy to the resources S3/CloudFront URL.
+3. Keep **`resources.smoothhiring.com`** for the app (works today) and link from WordPress menus only.
+
+---
+
+WordPress (Flywheel) stays the default site. The Next.js resources app is served at **`https://smoothhiring.com/resources/`** via CloudFront path routing (when DNS is re-enabled).
 
 ## Architecture
 
