@@ -1,7 +1,7 @@
 export function getSiteUrl() {
   const u = process.env.NEXT_PUBLIC_SITE_URL;
   if (u) return u.replace(/\/$/, "");
-  return "https://resources.smoothhiring.com";
+  return "https://smoothhiring.com";
 }
 
 /** Canonical host for programmatic product/industry pages (from SEO CSV url_path). */

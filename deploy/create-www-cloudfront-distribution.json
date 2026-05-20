@@ -21,7 +21,7 @@
         "CustomOriginConfig": {
           "HTTPPort": 80,
           "HTTPSPort": 443,
-          "OriginProtocolPolicy": "http-only",
+          "OriginProtocolPolicy": "https-only",
           "OriginSslProtocols": {
             "Quantity": 1,
             "Items": ["TLSv1.2"]
@@ -59,16 +59,9 @@
     },
     "Compress": true,
     "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
-    "OriginRequestPolicyId": "b689b0a8-53d0-40ab-baf2-68738e2966ac",
+    "OriginRequestPolicyId": "216adef6-5c7f-47e4-b989-5492eafa07d3",
     "LambdaFunctionAssociations": {
-      "Quantity": 1,
-      "Items": [
-        {
-          "LambdaFunctionARN": "LAMBDA_EDGE_ARN_PLACEHOLDER",
-          "EventType": "origin-request",
-          "IncludeBody": false
-        }
-      ]
+      "Quantity": 0
     }
   },
   "CacheBehaviors": {

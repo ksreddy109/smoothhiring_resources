@@ -42,7 +42,7 @@ jobs:
       - name: Install and build Next export
         working-directory: app
         env:
-          NEXT_PUBLIC_SITE_URL: https://resources.smoothhiring.com
+          NEXT_PUBLIC_SITE_URL: https://smoothhiring.com
         run: npm ci && npm run build
 
       - name: Configure AWS credentials

@@ -1,31 +1,20 @@
 # smoothhiring.com + WordPress + /resources (path proxy)
 
-> **Status (2026-05-20):** Apex DNS was **rolled back** to Flywheel (`151.101.2.159`) after a redirect loop. Do **not** point `smoothhiring.com` at distribution `E2O2WRCWTC6KI6` until the origin HTTPS issue below is resolved.
+**Status:** Apex `smoothhiring.com` → CloudFront `E2O2WRCWTC6KI6`. WordPress default; resources at `/resources*`.
 
-## Redirect loop (incident)
+## Redirect loop (fixed)
 
-CloudFront used **HTTP** to Flywheel. Flywheel responds with `301 Location: https://smoothhiring.com/`. The browser was already on `https://smoothhiring.com/`, so it looped (“redirected you too many times”).
+CloudFront used **HTTP** to Flywheel → Flywheel `301` to `https://smoothhiring.com/` → browser loop.
 
-HTTPS to `origin.smoothhiring.com` fails CloudFront TLS validation (cert is for `smoothhiring.com`, SNI is `origin.smoothhiring.com` → **502**).
-
-**Fix options before re-enabling DNS:**
-
-1. Ask **Flywheel** for a CDN/origin hostname with valid TLS for edge proxy (recommended).
-2. Use **Cloudflare** (or similar) in front of WordPress with a `/resources*` worker/proxy to the resources S3/CloudFront URL.
-3. Keep **`resources.smoothhiring.com`** for the app (works today) and link from WordPress menus only.
-
----
-
-WordPress (Flywheel) stays the default site. The Next.js resources app is served at **`https://smoothhiring.com/resources/`** via CloudFront path routing (when DNS is re-enabled).
+**Fix:** WordPress origin `https-only` to `origin.smoothhiring.com` (Flywheel IP, not apex) + **Managed-AllViewer** origin request policy so CloudFront forwards the viewer `Host: smoothhiring.com` and uses it for **TLS SNI** (cert matches). Lambda@Edge Host rewrite removed (not needed).
 
 ## Architecture
 
 | Component | Value |
 |-----------|--------|
 | CloudFront distribution | `E2O2WRCWTC6KI6` (`d2bdluyam2rf0m.cloudfront.net`) |
-| WordPress origin | `origin.smoothhiring.com` → Flywheel IP (`151.101.2.159`) |
+| WordPress origin | `origin.smoothhiring.com` → Flywheel IP (`151.101.2.159`), HTTPS |
 | Resources origin | `smoothhiring-resources-production` S3 website |
-| Lambda@Edge | `www-wordpress-origin-host-edge:1` sets `Host: smoothhiring.com` on origin requests |
 | Route 53 | `smoothhiring.com` A (alias) → CloudFront |
 | `www.smoothhiring.com` | CNAME → `smoothhiring.com` (unchanged) |
 
@@ -44,8 +33,6 @@ Optional follow-up: 301 redirect `resources.smoothhiring.com` → `https://smoot
 
 ## App build URL
 
-Set production build to the main domain:
-
 ```bash
 NEXT_PUBLIC_SITE_URL=https://smoothhiring.com
 ```
@@ -55,8 +42,7 @@ Redeploy resources after changing so canonicals and sitemap use `smoothhiring.co
 ## Files
 
 - `deploy/create-www-cloudfront-distribution.json` — distribution template
-- `deploy/lambda-edge-wordpress-host/` — Host header rewrite
-- `deploy/cloudfront-origin-host-wordpress.js` — unused (CF Functions are viewer-only)
+- `deploy/lambda-edge-wordpress-host/` — legacy; superseded by AllViewer ORP
 
 ## Rollback DNS
 
