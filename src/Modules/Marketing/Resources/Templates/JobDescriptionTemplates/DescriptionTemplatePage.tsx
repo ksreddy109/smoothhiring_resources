@@ -81,10 +81,10 @@ export const DescriptionTemplatePage = () => {
 
   const { title = '', jobRole = '', preRead = '', sections = [] } = jobDescription || {};
 
-  // Changing title & meta description for google searches
-  document.title = title + ' Templates';
-
   useEffect(() => {
+    if (title) {
+      document.title = `${title} Templates`;
+    }
     const metaDescriptionTag = document.querySelector('meta[name="description"]');
     const metaDesc = `This customizable ${title.toLocaleLowerCase()} template is optimized for SEO and conversion, and can help you attract top candidates for your company.`;
     if (metaDescriptionTag) {
@@ -93,35 +93,31 @@ export const DescriptionTemplatePage = () => {
   }, [title, preRead]);
 
   const findSimilarTemplates = useCallback(
-    (templateName: string): string[] => {
+    (name: string): string[] => {
       try {
-        const templateWords = templateName.toLowerCase().split('-');
+        const found: string[] = [];
+        const templateWords = name.toLowerCase().split('-');
         Object.keys(jobDescriptions).forEach(key => {
           const template = jobDescriptions[key];
           const templateWordsToMatch = template.title.toLowerCase().split(' ');
           const matches = templateWords.filter(word => templateWordsToMatch.includes(word)).length;
           if (matches >= 3) {
-            similarTemplates.push(template.title);
+            found.push(template.title);
           }
         });
-
-        return similarTemplates;
-      } catch (error) {
+        return found.length ? found : ['Nothing similar currently, Check back later!'];
+      } catch {
         return ['Nothing similar currently, Check back later!'];
       }
     },
-    [similarTemplates, jobDescriptions]
+    [jobDescriptions]
   );
 
   useEffect(() => {
-    if (templateName) {
-      const createSimilarTemplates = async () => {
-        const templates = await findSimilarTemplates(templateName);
-        setSimilarTemplates(templates);
-      };
-      createSimilarTemplates();
+    if (templateName && Object.keys(jobDescriptions).length > 0) {
+      setSimilarTemplates(findSimilarTemplates(templateName));
     }
-  }, [templateName, similarTemplates, findSimilarTemplates]);
+  }, [templateName, jobDescriptions, findSimilarTemplates]);
 
   return (
     <Stack>

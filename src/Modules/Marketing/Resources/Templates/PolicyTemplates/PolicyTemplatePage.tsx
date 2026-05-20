@@ -72,9 +72,6 @@ export const PolicyTemplatePage = () => {
 
   const { title = '', policyBlurb = '', preRead = '', sections = [] } = policyTemplate || {};
 
-  // Changing title & meta description for google searches
-  document.title = title + ' Templates';
-
   useEffect(() => {
     // Changing title & meta description for google searches
     if (policyTemplate) {
@@ -109,14 +106,10 @@ export const PolicyTemplatePage = () => {
   );
 
   useEffect(() => {
-    if (templateName) {
-      const createSimilarTemplates = async () => {
-        const templates = await findSimilarTemplates(templateName);
-        setSimilarTemplates(templates);
-      };
-      createSimilarTemplates();
+    if (templateName && Object.keys(policyDescriptions).length > 0) {
+      setSimilarTemplates(findSimilarTemplates(templateName));
     }
-  }, [templateName, similarTemplates, findSimilarTemplates]);
+  }, [templateName, policyDescriptions, findSimilarTemplates]);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
