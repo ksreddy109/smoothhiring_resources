@@ -44,6 +44,13 @@ Redeploy resources after changing so canonicals and sitemap use `smoothhiring.co
 - `deploy/create-www-cloudfront-distribution.json` — distribution template
 - `deploy/lambda-edge-wordpress-host/` — legacy; superseded by AllViewer ORP
 
+## Flywheel still serving apex (stale DNS or cached `151.101.2.159`)
+
+If `/resources/` shows a WordPress “Page not found”, the browser is hitting **Flywheel**, not CloudFront.
+
+1. Confirm DNS: `dig +short smoothhiring.com A` → `18.161.21.x` (not `151.101.2.159`). Flush local DNS if needed.
+2. **Required on Flywheel:** paste `deploy/flywheel-nginx-resources-proxy.conf` into **Flywheel → Site → Advanced → Nginx configuration** so `/resources` and `/_next` proxy to `resources.smoothhiring.com` even when apex resolves to Flywheel.
+
 ## Rollback DNS
 
 Restore apex A record to Flywheel:
