@@ -56,8 +56,11 @@ jobs:
         working-directory: app
         run: aws s3 sync ./out "s3://${S3_BUCKET}/"
 
-      - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
+      - name: Invalidate CloudFront (apex)
+        continue-on-error: true
+        run: |
+          aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
+          echo "::warning::If this step failed, grant gh-smoothhiring-resources cloudfront:CreateInvalidation on distribution ${CLOUDFRONT_DISTRIBUTION_ID} (E2O2WRCWTC6KI6)."
 
   slack-notify:
     needs: deploy
