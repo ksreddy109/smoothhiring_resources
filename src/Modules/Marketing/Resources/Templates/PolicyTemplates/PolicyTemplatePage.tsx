@@ -8,11 +8,7 @@ import { IsSmScreen } from 'helpers/hooks';
 import { MouseEvent, Suspense, useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
-import { ShContainer } from '@smoothhiring/smooth-ui';
-import { ShMuiLink } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
-import { PrimaryThemeColor } from '@smoothhiring/smooth-ui';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
+import { ShButton, ShContainer, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
 import { PolicyTemplate, PolicyTemplates } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
 import { ResourceCTA } from '../../ResourceCTA';
@@ -222,9 +218,9 @@ export const PolicyTemplatePage = () => {
                           <Chip icon={<VerifiedIcon />} label='Interview Scheduling' color='primary' variant='outlined' />
                           <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                         </Stack>
-                        <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
-                          <Typography>Get Qualified Candidates</Typography>
-                        </StyledActionButton>
+                        <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge>
+                          Get Qualified Candidates
+                        </ShButton>
                       </Stack>
                     </ShPaper>
                   </Stack>

@@ -5,12 +5,16 @@ import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutl
 import { CircularProgress, Container, Divider, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Notification, useNotification } from 'Modules/Core/Notification';
-import { IsXsScreen, useAppDispatch, useAppSelector } from 'helpers/hooks';
+import { useAppDispatch, useAppSelector } from 'helpers/hooks';
 import { useEffect, useState } from 'react';
-import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
+import {
+  ResourceActionRow,
+  ResourceAiToolFormGrid,
+  ShButton,
+  ShPaper,
+  ShTextFieldV2,
+} from '@smoothhiring/smooth-ui';
 import { getAiInterviewQuestions } from 'store/slices/app/resources-slice';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { AI_TOOLS_DETAILS_INTERVIEW_KIT, AI_TOOLS_TITLE_INTERVIEW_KIT } from './ResourcesConstants';
 import { Helmet } from 'react-helmet-async';
 import { SHSignUpLink } from 'shared/constants';
@@ -19,7 +23,6 @@ import { ResourceCTA } from './ResourceCTA';
 
 export const AiInterviewQuestionsPage = () => {
   const dispatch = useAppDispatch();
-  const isXsScreen = IsXsScreen();
   const { aiInterviewQuestions, getAiInterviewQuestionsStatus } = useAppSelector(state => state.app.resources);
   const notification = useNotification();
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
@@ -73,8 +76,8 @@ export const AiInterviewQuestionsPage = () => {
         <Notification />
 
         <Box paddingTop={3} paddingBottom={2}>
-          <ShPaper variant='outlined'>
-            <Stack spacing={2} direction={isXsScreen ? 'column' : 'row'} alignItems='center' justifyContent='center'>
+          <ShPaper variant='outlined' sx={{ p: 2 }}>
+            <ResourceAiToolFormGrid fieldColumns={2}>
               <ShTextFieldV2
                 size='small'
                 label='Industry'
@@ -89,32 +92,34 @@ export const AiInterviewQuestionsPage = () => {
                 fullWidth
                 onChange={e => setRole(e.target.value)}
               />
-              <StyledActionButton
+              <ShButton
+                className='resource-ai-tool-submit'
                 size='large'
                 color='primary'
                 disabled={getAiInterviewQuestionsStatus === 'pending'}
                 startIcon={<AutoAwesomeIcon />}
                 variant='contained'
                 onClick={handleSubmit}
+                extraLarge
               >
-                <Typography>Generate</Typography>
+                Generate
                 {getAiInterviewQuestionsStatus === 'pending' && <CircularProgress size='1.25rem' sx={{ ml: 1 }} />}
-              </StyledActionButton>
-            </Stack>
+              </ShButton>
+            </ResourceAiToolFormGrid>
           </ShPaper>
         </Box>
 
         {aiInterviewQuestions && (
           <Box marginBottom={2}>
             <ShPaper variant='outlined'>
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='flex-end' spacing={1}>
-                <StyledActionButton color='success' href={SHSignUpLink} startIcon={<BookmarkAddIcon />}>
+              <ResourceActionRow justifyContent='flex-end' sx={{ p: 2 }}>
+                <ShButton color='success' href={SHSignUpLink} startIcon={<BookmarkAddIcon />} extraLarge>
                   Post This Job to 100+ Boards Instantly!
-                </StyledActionButton>
-                <StyledActionButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />}>
+                </ShButton>
+                <ShButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />} variant='contained' extraLarge>
                   Copy All
-                </StyledActionButton>
-              </Stack>
+                </ShButton>
+              </ResourceActionRow>
               <Stack>
                 {aiInterviewQuestions?.description?.questions?.map((q, index) => (
                   <Box padding={1} key={index + '_q_a_pair'}>

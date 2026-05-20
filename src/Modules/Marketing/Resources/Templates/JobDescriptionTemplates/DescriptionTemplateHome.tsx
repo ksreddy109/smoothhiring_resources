@@ -4,7 +4,7 @@ import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
+import { ResourceTemplateCardButton, ShButton } from '@smoothhiring/smooth-ui';
 import { JobDescriptions as templateDescriptions } from './DescriptionTemplateConstants';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
@@ -78,9 +78,9 @@ export const DescriptionTemplateHome = () => {
           </Typography>
           <ResourceTemplateListHeroCtaRow>
             <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='small' />
-            <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
+            <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge>
               Post this Job
-            </StyledActionButton>
+            </ShButton>
           </ResourceTemplateListHeroCtaRow>
         </TemplateHeroInner>
       </TemplateHeroBox>
@@ -120,11 +120,9 @@ export const DescriptionTemplateHome = () => {
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <StyledActionButton color='inherit' onClick={() => handleButtonClick(description)}>
-                    <Typography textAlign='left' variant='body2'>
-                      {truncateText(description, 43)}
-                    </Typography>
-                  </StyledActionButton>
+                  <ResourceTemplateCardButton color='inherit' onClick={() => handleButtonClick(description)}>
+                    {truncateText(description, 43)}
+                  </ResourceTemplateCardButton>
                 </Grid>
               ))}
             </Grid>

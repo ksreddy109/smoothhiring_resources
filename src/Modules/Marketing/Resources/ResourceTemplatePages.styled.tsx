@@ -1,5 +1,5 @@
 import { Box, Stack, styled } from '@mui/material';
-import { ResourceSectionSubtitle, ShTextFieldV2 } from '@smoothhiring/smooth-ui';
+import { ResourceHeroCtaRow, ResourceSectionSubtitle, ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 
 export const ResourceTemplateSearchBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -35,15 +35,7 @@ export const ResourceTemplateListHeroInner = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export const ResourceTemplateListHeroCtaRow = styled(Stack)(({ theme }) => ({
-  justifyContent: 'center',
-  paddingTop: theme.spacing(1),
-  flexDirection: 'row',
-  gap: theme.spacing(2),
-  [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-  },
-}));
+export const ResourceTemplateListHeroCtaRow = ResourceHeroCtaRow;
 
 export const ResourceTemplateFilterToolbar = styled(Stack)(({ theme }) => ({
   flexDirection: 'row',

@@ -4,15 +4,19 @@ import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import WysiwygOutlinedIcon from '@mui/icons-material/WysiwygOutlined';
 import { Box, CircularProgress, Container, List, ListItem, ListItemText, Rating, Stack, Typography, styled } from '@mui/material';
 import { Notification, useNotification } from 'Modules/Core/Notification';
-import { IsXsScreen, useAppDispatch, useAppSelector } from 'helpers/hooks';
+import { useAppDispatch, useAppSelector } from 'helpers/hooks';
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
-import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
+import {
+  ResourceActionRow,
+  ResourceAiToolFormGrid,
+  ShButton,
+  ShPaper,
+  ShTextFieldV2,
+} from '@smoothhiring/smooth-ui';
 import { HtmlRegex, SHSignUpLink } from 'shared/constants';
 import { IAiJobDescriptionAndInterviewKitPayload } from 'store/slices/app/app-model';
 import { getAiJobDescriptionByTitle } from 'store/slices/app/resources-slice';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { AI_TOOLS_DETAILS_JOB_DESCRIPTION, AI_TOOLS_TITLE_JOB_DESCRIPTION, CUSTOMER_TESTIMONIAL } from './ResourcesConstants';
 import { Helmet } from 'react-helmet-async';
 import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
@@ -27,7 +31,6 @@ export const AiJobDescriptionPage = () => {
   const { aiJobDescription } = useAppSelector(state => state.app.resources);
   const notification = useNotification();
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
-  const isXsScreen = IsXsScreen();
   const [industry, setIndustry] = useState<string>('');
   const [jobCompany, setJobCompany] = useState<string>('');
   const [role, setRole] = useState<string>('');
@@ -101,8 +104,8 @@ export const AiJobDescriptionPage = () => {
         <Notification />
 
         <Box paddingTop={3} paddingBottom={2}>
-          <ShPaper variant='outlined'>
-            <Stack spacing={2} direction={isXsScreen ? 'column' : 'row'} alignItems='center' justifyContent='center'>
+          <ShPaper variant='outlined' sx={{ p: 2 }}>
+            <ResourceAiToolFormGrid>
               <ShTextFieldV2
                 size='small'
                 label='Company (Optional)'
@@ -124,18 +127,20 @@ export const AiJobDescriptionPage = () => {
                 fullWidth
                 onChange={e => setRole(e.target.value)}
               />
-              <StyledActionButton
+              <ShButton
+                className='resource-ai-tool-submit'
                 size='large'
                 color='primary'
                 disabled={getAiJobDescStatus === 'pending'}
                 startIcon={<AutoAwesomeIcon />}
                 variant='contained'
                 onClick={handleSubmit}
+                extraLarge
               >
-                <Typography>Generate</Typography>
+                Generate
                 {getAiJobDescStatus === 'pending' && <CircularProgress size='1.25rem' sx={{ ml: 1 }} />}
-              </StyledActionButton>
-            </Stack>
+              </ShButton>
+            </ResourceAiToolFormGrid>
           </ShPaper>
         </Box>
 
@@ -152,14 +157,14 @@ export const AiJobDescriptionPage = () => {
         {aiJobDescription && (
           <Box marginBottom={2}>
             <ShPaper variant='outlined'>
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='flex-end' spacing={1}>
-                <StyledActionButton color='success' href={SHSignUpLink} startIcon={<BookmarkAddIcon />}>
+              <ResourceActionRow justifyContent='flex-end' sx={{ p: 2 }}>
+                <ShButton color='success' href={SHSignUpLink} startIcon={<BookmarkAddIcon />} extraLarge>
                   Post This Job to 100+ Boards Instantly!
-                </StyledActionButton>
-                <StyledActionButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />}>
+                </ShButton>
+                <ShButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />} variant='contained' extraLarge>
                   Copy All
-                </StyledActionButton>
-              </Stack>
+                </ShButton>
+              </ResourceActionRow>
               <Container>{HtmlRegex.test(aiJobDescription ?? '') ? parse(aiJobDescription ?? '') : formatJobDescription(aiJobDescription)}</Container>
             </ShPaper>
           </Box>

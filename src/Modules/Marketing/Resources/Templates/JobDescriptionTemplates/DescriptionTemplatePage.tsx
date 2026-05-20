@@ -5,22 +5,17 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import ShareIcon from '@mui/icons-material/Share';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { Box, Chip, Divider, Grid, IconButton, List, ListItemText, Stack, Typography } from '@mui/material';
-import { IsSmScreen, IsXsScreen } from 'helpers/hooks';
+import { IsSmScreen } from 'helpers/hooks';
 import { useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
-import { ShContainer } from '@smoothhiring/smooth-ui';
-import { ShMuiLink } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
-import { PrimaryThemeColor } from '@smoothhiring/smooth-ui';
+import { ResourceActionRow, ShButton, ShContainer, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
 import { getResourcesRedirect } from 'shared/utils';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { JobDescription, JobDescriptions } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
 import { ResourceCTA } from '../../ResourceCTA';
 
 export const DescriptionTemplatePage = () => {
-  const isXsScreen = IsXsScreen();
   const isSmScreen = IsSmScreen();
   const { templateName } = useParams<{ templateName: string | undefined }>();
   const [similarTemplates, setSimilarTemplates] = useState<string[]>([]);
@@ -133,14 +128,14 @@ export const DescriptionTemplatePage = () => {
             {jobRole}
           </Typography>
 
-          <Stack margin={1} spacing={2} direction={isXsScreen ? 'column' : 'row'} alignContent='center' justifyContent='center'>
-            <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
+          <ResourceActionRow sx={{ m: 1 }}>
+            <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge>
               Post this Job
-            </StyledActionButton>
-            <StyledActionButton component={RouterLink as any} to={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />}>
-              <Typography>Create AI Job Description</Typography>
-            </StyledActionButton>
-          </Stack>
+            </ShButton>
+            <ShButton href={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />} extraLarge>
+              Create AI Job Description
+            </ShButton>
+          </ResourceActionRow>
           <Stack margin={2} spacing={2} direction='row' alignContent='center'>
             <ShareIcon fontSize='small' />
             <Typography variant='subtitle2'> Share this Job Description</Typography>
@@ -208,9 +203,9 @@ export const DescriptionTemplatePage = () => {
                         <Chip icon={<VerifiedIcon />} label='Interview Scheduling' color='primary' variant='outlined' />
                         <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                       </Stack>
-                      <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
+                      <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge sx={{ alignSelf: 'flex-start' }}>
                         Post this Job
-                      </StyledActionButton>
+                      </ShButton>
                     </Stack>
                   </ShPaper>
                 </Stack>

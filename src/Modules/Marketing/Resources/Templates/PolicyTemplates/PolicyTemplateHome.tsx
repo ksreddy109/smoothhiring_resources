@@ -3,7 +3,7 @@ import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
+import { ResourceTemplateCardButton } from '@smoothhiring/smooth-ui';
 import { ResourceCTA } from '../../ResourceCTA';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
@@ -124,11 +124,9 @@ export const PolicyTemplateHome = () => {
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <StyledActionButton color='inherit' onClick={() => handleButtonClick(description)}>
-                    <Typography textAlign='left' variant='body2'>
-                      {truncateText(description, 40)}
-                    </Typography>
-                  </StyledActionButton>
+                  <ResourceTemplateCardButton color='inherit' onClick={() => handleButtonClick(description)}>
+                    {truncateText(description, 40)}
+                  </ResourceTemplateCardButton>
                 </Grid>
               ))}
             </Grid>

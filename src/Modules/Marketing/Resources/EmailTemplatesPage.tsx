@@ -2,10 +2,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Chip, Grid, Stack, Typography, styled } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { StyledActionButton } from 'Modules/Core/Applicants/ApplicantsList/ApplicantsToolBar.styles';
 import { ResourceCTA } from './ResourceCTA';
-import { ShContainer } from '@smoothhiring/smooth-ui';
-import { ShPaper } from '@smoothhiring/smooth-ui';
+import { ShButton, ShContainer, ShPaper } from '@smoothhiring/smooth-ui';
 import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
 
 const CategoryLabel = styled(Typography)(({ theme }) => ({
@@ -141,15 +139,15 @@ export const EmailTemplatesPage = () => {
               )}
             </Stack>
             <Box paddingTop={0.5}>
-              <StyledActionButton
+              <ShButton
                 href='https://app.smoothhiring.com/employer/settings/tools/templates/application-received'
                 color='primary'
                 variant='contained'
-                component='a'
                 endIcon={<ArrowForwardIcon fontSize='small' />}
+                extraLarge
               >
                 Manage Email Templates
-              </StyledActionButton>
+              </ShButton>
             </Box>
           </Stack>
         </ShPaper>
