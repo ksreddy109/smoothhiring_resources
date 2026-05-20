@@ -69,7 +69,7 @@ export const EmployerInterviewTemplateSinglePage = () => {
       ],
     };
     dispatch(setCurrentBreadCrumb({ breadcrumb: bc }));
-  });
+  }, [location.pathname, dispatch]);
 
   const handleDownload = async () => {
     try {

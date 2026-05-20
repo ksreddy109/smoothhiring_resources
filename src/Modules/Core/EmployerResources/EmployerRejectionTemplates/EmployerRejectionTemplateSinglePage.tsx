@@ -69,7 +69,7 @@ export const EmployerRejectionTemplateSinglePage = () => {
       ],
     };
     dispatch(setCurrentBreadCrumb({ breadcrumb: bc }));
-  });
+  }, [location.pathname, dispatch]);
 
   const handleDownload = async () => {
     try {
