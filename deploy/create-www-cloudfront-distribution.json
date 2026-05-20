@@ -3,8 +3,8 @@
   "Comment": "smoothhiring.com WordPress (Flywheel) + /resources* static app",
   "Enabled": true,
   "Aliases": {
-    "Quantity": 2,
-    "Items": ["smoothhiring.com", "www.smoothhiring.com"]
+    "Quantity": 3,
+    "Items": ["smoothhiring.com", "www.smoothhiring.com", "resources.smoothhiring.com"]
   },
   "ViewerCertificate": {
     "ACMCertificateArn": "arn:aws:acm:us-east-1:507071832009:certificate/13203bf6-b48c-4d4e-a193-4c7698198687",

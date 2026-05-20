@@ -9,8 +9,7 @@ on:
 env:
   AWS_REGION: us-east-1
   S3_BUCKET: smoothhiring-resources-production
-  CLOUDFRONT_DISTRIBUTION_ID: E185ZBO2WGN7JH
-  CLOUDFRONT_APEX_DISTRIBUTION_ID: E2O2WRCWTC6KI6
+  CLOUDFRONT_DISTRIBUTION_ID: E2O2WRCWTC6KI6
 
 jobs:
   deploy:
@@ -58,9 +57,7 @@ jobs:
         run: aws s3 sync ./out "s3://${S3_BUCKET}/"
 
       - name: Invalidate CloudFront
-        run: |
-          aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
-          aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_APEX_DISTRIBUTION_ID}" --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
 
   slack-notify:
     needs: deploy

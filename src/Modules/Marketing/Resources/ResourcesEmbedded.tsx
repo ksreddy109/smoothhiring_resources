@@ -12,7 +12,7 @@ export const ResourcesEmbedded = () => {
   const location = useLocation();
   const src = useMemo(() => {
     const path = location.pathname === '/resources' ? '/resources/' : location.pathname;
-    return `https://resources.smoothhiring.com${path}${location.search}${location.hash}`;
+    return `https://smoothhiring.com${path}${location.search}${location.hash}`;
   }, [location.pathname, location.search, location.hash]);
 
   return (
