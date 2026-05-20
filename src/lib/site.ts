@@ -4,6 +4,13 @@ export function getSiteUrl() {
   return "https://resources.smoothhiring.com";
 }
 
+/** Canonical host for programmatic product/industry pages (from SEO CSV url_path). */
+export function getMarketingSiteUrl() {
+  const u = process.env.NEXT_PUBLIC_MARKETING_SITE_URL;
+  if (u) return u.replace(/\/$/, "");
+  return "https://www.smoothhiring.com";
+}
+
 export function sitePath(path: string) {
   const base = getSiteUrl();
   const p = path.startsWith("/") ? path : `/${path}`;
