@@ -76,14 +76,14 @@ export const AiInterviewQuestionsPage = () => {
           <ShPaper variant='outlined'>
             <Stack spacing={2} direction={isXsScreen ? 'column' : 'row'} alignItems='center' justifyContent='center'>
               <ShTextFieldV2
-                size='medium'
+                size='small'
                 label='Industry'
                 variant='outlined'
                 fullWidth
                 onChange={e => setIndustry(e.target.value)}
               />
               <ShTextFieldV2
-                size='medium'
+                size='small'
                 label='Job Role'
                 variant='outlined'
                 fullWidth

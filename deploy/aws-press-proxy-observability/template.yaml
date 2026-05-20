@@ -1,0 +1,132 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: SSM + CloudWatch IAM, forensics S3, Lambda on SNS alarm for press proxy EC2
+Parameters:
+  ProxyInstanceId:
+    Type: String
+    Default: i-0c932528bd77e2164
+  AlarmSnsTopicArn:
+    Type: String
+    Default: arn:aws:sns:us-east-1:507071832009:smoothhrms-proxy-n-ec2-status
+  LambdaCodeBucket:
+    Type: String
+    Description: S3 bucket where deploy.sh uploaded lambda_forensics.zip
+  LambdaCodeKey:
+    Type: String
+    Default: smoothhrms-proxy-observability/lambda_forensics.zip
+Resources:
+  ForensicsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-forensics
+            Status: Enabled
+            ExpirationInDays: 30
+            Prefix: forensics/
+
+  ProxyObservabilityRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${AWS::StackName}-proxy-ec2-role'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      Policies:
+        - PolicyName: forensics-s3-put
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource: !Sub '${ForensicsBucket.Arn}/forensics/*'
+
+  ProxyObservabilityInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref ProxyObservabilityRole
+
+  LambdaForensicsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: ssm-send-forensics
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:SendCommand
+                Resource:
+                  - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/${ProxyInstanceId}
+                  - !Sub arn:aws:ssm:${AWS::Region}::document/AWS-RunShellScript
+
+  AlarmForensicsFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}-alarm-forensics'
+      Runtime: python3.12
+      Handler: lambda_forensics.handler
+      Timeout: 60
+      Role: !GetAtt LambdaForensicsRole.Arn
+      Environment:
+        Variables:
+          INSTANCE_ID: !Ref ProxyInstanceId
+          FORENSICS_BUCKET: !Ref ForensicsBucket
+          AWS_REGION_NAME: !Ref AWS::Region
+      Code:
+        S3Bucket: !Ref LambdaCodeBucket
+        S3Key: !Ref LambdaCodeKey
+
+  LambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref AlarmForensicsFunction
+      Action: lambda:InvokeFunction
+      Principal: sns.amazonaws.com
+      SourceArn: !Ref AlarmSnsTopicArn
+
+  AlarmToLambdaSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: lambda
+      Endpoint: !GetAtt AlarmForensicsFunction.Arn
+      TopicArn: !Ref AlarmSnsTopicArn
+
+Outputs:
+  ForensicsBucketName:
+    Value: !Ref ForensicsBucket
+  ForensicsBucketArn:
+    Value: !GetAtt ForensicsBucket.Arn
+  InstanceProfileName:
+    Value: !Ref ProxyObservabilityInstanceProfile
+  Ec2RoleArn:
+    Value: !GetAtt ProxyObservabilityRole.Arn
+  LambdaArn:
+    Value: !GetAtt AlarmForensicsFunction.Arn

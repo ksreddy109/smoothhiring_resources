@@ -1,0 +1,67 @@
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/syslog",
+            "log_group_name": "/smoothhrms/press-proxy/syslog",
+            "log_stream_name": "{instance_id}",
+            "retention_in_days": 14
+          }
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "namespace": "CWAgent/SmoothHrmsPressProxy",
+    "append_dimensions": {
+      "InstanceId": "${aws:InstanceId}"
+    },
+    "metrics_collected": {
+      "cpu": {
+        "measurement": [
+          {
+            "name": "cpu_usage_idle",
+            "rename": "CPU_USAGE_IDLE",
+            "unit": "Percent"
+          },
+          {
+            "name": "cpu_usage_iowait",
+            "rename": "CPU_USAGE_IOWAIT",
+            "unit": "Percent"
+          }
+        ],
+        "totalcpu": false,
+        "resources": [
+          "*"
+        ]
+      },
+      "disk": {
+        "measurement": [
+          {
+            "name": "used_percent",
+            "rename": "DISK_USED_PERCENT",
+            "unit": "Percent"
+          }
+        ],
+        "resources": [
+          "*"
+        ]
+      },
+      "mem": {
+        "measurement": [
+          {
+            "name": "mem_used_percent",
+            "rename": "MEM_USED_PERCENT",
+            "unit": "Percent"
+          }
+        ]
+      }
+    }
+  }
+}

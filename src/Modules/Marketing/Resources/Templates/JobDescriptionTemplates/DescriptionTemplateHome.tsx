@@ -77,7 +77,7 @@ export const DescriptionTemplateHome = () => {
             500+ templates across every industry and role type. Each one is written to perform well on job boards and attract qualified candidates.
           </Typography>
           <ResourceTemplateListHeroCtaRow>
-            <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='medium' />
+            <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='small' />
             <StyledActionButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />}>
               Post this Job
             </StyledActionButton>
@@ -88,7 +88,7 @@ export const DescriptionTemplateHome = () => {
       <ShContainer maxWidth='xl'>
         <ResourceTemplateFilterToolbar>
           <ResourceTemplateSearchBox>
-            <ShTextFieldV2 label='Search Job Description Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />
+            <ShTextFieldV2 label='Search Job Description Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='small' />
           </ResourceTemplateSearchBox>
           <ResourceTemplateFilterControl>
             <TextField
@@ -96,7 +96,7 @@ export const DescriptionTemplateHome = () => {
               fullWidth
               value={selectedCategory}
               onChange={handleCategoryChange}
-              size='medium'
+              size='small'
               SelectProps={{
                 displayEmpty: true,
                 renderValue: (value: unknown) => (value ? String(value) : 'Filter by Category'),

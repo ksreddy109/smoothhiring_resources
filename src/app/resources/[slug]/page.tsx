@@ -4,8 +4,9 @@ import { ProgrammaticSeoPage } from "@/components/programmatic-seo/ProgrammaticS
 import {
   allProgrammaticSeoSlugs,
   getProgrammaticSeoPageBySlug,
+  programmaticPublicPath,
 } from "@/lib/programmatic-seo-data";
-import { getMarketingSiteUrl } from "@/lib/site";
+import { getSiteUrl, sitePath } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -17,20 +18,14 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-function canonicalUrl(urlPath: string) {
-  const base = getMarketingSiteUrl();
-  const p = urlPath.startsWith("/") ? urlPath : `/${urlPath}`;
-  return `${base}${p}`;
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const page = getProgrammaticSeoPageBySlug(slug);
   if (!page) return {};
 
-  const url = canonicalUrl(page.urlPath);
+  const url = sitePath(programmaticPublicPath(slug));
   return {
-    title: page.metaTitle,
+    title: { absolute: page.metaTitle },
     description: page.metaDesc,
     alternates: { canonical: url },
     openGraph: {
@@ -38,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url,
       title: page.metaTitle,
       description: page.metaDesc,
-      siteName: "SmoothHiring",
+      siteName: "SmoothHiring Resources",
     },
     twitter: {
       card: "summary_large_image",

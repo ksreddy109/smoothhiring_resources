@@ -29,6 +29,11 @@ export type ProgrammaticSeoPage = ProgrammaticSeoIndustryPage | ProgrammaticSeoU
 
 const DATA_DIR = path.join(process.cwd(), "data", "programmatic-seo");
 
+/** Live URL on resources.smoothhiring.com (CloudFront only routes `resources*` to this app). */
+export function programmaticPublicPath(slug: string): string {
+  return `/resources/${slug}/`;
+}
+
 /** Parse a single CSV row respecting quoted fields. */
 function parseCsvRow(line: string): string[] {
   const out: string[] = [];

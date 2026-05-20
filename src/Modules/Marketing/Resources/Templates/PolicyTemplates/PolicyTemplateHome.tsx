@@ -92,7 +92,7 @@ export const PolicyTemplateHome = () => {
       <ShContainer maxWidth='xl'>
         <ResourceTemplateFilterToolbar>
           <ResourceTemplateSearchBox>
-            <ShTextFieldV2 label='Search Company Policy Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='medium' />
+            <ShTextFieldV2 label='Search Company Policy Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='small' />
           </ResourceTemplateSearchBox>
           <ResourceTemplateFilterControl>
             <TextField
@@ -100,7 +100,7 @@ export const PolicyTemplateHome = () => {
               fullWidth
               value={selectedCategory}
               onChange={handleCategoryChange}
-              size='medium'
+              size='small'
               SelectProps={{
                 displayEmpty: true,
                 renderValue: (value: unknown) => (value ? String(value) : 'Filter by Category'),

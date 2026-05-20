@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getAllProgrammaticSeoPages } from "@/lib/programmatic-seo-data";
 import { allResourceCatchAllPathParams } from "@/lib/resources-data";
-import { getMarketingSiteUrl, getSiteUrl } from "@/lib/site";
+import { programmaticPublicPath } from "@/lib/programmatic-seo-data";
+import { getSiteUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -17,13 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     rows.push({ path: seg, depth: seg.split("/").filter(Boolean).length });
   }
 
-  const marketingBase = getMarketingSiteUrl();
   for (const p of getAllProgrammaticSeoPages()) {
-    rows.push({
-      path: p.urlPath,
-      depth: p.urlPath.split("/").filter(Boolean).length,
-      base: marketingBase,
-    });
+    const seg = programmaticPublicPath(p.slug);
+    rows.push({ path: seg, depth: seg.split("/").filter(Boolean).length });
   }
 
   return rows.map(({ path, depth, base: rowBase }) => {
