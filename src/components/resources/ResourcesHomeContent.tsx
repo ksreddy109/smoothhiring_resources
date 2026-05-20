@@ -135,7 +135,7 @@ export const ResourcesHomeContent = () => {
               size="large"
               endIcon={<ArrowForwardIcon />}
               component={Link}
-              to="/resources/ai-job-description"
+              to="/resources/ai-job-description/"
             >
               Generate a Job Description
             </Button>
@@ -144,7 +144,7 @@ export const ResourcesHomeContent = () => {
               color="primary"
               size="large"
               component={Link}
-              to="/resources/job-description-templates"
+              to="/resources/job-description-templates/"
             >
               Browse Templates
             </Button>

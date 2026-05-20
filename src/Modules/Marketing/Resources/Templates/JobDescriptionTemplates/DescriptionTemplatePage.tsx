@@ -232,7 +232,7 @@ export const DescriptionTemplatePage = () => {
             <Grid container spacing={1} paddingTop={2}>
               {similarTemplates.slice(0, 20).map((template, index) => (
                 <Grid item sm={12} md={6} key={index} spacing={3}>
-                  <ShMuiLink noWrap component={RouterLink as any} to={`/resources/job-description-templates/${template.split(' ').join('-').toLocaleLowerCase()}`} variant='subtitle2' paddingTop={1} noUnderline>
+                  <ShMuiLink noWrap component={RouterLink as any} to={`/resources/job-description-templates/${template.split(' ').join('-').toLocaleLowerCase()}/`} variant='subtitle2' paddingTop={1} noUnderline>
                     {template}
                   </ShMuiLink>
                 </Grid>

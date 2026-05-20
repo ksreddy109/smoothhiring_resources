@@ -23,12 +23,14 @@ import { InterviewTemplateHome } from "Modules/Marketing/Resources/InterviewTemp
 import { EmailTemplatesPage } from "Modules/Marketing/Resources/EmailTemplatesPage";
 import { EmployerRejectionTemplateSinglePage } from "Modules/Core/EmployerResources/EmployerRejectionTemplates/EmployerRejectionTemplateSinglePage";
 import { EmployerInterviewTemplateSinglePage } from "Modules/Core/EmployerResources/EmployerInterviewTemplates/EmployerInterviewTemplateSinglePage";
+import { TrailingSlashRedirect } from "@/components/TrailingSlashRedirect";
 
 export default function ResourcesApp() {
   return (
     <HelmetProvider>
       <Provider store={store}>
         <BrowserRouter>
+          <TrailingSlashRedirect />
           <Routes>
             <Route path="/resources" element={<ResourcesWrapper />}>
               <Route index element={<ResourcesHome />} />

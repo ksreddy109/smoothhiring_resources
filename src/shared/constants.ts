@@ -142,24 +142,24 @@ export const ExcludedSubdomains: TExcludedSubdomains[] = ['app', 'localhost', 'r
  * Redirect urls map for Production
  */
 export const ResourcesRedirectUrlMap: TResourcesRedirectUrlMap = {
-  aiJobDescription: '/resources/ai-job-description',
-  aiInterviewKit: '/resources/ai-interview-kit',
-  jobTemplatesHome: '/resources/job-description-templates',
-  jobTemplateDetails: '/resources/job-description-templates/:templateName',
-  policyTemplatesHome: '/resources/policy-templates',
-  policyTemplateDetails: '/resources/policy-templates/:templateName',
-  resourcesHome: '/resources',
-  offerLetterTemplates: '/resources/offer-letter-templates',
-  generalJobOfferTemplate: '/resources/offer-letter-templates/general-job-offer-template',
-  formalJobOfferTemplate: '/resources/offer-letter-templates/formal-job-offer-template',
-  rejectionLetterTemplate: '/resources/rejection-letter-templates',
-  rejectionLetterTemplatesDetails: 'rejection-letter-templates/:rejectionLetterName',
-  interviewLetterTemplate: '/resources/interview-letter-templates',
-  interviewLetterTemplatesDetails: 'interview-letter-templates/:interviewLetterName',
-  emailTemplates: '/resources/email-templates',
+  aiJobDescription: '/resources/ai-job-description/',
+  aiInterviewKit: '/resources/ai-interview-kit/',
+  jobTemplatesHome: '/resources/job-description-templates/',
+  jobTemplateDetails: '/resources/job-description-templates/:templateName/',
+  policyTemplatesHome: '/resources/policy-templates/',
+  policyTemplateDetails: '/resources/policy-templates/:templateName/',
+  resourcesHome: '/resources/',
+  offerLetterTemplates: '/resources/offer-letter-templates/',
+  generalJobOfferTemplate: '/resources/offer-letter-templates/general-job-offer-template/',
+  formalJobOfferTemplate: '/resources/offer-letter-templates/formal-job-offer-template/',
+  rejectionLetterTemplate: '/resources/rejection-letter-templates/',
+  rejectionLetterTemplatesDetails: 'rejection-letter-templates/:rejectionLetterName/',
+  interviewLetterTemplate: '/resources/interview-letter-templates/',
+  interviewLetterTemplatesDetails: 'interview-letter-templates/:interviewLetterName/',
+  emailTemplates: '/resources/email-templates/',
 
   // TODO ADD TO MARKETING
-  offerLetterTemplatesDetails: '/resources/offer-letter-templates/:offerTemplateName',
+  offerLetterTemplatesDetails: '/resources/offer-letter-templates/:offerTemplateName/',
 };
 
 export const EmployerResourcesRedirectUrlMap: TResourcesRedirectUrlMap = {

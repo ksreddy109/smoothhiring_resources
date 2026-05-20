@@ -62,7 +62,7 @@ export const EmployerRejectionTemplateSinglePage = () => {
         { displayName: 'Resources', href: '/resources', isActive: true },
         {
           displayName: 'Rejection Letter Templates',
-          href: '/resources/rejection-letter-templates',
+          href: '/resources/rejection-letter-templates/',
           isActive: true,
         },
         { displayName: crumbName, href: '', isActive: false },

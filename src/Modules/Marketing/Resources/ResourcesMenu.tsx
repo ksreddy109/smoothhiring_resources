@@ -89,8 +89,8 @@ export const ResourcesMenu = () => {
                     {
                         title: "Templates & Tools",
                         items: [
-                            { name: "Job Descriptions", icon: "fa-file-alt", url: "/resources/ai-job-description", description: "Professional templates for effective job postings" },
-                            { name: "Interview Kits", icon: "fa-briefcase", url: "/resources/ai-interview-kit", description: "Structured interview guides and evaluation forms" },
+                            { name: "Job Descriptions", icon: "fa-file-alt", url: "/resources/ai-job-description/", description: "Professional templates for effective job postings" },
+                            { name: "Interview Kits", icon: "fa-briefcase", url: "/resources/ai-interview-kit/", description: "Structured interview guides and evaluation forms" },
                             { name: "HR Templates", icon: "fa-clipboard-list", url: "/resources", description: "Ready-to-use HR documents and workflows" }
                         ]
                     },

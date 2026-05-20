@@ -6,6 +6,8 @@ import { SeoWebSiteJsonLd } from "@/components/SeoWebSiteJsonLd";
 import { getSiteUrl, sitePath } from "@/lib/site";
 import "./globals.css";
 
+const GTM_ID = "GTM-TV33RWFX";
+
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -14,6 +16,8 @@ const poppins = Poppins({
 
 const rootDesc =
   "Free hiring resources, interview kits, and HR templates to help teams hire better and faster.";
+
+const trailingSlashRedirectScript = `(function(){var p=location.pathname;if(p!=='/'&&!/\\.\\w+$/.test(p)&&!p.endsWith('/')){location.replace(p+'/'+location.search+location.hash);}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -53,15 +57,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={poppins.variable}>
-      <body>
-        <SeoWebSiteJsonLd />
-        <Script id="gtm-smoothhiring-resources" strategy="afterInteractive">
+      <head>
+        <Script id="gtm-smoothhiring-resources" strategy="beforeInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-N46J9TNH');`}
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`}
         </Script>
+        <script dangerouslySetInnerHTML={{ __html: trailingSlashRedirectScript }} />
+      </head>
+      <body>
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
+        <SeoWebSiteJsonLd />
         <MuiAppProviders>{children}</MuiAppProviders>
       </body>
     </html>

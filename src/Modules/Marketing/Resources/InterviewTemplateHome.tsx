@@ -86,7 +86,7 @@ export const InterviewTemplateHome = () => {
         <Grid paddingBottom={4} container spacing={2}>
           {filteredTemplates.map((template, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <ShMuiLink noUnderline component={RouterLink as any} to={`/resources/interview-letter-templates${template.path}`} sx={{ display: 'block', height: '100%' }}>
+              <ShMuiLink noUnderline component={RouterLink as any} to={`/resources/interview-letter-templates${template.path}/`} sx={{ display: 'block', height: '100%' }}>
                 <TemplateCardHover>
                   <CardBody minHeight={isSmScreen ? 90 : 130} justifyContent='center'>
                     <Typography variant='subtitle2' fontWeight={600} color='text.primary'>

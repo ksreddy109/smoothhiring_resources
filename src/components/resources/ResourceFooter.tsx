@@ -100,12 +100,12 @@ const footerSections = [
   {
     title: 'Resources',
     links: [
-      { href: '/resources/job-description-templates', label: 'Job Description Templates' },
-      { href: '/resources/offer-letter-templates', label: 'Offer Letter Templates' },
-      { href: '/resources/policy-templates', label: 'Policy Templates' },
-      { href: '/resources/rejection-letter-templates', label: 'Rejection Letter Templates' },
-      { href: '/resources/interview-letter-templates', label: 'Interview Letter Templates' },
-      { href: '/resources/ai-job-description', label: 'AI Job Description Generator' },
+      { href: '/resources/job-description-templates/', label: 'Job Description Templates' },
+      { href: '/resources/offer-letter-templates/', label: 'Offer Letter Templates' },
+      { href: '/resources/policy-templates/', label: 'Policy Templates' },
+      { href: '/resources/rejection-letter-templates/', label: 'Rejection Letter Templates' },
+      { href: '/resources/interview-letter-templates/', label: 'Interview Letter Templates' },
+      { href: '/resources/ai-job-description/', label: 'AI Job Description Generator' },
     ],
   },
 ] as const;

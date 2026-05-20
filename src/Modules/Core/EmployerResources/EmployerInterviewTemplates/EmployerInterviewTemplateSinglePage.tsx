@@ -62,7 +62,7 @@ export const EmployerInterviewTemplateSinglePage = () => {
         { displayName: 'Resources', href: '/resources', isActive: true },
         {
           displayName: 'Interview Letter Templates',
-          href: '/resources/interview-letter-templates',
+          href: '/resources/interview-letter-templates/',
           isActive: true,
         },
         { displayName: crumbName, href: '', isActive: false },
