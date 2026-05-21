@@ -8,7 +8,7 @@ import { IsSmScreen } from 'helpers/hooks';
 import { MouseEvent, Suspense, useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
-import { ShButton, ShContainer, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
+import { ResourceStackPrimaryAction, ShContainer, ShGreenBtn, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
 import { PolicyTemplate, PolicyTemplates } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
 import { ResourceCTA } from '../../ResourceCTA';
@@ -218,9 +218,11 @@ export const PolicyTemplatePage = () => {
                           <Chip icon={<VerifiedIcon />} label='Interview Scheduling' color='primary' variant='outlined' />
                           <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                         </Stack>
-                        <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge>
-                          Get Qualified Candidates
-                        </ShButton>
+                        <ResourceStackPrimaryAction>
+                          <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+                            Get Qualified Candidates
+                          </ShGreenBtn>
+                        </ResourceStackPrimaryAction>
                       </Stack>
                     </ShPaper>
                   </Stack>

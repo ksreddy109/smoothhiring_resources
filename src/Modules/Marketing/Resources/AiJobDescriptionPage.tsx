@@ -8,9 +8,11 @@ import { useAppDispatch, useAppSelector } from 'helpers/hooks';
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
 import {
-  ResourceActionRow,
-  ResourceAiToolFormGrid,
+  ResourceActionRowEnd,
+  ResourceAiToolFormBody,
+  ResourceAiToolFormRow,
   ShButton,
+  ShGreenBtn,
   ShPaper,
   ShTextFieldV2,
 } from '@smoothhiring/smooth-ui';
@@ -104,43 +106,44 @@ export const AiJobDescriptionPage = () => {
         <Notification />
 
         <Box paddingTop={3} paddingBottom={2}>
-          <ShPaper variant='outlined' sx={{ p: 2 }}>
-            <ResourceAiToolFormGrid>
-              <ShTextFieldV2
-                size='small'
-                label='Company (Optional)'
-                variant='outlined'
-                fullWidth
-                onChange={e => setJobCompany(e.target.value)}
-              />
-              <ShTextFieldV2
-                size='small'
-                label='Industry'
-                variant='outlined'
-                fullWidth
-                onChange={e => setIndustry(e.target.value)}
-              />
-              <ShTextFieldV2
-                size='small'
-                label='Job Role'
-                variant='outlined'
-                fullWidth
-                onChange={e => setRole(e.target.value)}
-              />
-              <ShButton
-                className='resource-ai-tool-submit'
-                size='large'
-                color='primary'
-                disabled={getAiJobDescStatus === 'pending'}
-                startIcon={<AutoAwesomeIcon />}
-                variant='contained'
-                onClick={handleSubmit}
-                extraLarge
-              >
-                Generate
-                {getAiJobDescStatus === 'pending' && <CircularProgress size='1.25rem' sx={{ ml: 1 }} />}
-              </ShButton>
-            </ResourceAiToolFormGrid>
+          <ShPaper variant='outlined'>
+            <ResourceAiToolFormBody>
+              <ResourceAiToolFormRow>
+                <ShTextFieldV2
+                  size='small'
+                  label='Company (Optional)'
+                  variant='outlined'
+                  fullWidth
+                  onChange={e => setJobCompany(e.target.value)}
+                />
+                <ShTextFieldV2
+                  size='small'
+                  label='Industry'
+                  variant='outlined'
+                  fullWidth
+                  onChange={e => setIndustry(e.target.value)}
+                />
+                <ShTextFieldV2
+                  size='small'
+                  label='Job Role'
+                  variant='outlined'
+                  fullWidth
+                  onChange={e => setRole(e.target.value)}
+                />
+                <ShGreenBtn
+                  className='resource-ai-tool-submit'
+                  size='large'
+                  disableElevation
+                  disabled={getAiJobDescStatus === 'pending'}
+                  startIcon={<AutoAwesomeIcon />}
+                  variant='contained'
+                  onClick={handleSubmit}
+                >
+                  Generate
+                  {getAiJobDescStatus === 'pending' && <CircularProgress size='1.25rem' color='inherit' />}
+                </ShGreenBtn>
+              </ResourceAiToolFormRow>
+            </ResourceAiToolFormBody>
           </ShPaper>
         </Box>
 
@@ -157,14 +160,14 @@ export const AiJobDescriptionPage = () => {
         {aiJobDescription && (
           <Box marginBottom={2}>
             <ShPaper variant='outlined'>
-              <ResourceActionRow justifyContent='flex-end' sx={{ p: 2 }}>
-                <ShButton color='success' href={SHSignUpLink} startIcon={<BookmarkAddIcon />} extraLarge>
+              <ResourceActionRowEnd>
+                <ShGreenBtn href={SHSignUpLink} startIcon={<BookmarkAddIcon />} variant='contained' disableElevation>
                   Post This Job to 100+ Boards Instantly!
-                </ShButton>
-                <ShButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />} variant='contained' extraLarge>
+                </ShGreenBtn>
+                <ShButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />} variant='contained'>
                   Copy All
                 </ShButton>
-              </ResourceActionRow>
+              </ResourceActionRowEnd>
               <Container>{HtmlRegex.test(aiJobDescription ?? '') ? parse(aiJobDescription ?? '') : formatJobDescription(aiJobDescription)}</Container>
             </ShPaper>
           </Box>

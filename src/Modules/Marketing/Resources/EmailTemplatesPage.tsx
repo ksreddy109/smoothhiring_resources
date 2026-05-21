@@ -3,7 +3,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Chip, Grid, Stack, Typography, styled } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { ResourceCTA } from './ResourceCTA';
-import { ShButton, ShContainer, ShPaper } from '@smoothhiring/smooth-ui';
+import { ShContainer, ShGreenBtn, ShPaper } from '@smoothhiring/smooth-ui';
 import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
 
 const CategoryLabel = styled(Typography)(({ theme }) => ({
@@ -139,15 +139,14 @@ export const EmailTemplatesPage = () => {
               )}
             </Stack>
             <Box paddingTop={0.5}>
-              <ShButton
+              <ShGreenBtn
                 href='https://app.smoothhiring.com/employer/settings/tools/templates/application-received'
-                color='primary'
+                disableElevation
                 variant='contained'
                 endIcon={<ArrowForwardIcon fontSize='small' />}
-                extraLarge
               >
                 Manage Email Templates
-              </ShButton>
+              </ShGreenBtn>
             </Box>
           </Stack>
         </ShPaper>

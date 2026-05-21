@@ -4,7 +4,7 @@ import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ResourceTemplateCardButton, ShButton } from '@smoothhiring/smooth-ui';
+import { ResourceTemplateCardButton, ShGreenBtn } from '@smoothhiring/smooth-ui';
 import { JobDescriptions as templateDescriptions } from './DescriptionTemplateConstants';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { ShContainer } from '@smoothhiring/smooth-ui';
@@ -78,9 +78,9 @@ export const DescriptionTemplateHome = () => {
           </Typography>
           <ResourceTemplateListHeroCtaRow>
             <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='small' />
-            <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge>
+            <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
               Post this Job
-            </ShButton>
+            </ShGreenBtn>
           </ResourceTemplateListHeroCtaRow>
         </TemplateHeroInner>
       </TemplateHeroBox>

@@ -9,7 +9,7 @@ import { IsSmScreen } from 'helpers/hooks';
 import { useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
-import { ResourceActionRow, ShButton, ShContainer, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
+import { ResourceActionRowInset, ResourceStackPrimaryAction, ShButton, ShContainer, ShGreenBtn, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
 import { getResourcesRedirect } from 'shared/utils';
 import { JobDescription, JobDescriptions } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
@@ -128,14 +128,14 @@ export const DescriptionTemplatePage = () => {
             {jobRole}
           </Typography>
 
-          <ResourceActionRow sx={{ m: 1 }}>
-            <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge>
+          <ResourceActionRowInset>
+            <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
               Post this Job
-            </ShButton>
-            <ShButton href={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />} extraLarge>
+            </ShGreenBtn>
+            <ShButton href={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />}>
               Create AI Job Description
             </ShButton>
-          </ResourceActionRow>
+          </ResourceActionRowInset>
           <Stack margin={2} spacing={2} direction='row' alignContent='center'>
             <ShareIcon fontSize='small' />
             <Typography variant='subtitle2'> Share this Job Description</Typography>
@@ -203,9 +203,11 @@ export const DescriptionTemplatePage = () => {
                         <Chip icon={<VerifiedIcon />} label='Interview Scheduling' color='primary' variant='outlined' />
                         <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                       </Stack>
-                      <ShButton href={SHSignUpLink} size='large' color='primary' variant='contained' startIcon={<NearMeIcon />} extraLarge sx={{ alignSelf: 'flex-start' }}>
-                        Post this Job
-                      </ShButton>
+                      <ResourceStackPrimaryAction>
+                        <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+                          Post this Job
+                        </ShGreenBtn>
+                      </ResourceStackPrimaryAction>
                     </Stack>
                   </ShPaper>
                 </Stack>

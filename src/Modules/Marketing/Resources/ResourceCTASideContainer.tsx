@@ -7,7 +7,7 @@ import { ShLogo } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
 import { PrimaryThemeColor, PrimaryWordpressThemeColor, ShGreen } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
-import { ShButton } from '@smoothhiring/smooth-ui';
+import { ShGreenBtn } from '@smoothhiring/smooth-ui';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export const ResourceCTASideContainer = () => {
@@ -34,9 +34,9 @@ export const ResourceCTASideContainer = () => {
               <SiGlassdoor size={20} color={ShGreen} />
               <SiIndeed size={20} color={PrimaryThemeColor} />
             </Stack>
-            <ShButton href={SHSignUpLink} variant='contained' color='info' size='large' startIcon={<ArrowForwardIcon />} extraLarge>
+            <ShGreenBtn href={SHSignUpLink} variant='contained' disableElevation size='large' startIcon={<ArrowForwardIcon />}>
               Post your job
-            </ShButton>
+            </ShGreenBtn>
           </Stack>
         </ShPaper>
       )}
