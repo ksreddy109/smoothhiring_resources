@@ -15,7 +15,7 @@
     "@mui/icons-material": "^5.16.14",
     "@mui/material": "^5.16.14",
     "@reduxjs/toolkit": "^2.5.0",
-    "@smoothhiring/smooth-ui": "file:../../../smooth_ui",
+    "@smoothhiring/smooth-ui": "file:../../smooth_ui",
     "axios": "^1.7.9",
     "docx": "^8.5.0",
     "file-saver": "^2.0.5",

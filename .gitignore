@@ -22,6 +22,9 @@ apps/*/out/
 # production
 /build
 
+# smooth-ui (clone beside repo or CI checks out to ./smooth_ui)
+/smooth_ui
+
 # misc
 .turbo
 /ported

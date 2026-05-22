@@ -2,7 +2,13 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RES="$ROOT/apps/resources"
-UI="${1:-$ROOT/../smooth_ui}"
+if [ -n "${1:-}" ]; then
+  UI="$1"
+elif [ -f "$ROOT/smooth_ui/package.json" ]; then
+  UI="$ROOT/smooth_ui"
+else
+  UI="$ROOT/../smooth_ui"
+fi
 BUCKET="${S3_RESOURCES_BUCKET:-smoothhiring-resources-production}"
 DIST="${CLOUDFRONT_DISTRIBUTION_ID:-E2O2WRCWTC6KI6}"
 export NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://smoothhiring.com}"

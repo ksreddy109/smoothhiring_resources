@@ -88,8 +88,8 @@ importers:
         specifier: ^2.5.0
         version: 2.12.0(react-redux@9.3.0(@types/react@19.2.15)(react@19.2.4)(redux@5.0.1))(react@19.2.4)
       '@smoothhiring/smooth-ui':
-        specifier: file:../../../smooth_ui
-        version: file:../smooth_ui(564859568fe48a7f105a460d69c1d59e)
+        specifier: file:../../smooth_ui
+        version: file:smooth_ui(564859568fe48a7f105a460d69c1d59e)
       axios:
         specifier: ^1.7.9
         version: 1.16.1
@@ -1513,8 +1513,8 @@ packages:
   '@rushstack/eslint-patch@1.16.1':
     resolution: {integrity: sha512-TvZbIpeKqGQQ7X0zSCvPH9riMSFQFSggnfBjFZ1mEoILW+UuXCKwOoPcgjMwiUtRqFZ8jWhPJc4um14vC6I4ag==}
 
-  '@smoothhiring/smooth-ui@file:../smooth_ui':
-    resolution: {directory: ../smooth_ui, type: directory}
+  '@smoothhiring/smooth-ui@file:smooth_ui':
+    resolution: {directory: smooth_ui, type: directory}
     peerDependencies:
       '@emotion/react': ^11.11.0
       '@emotion/styled': ^11.11.0
@@ -5717,7 +5717,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.16.1': {}
 
-  '@smoothhiring/smooth-ui@file:../smooth_ui(564859568fe48a7f105a460d69c1d59e)':
+  '@smoothhiring/smooth-ui@file:smooth_ui(564859568fe48a7f105a460d69c1d59e)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@19.2.15)(react@19.2.4)
       '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.15)(react@19.2.4))(@types/react@19.2.15)(react@19.2.4)

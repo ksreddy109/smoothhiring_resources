@@ -27,6 +27,9 @@ phases:
         fi
         . /tmp/resenv.sh
         test -f "$SMOOTH_UI_DIR/package.json" || (echo "Add smooth-ui sibling, CodeCommit path, or SMOOTH_UI_REPO_URL" && exit 1)
+        if [ ! -e "$MONO_ROOT/smooth_ui" ]; then
+          ln -sf "$SMOOTH_UI_DIR" "$MONO_ROOT/smooth_ui"
+        fi
         (cd "$SMOOTH_UI_DIR" && npm ci && npm run build)
   install:
     runtime-versions:
