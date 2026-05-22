@@ -1,5 +1,6 @@
 import { GenerateRejectionLetterDocument, GenerateRejectionLetterPreview, GenerateInformalRejectionLetterDocument, GenerateInformalRejectionLetterPreview, GenerateAutoRejectionLetterDocument, GenerateAutoRejectionLetterPreview, JobRejectionProps } from 'Modules/Marketing/Resources/Templates/RejectionTemplates/RejectionLetterPairsConstants';
 import { Document } from 'docx';
+import type { ReactElement } from 'react';
 
 type TemplateTypes = 'formal' | 'informal' | 'auto';
 
@@ -7,7 +8,7 @@ export const templateFunctions: Record<
   TemplateTypes,
   {
     generateDocument: (props: JobRejectionProps) => Document;
-    generatePreviewContent: (props: JobRejectionProps) => JSX.Element;
+    generatePreviewContent: (props: JobRejectionProps) => ReactElement;
   }
 > = {
   formal: {

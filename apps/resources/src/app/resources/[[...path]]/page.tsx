@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ResourcePageRenderer } from "@/components/resources/ResourcePageRenderer";
+import { ResourceRouteClient } from "@/app/resources/ResourceRouteClient";
 import {
   buildResourceRouteMetadata,
   loadProgrammaticCopy,
@@ -50,7 +50,7 @@ export default async function ResourceRoutePage({ params }: PageProps) {
     page.kind === "programmatic" ? await loadProgrammaticCopy(path) : undefined;
 
   return (
-    <ResourcePageRenderer
+    <ResourceRouteClient
       page={page}
       programmaticCopy={programmaticCopy}
       programmaticPage={programmaticPage}

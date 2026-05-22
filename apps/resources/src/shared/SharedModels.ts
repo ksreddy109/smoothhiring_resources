@@ -1,5 +1,5 @@
 import { TFeatures } from 'Modules/Core/AuthV2/AuthModel';
-import { SVGProps } from 'react';
+import { SVGProps, type ReactElement } from 'react';
 import type { ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
 import type { RootState as LegacyRootState } from 'store/state-types';
 export type RootState = LegacyRootState;
@@ -315,9 +315,9 @@ export type TToolsRedirectUrlMap = {
 
 export interface IShFeatureTile {
   tileLabel: string;
-  tileIcon: JSX.Element;
+  tileIcon: ReactElement;
   featureRedirectUrl: string;
   caption?: string;
-  chip?: JSX.Element;
+  chip?: ReactElement;
   featureName: TFeatures;
 }

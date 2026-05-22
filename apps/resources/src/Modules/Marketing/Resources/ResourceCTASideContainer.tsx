@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { GoogleMcIcon } from 'assets/Icons';
 import { IsMdScreen } from 'helpers/hooks';
 import { SiGlassdoor, SiIndeed, SiMonster } from 'react-icons/si';
-import { LinkedinIcon } from 'react-share';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { ShLogo } from '@smoothhiring/smooth-ui';
 import { ShPaper } from '@smoothhiring/smooth-ui';
 import { PrimaryThemeColor, PrimaryWordpressThemeColor, ShGreen } from '@smoothhiring/smooth-ui';
@@ -28,7 +28,7 @@ export const ResourceCTASideContainer = () => {
               Try our ATS software and post jobs instantly to 100's of job boards.
             </Typography>
             <Stack direction='row' spacing={2} paddingTop={1} paddingBottom={6} alignItems='center'>
-              <LinkedinIcon size={20} />
+              <LinkedInIcon sx={{ fontSize: 20 }} />
               <GoogleMcIcon />
               <SiMonster size={20} color={PrimaryWordpressThemeColor} />
               <SiGlassdoor size={20} color={ShGreen} />

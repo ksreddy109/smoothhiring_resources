@@ -1,4 +1,5 @@
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+'use client';
+
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import ShareIcon from '@mui/icons-material/Share';
@@ -9,7 +10,7 @@ import { MouseEvent, Suspense, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ResourceLink } from '@/components/resources/ResourceLink';
 import { useResourceParams } from '@/lib/resources/route-context';
-import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
+import { ResourceSocialShare } from '@/components/resources/ResourceSocialShare';
 import { ResourceStackPrimaryAction, ShContainer, ShGreenBtn, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
 import { PolicyTemplate, PolicyTemplates } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
@@ -21,9 +22,13 @@ export const PolicyTemplatePage = () => {
   const { templateName } = useResourceParams<{ templateName: string | undefined }>();
   const [similarTemplates, setSimilarTemplates] = useState<string[]>([]);
   const [policyTemplate, setPolicyTemplate] = useState<PolicyTemplate | null>(null);
-  const currentUrl = window.location.href;
+  const [currentUrl, setCurrentUrl] = useState('');
   const router = useRouter();
   const [policyDescriptions, setPolicyDescriptions] = useState<PolicyTemplates>({});
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
 
   // Lazy load policy descriptions when needed
   useEffect(() => {
@@ -129,23 +134,7 @@ export const PolicyTemplatePage = () => {
               <Typography variant='subtitle2'> Share this Job Description</Typography>
             </Stack>
 
-            <Stack spacing={2} direction='row'>
-              <FacebookShareButton url={currentUrl}>
-                <FacebookIcon size={30} round />
-              </FacebookShareButton>
-              <LinkedinShareButton url={currentUrl}>
-                <LinkedinIcon size={30} round />
-              </LinkedinShareButton>
-              <TwitterShareButton url={currentUrl}>
-                <TwitterIcon size={30} round />
-              </TwitterShareButton>
-              <EmailShareButton url={currentUrl}>
-                <EmailIcon size={30} round />
-              </EmailShareButton>
-              <IconButton onClick={copyLink}>
-                <ContentCopyIcon />
-              </IconButton>
-            </Stack>
+            <ResourceSocialShare url={currentUrl} onCopy={copyLink} />
           </Stack>
         </ShPaper>
 

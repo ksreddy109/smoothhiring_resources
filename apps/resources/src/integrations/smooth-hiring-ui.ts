@@ -1,5 +1,5 @@
-export { ShContainer } from "../../../../../smooth_ui/src/SharedStyles/ShLayouts";
-export { ShAppBar, ShPaper } from "../../../../../smooth_ui/src/SharedStyles/ShSurfaces";
+export { ShContainer } from '@smoothhiring/smooth-ui';
+export { ShAppBar, ShPaper } from '@smoothhiring/smooth-ui';
 export {
   ResourceCardDescription,
   ResourceCTAStack,
@@ -8,5 +8,5 @@ export {
   ResourceSectionHeading,
   ResourceSectionHeadingSecondary,
   ResourceSectionSubtitle,
-} from "../../../../../smooth_ui/src/SharedStyles/ResourcePage.styled";
-export { PrimaryWordpressThemeColor, ResourceCTAColorBase } from "../../../../../smooth_ui/src/SharedStyles/styleConstants";
+} from '@smoothhiring/smooth-ui';
+export { PrimaryWordpressThemeColor, ResourceCTAColorBase } from '@smoothhiring/smooth-ui';

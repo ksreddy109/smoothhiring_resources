@@ -62,7 +62,7 @@
   "exclude": [
     "node_modules",
     ".next",
-    "../../../smooth_ui",
+    "../../smooth_ui",
     "ported"
   ]
 }
