@@ -1,0 +1,40 @@
+{
+  "name": "@smoothhiring/resources",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack --port 3000",
+    "build": "next build --webpack",
+    "start": "next start --port 3000",
+    "lint": "eslint --max-warnings 10",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^5.16.14",
+    "@mui/material": "^5.16.14",
+    "@reduxjs/toolkit": "^2.5.0",
+    "@smoothhiring/smooth-ui": "file:../../../smooth_ui",
+    "axios": "^1.7.9",
+    "docx": "^8.5.0",
+    "file-saver": "^2.0.5",
+    "html-react-parser": "^5.2.0",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-icons": "^5.0.0",
+    "react-redux": "^9.2.0",
+    "react-share": "^5.0.0",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.7",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "typescript": "^5"
+  }
+}

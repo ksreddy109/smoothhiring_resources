@@ -3,7 +3,8 @@ version: 0.2
 env:
   variables:
     S3_RESOURCES_BUCKET: smoothhiring-resources-production
-    CLOUDFRONT_DISTRIBUTION_ID: E185ZBO2WGN7JH
+    CLOUDFRONT_DISTRIBUTION_ID: E2O2WRCWTC6KI6
+    NEXT_PUBLIC_SITE_URL: https://smoothhiring.com
   git-credential-helper: yes
 
 phases:
@@ -11,12 +12,15 @@ phases:
     commands:
       - |
         if [ -f "$CODEBUILD_SRC_DIR/smoothhiring_resources/package.json" ]; then
-          echo 'export RES_DIR="'"$CODEBUILD_SRC_DIR/smoothhiring_resources"'"' > /tmp/resenv.sh
-          echo 'export SMOOTH_UI_DIR="'"$CODEBUILD_SRC_DIR/smooth_ui"'"' >> /tmp/resenv.sh
+          echo 'export MONO_ROOT="'"$CODEBUILD_SRC_DIR/smoothhiring_resources"'"' > /tmp/resenv.sh
+        elif [ -f "$CODEBUILD_SRC_DIR/package.json" ]; then
+          echo 'export MONO_ROOT="'"$CODEBUILD_SRC_DIR"'"' > /tmp/resenv.sh
         else
-          echo 'export RES_DIR="'"$CODEBUILD_SRC_DIR"'"' > /tmp/resenv.sh
-          echo 'export SMOOTH_UI_DIR="$(cd "$RES_DIR/.." && pwd)/smooth_ui"' >> /tmp/resenv.sh
+          echo "No monorepo package.json found" >&2
+          exit 1
         fi
+        echo 'export RES_DIR="'"$MONO_ROOT/apps/resources"'"' >> /tmp/resenv.sh
+        echo 'export SMOOTH_UI_DIR="'"$CODEBUILD_SRC_DIR/smooth_ui"'"' >> /tmp/resenv.sh
         . /tmp/resenv.sh
         if [ ! -f "$SMOOTH_UI_DIR/package.json" ] && [ -n "$SMOOTH_UI_REPO_URL" ]; then
           git clone --depth 1 "$SMOOTH_UI_REPO_URL" "$SMOOTH_UI_DIR"
@@ -26,31 +30,32 @@ phases:
         (cd "$SMOOTH_UI_DIR" && npm ci && npm run build)
   install:
     runtime-versions:
-      nodejs: 20
+      nodejs: 22
     commands:
       - . /tmp/resenv.sh
-      - cd "$RES_DIR"
+      - corepack enable
+      - cd "$MONO_ROOT"
       - node -v
-      - npm -v
-      - npm ci
+      - pnpm -v
+      - pnpm install --frozen-lockfile
   build:
     commands:
       - . /tmp/resenv.sh
-      - cd "$RES_DIR"
-      - npm run build
+      - cd "$MONO_ROOT"
+      - pnpm build:resources
   post_build:
     commands:
       - . /tmp/resenv.sh
-      - cd "$RES_DIR"
       - |
         if [ "${S3_SYNC_DELETE:-}" = "1" ] || [ "${S3_SYNC_DELETE:-}" = "true" ]; then
-          aws s3 sync ./out "s3://${S3_RESOURCES_BUCKET}/" --delete
+          aws s3 sync "$RES_DIR/out" "s3://${S3_RESOURCES_BUCKET}/" --delete
         else
-          aws s3 sync ./out "s3://${S3_RESOURCES_BUCKET}/"
+          aws s3 sync "$RES_DIR/out" "s3://${S3_RESOURCES_BUCKET}/"
         fi
-      - aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
+      - aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/resources/*" "/*"
 
 cache:
   paths:
-    - /root/.npm/**/*
+    - /root/.local/share/pnpm/store/**/*
     - node_modules/**/*
+    - apps/resources/node_modules/**/*

@@ -10,6 +10,7 @@ env:
   AWS_REGION: us-east-1
   S3_BUCKET: smoothhiring-resources-production
   CLOUDFRONT_DISTRIBUTION_ID: E2O2WRCWTC6KI6
+  NEXT_PUBLIC_SITE_URL: https://smoothhiring.com
 
 jobs:
   deploy:
@@ -17,10 +18,8 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout resources app
+      - name: Checkout monorepo
         uses: actions/checkout@v4
-        with:
-          path: app
 
       - name: Checkout smooth-ui (public)
         uses: actions/checkout@v4
@@ -28,22 +27,28 @@ jobs:
           repository: KetSoftware/smooth_ui
           path: smooth_ui
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: npm
-          cache-dependency-path: app/package-lock.json
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Build smooth-ui
         working-directory: smooth_ui
         run: npm ci && npm run build
 
-      - name: Install and build Next export
-        working-directory: app
+      - name: Install and build resources (no CMS)
         env:
           NEXT_PUBLIC_SITE_URL: https://smoothhiring.com
-        run: npm ci && npm run build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build:resources
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -53,13 +58,12 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Sync to S3
-        working-directory: app
-        run: aws s3 sync ./out "s3://${S3_BUCKET}/"
+        run: aws s3 sync ./apps/resources/out "s3://${S3_BUCKET}/"
 
       - name: Invalidate CloudFront (apex)
         continue-on-error: true
         run: |
-          aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
+          aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/resources/*" "/*"
           echo "::warning::If this step failed, grant gh-smoothhiring-resources cloudfront:CreateInvalidation on distribution ${CLOUDFRONT_DISTRIBUTION_ID} (E2O2WRCWTC6KI6)."
 
   slack-notify:
