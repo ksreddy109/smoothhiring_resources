@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^5.16.14",
     "@mui/material": "^5.16.14",
+    "@mui/system": "^5.16.14",
     "@reduxjs/toolkit": "^2.5.0",
     "@smoothhiring/smooth-ui": "file:../../smooth_ui",
     "axios": "^1.7.9",
