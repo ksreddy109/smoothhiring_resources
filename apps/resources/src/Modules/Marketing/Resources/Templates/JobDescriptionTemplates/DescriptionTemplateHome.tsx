@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { ResourceTemplateCardButton, ShGreenBtn } from '@smoothhiring/smooth-ui';
 import { JobDescriptions as templateDescriptions } from './DescriptionTemplateConstants';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
-import { ShContainer } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
 import { templateSlugFromTitle } from '@/lib/resources/paths';
 import { getResourcesRedirect } from 'shared/utils';
@@ -20,7 +19,7 @@ import {
   ResourceTemplateListHeroCtaRow,
   ResourceTemplateSearchBox,
 } from 'Modules/Marketing/Resources/ResourceTemplatePages.styled';
-import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+import { MarketingHero, MarketingPage } from '@/components/resources/layout';
 
 export const DescriptionTemplateHome = () => {
   const router = useRouter();
@@ -54,33 +53,21 @@ export const DescriptionTemplateHome = () => {
   };
 
   return (
-    <>
-      <TemplateHeroBox>
-        <TemplateHeroInner>
-          <TemplateHeroEyebrow>
-            <DescriptionOutlinedIcon sx={{ fontSize: '0.75rem' }} />
-            HR Templates
-          </TemplateHeroEyebrow>
-          <Typography
-            component='h1'
-            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
-          >
-            Job Description Templates
-          </Typography>
-          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 560, lineHeight: 1.65 }}>
-            500+ templates across every industry and role type. Each one is written to perform well on job boards and attract qualified candidates.
-          </Typography>
-          <ResourceTemplateListHeroCtaRow>
-            <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='small' />
-            <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
-              Post this Job
-            </ShGreenBtn>
-          </ResourceTemplateListHeroCtaRow>
-        </TemplateHeroInner>
-      </TemplateHeroBox>
+    <MarketingPage maxWidth='xl'>
+      <MarketingHero
+        eyebrow={{ label: 'HR Templates', icon: DescriptionOutlinedIcon }}
+        title='Job Description Templates'
+        description='500+ templates across every industry and role type. Each one is written to perform well on job boards and attract qualified candidates.'
+      >
+        <ResourceTemplateListHeroCtaRow>
+          <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='small' />
+          <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+            Post this Job
+          </ShGreenBtn>
+        </ResourceTemplateListHeroCtaRow>
+      </MarketingHero>
 
-      <ShContainer maxWidth='xl'>
-        <ResourceTemplateFilterToolbar>
+      <ResourceTemplateFilterToolbar>
           <ResourceTemplateSearchBox>
             <ShTextFieldV2 label='Search Job Description Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='small' />
           </ResourceTemplateSearchBox>
@@ -122,9 +109,8 @@ export const DescriptionTemplateHome = () => {
             </Grid>
           </ResourceTemplateCategoryBlock>
         ))}
-        <ResourceCTA />
-      </ShContainer>
-    </>
+      <ResourceCTA />
+    </MarketingPage>
   );
 };
 

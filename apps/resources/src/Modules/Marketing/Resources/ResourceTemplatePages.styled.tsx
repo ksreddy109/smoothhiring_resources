@@ -19,6 +19,10 @@ export const ResourceTemplateCategoryHeading = styled(ResourceSectionSubtitle)((
 export const ResourceDescriptionHeroTextField = styled(ShTextFieldV2)({
   width: '100%',
   maxWidth: 720,
+  '& .MuiInputBase-root': {
+    minHeight: 42,
+    boxSizing: 'border-box',
+  },
 });
 
 export const ResourceTemplateListHeroWrapper = styled(Stack)(({ theme }) => ({

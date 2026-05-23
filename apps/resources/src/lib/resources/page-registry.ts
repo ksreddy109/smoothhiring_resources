@@ -92,9 +92,9 @@ const HUB_PAGE: ResourcePageDefinition = {
   path: [],
   kind: "hub",
   pageKey: "hub",
-  title: "Hiring Resources and Templates",
+  title: "Free Hiring Resources, Templates & AI Tools",
   description:
-    "Free hiring resources, interview kits, and HR templates to help teams hire better and faster.",
+    "Free job description templates, interview kits, offer letters, HR policies, and AI generators. Practical hiring resources for recruiters and HR teams — no sign-up required.",
   params: {},
 };
 

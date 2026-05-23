@@ -541,7 +541,7 @@ export const ResourcesMenu = () => {
 
         .sh-menu-container .logo-text {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--text-dark);
         }
 
@@ -626,7 +626,7 @@ export const ResourcesMenu = () => {
             color: var(--text-dark);
             text-decoration: none;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 500;
             white-space: nowrap;
             cursor: pointer;
             position: relative;
@@ -729,7 +729,7 @@ export const ResourcesMenu = () => {
             align-items: center;
             gap: 8px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--text-dark);
             margin-bottom: 16px;
         }
@@ -770,7 +770,7 @@ export const ResourcesMenu = () => {
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
         }
 
@@ -785,7 +785,7 @@ export const ResourcesMenu = () => {
             padding: 12px 24px;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             width: 100%;
             margin-top: 16px;
@@ -844,7 +844,7 @@ export const ResourcesMenu = () => {
 
         .sh-menu-container .section-title {
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--text-dark);
             margin-bottom: 8px;
         }
@@ -941,7 +941,7 @@ export const ResourcesMenu = () => {
 
         .sh-menu-container .resource-card-title {
             font-size: 0.875rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-dark);
             margin: 0;
         }
@@ -1109,7 +1109,7 @@ export const ResourcesMenu = () => {
 
         .sh-menu-container .mobile-submenu-title {
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--text-dark);
             margin-bottom: 8px;
             text-transform: uppercase;
@@ -1159,7 +1159,7 @@ export const ResourcesMenu = () => {
             text-align: center;
             text-decoration: none;
             border-radius: 12px;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .sh-menu-container .mobile-action-btn i {

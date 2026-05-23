@@ -3,10 +3,10 @@
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import XIcon from '@mui/icons-material/X';
 import WorkIcon from '@mui/icons-material/Work';
+import XIcon from '@mui/icons-material/X';
 import { Box, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material';
-import { ShContainer } from '@/integrations/smooth-hiring-ui';
+import { getMarketingSiteUrl } from '@/lib/site';
 import { ResourceMuiLink } from './Resources.styled';
 
 const FooterRoot = styled(Box)(({ theme }) => ({
@@ -14,6 +14,21 @@ const FooterRoot = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   paddingBottom: theme.spacing(2),
   borderTop: `1px solid ${theme.palette.divider}`,
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}));
+
+const FooterInner = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: theme.breakpoints.values.xl,
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  [theme.breakpoints.up('md')]: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+  },
 }));
 
 const LogoImg = styled('img')({
@@ -23,26 +38,34 @@ const LogoImg = styled('img')({
 
 const FooterLinkGroup = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(0.75),
+  alignItems: 'center',
+  textAlign: 'center',
 }));
 
 const FooterHeading = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
+  fontWeight: 500,
   marginBottom: theme.spacing(0.5),
   color: theme.palette.text.primary,
+  textAlign: 'center',
+  width: '100%',
+}));
+
+const FooterBlurb = styled(Typography)({
+  textAlign: 'center',
+});
+
+const FooterDivider = styled(Divider)(({ theme }) => ({
+  marginTop: theme.spacing(4),
 }));
 
 const BottomBar = styled(Stack)(({ theme }) => ({
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   alignItems: 'center',
-  gap: theme.spacing(1),
+  gap: theme.spacing(2),
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
 }));
 
 const ContactRow = styled(Stack)(({ theme }) => ({
@@ -50,11 +73,13 @@ const ContactRow = styled(Stack)(({ theme }) => ({
   flexWrap: 'wrap',
   gap: theme.spacing(2),
   alignItems: 'center',
+  justifyContent: 'center',
 }));
 
 const SocialRow = styled(Stack)(({ theme }) => ({
   flexDirection: 'row',
   gap: theme.spacing(0.5),
+  justifyContent: 'center',
 }));
 
 const SocialButton = styled(IconButton)(({ theme }) => ({
@@ -65,36 +90,48 @@ const SocialButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
+const Copyright = styled(Typography)(({ theme }) => ({
+  display: 'block',
+  textAlign: 'center',
+  paddingBottom: theme.spacing(2),
+}));
+
+function marketingPath(path: string): string {
+  const base = getMarketingSiteUrl();
+  const p = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${p}`;
+}
+
 const footerSections = [
   {
     title: 'Company',
     links: [
-      { href: 'https://smoothhiring.com', label: 'Home' },
-      { href: 'https://smoothhiring.com/About-Us', label: 'About Us' },
-      { href: 'https://smoothhiring.com/testimonials', label: 'Testimonials' },
-      { href: 'https://smoothhiring.com/blog', label: 'Blog' },
-      { href: 'https://help.smoothhiring.com/help', label: 'Contact Us' },
+      { href: marketingPath('/'), label: 'Home' },
+      { href: marketingPath('/about-us'), label: 'About Us' },
+      { href: marketingPath('/testimonials'), label: 'Testimonials' },
+      { href: marketingPath('/blog'), label: 'Blog' },
+      { href: marketingPath('/contact-us'), label: 'Contact Us' },
     ],
   },
   {
     title: 'Product',
     links: [
-      { href: 'https://smoothhiring.com/integrations', label: 'Integrations' },
-      { href: 'https://smoothhiring.com/pricing', label: 'Pricing' },
-      { href: 'https://smoothhiring.com/frequently-asked-questions/', label: 'FAQs' },
-      { href: 'https://help.smoothhiring.com/help', label: 'Help Center' },
+      { href: marketingPath('/integrations'), label: 'Integrations' },
+      { href: marketingPath('/pricing'), label: 'Pricing' },
+      { href: marketingPath('/frequently-asked-questions'), label: 'FAQs' },
+      { href: marketingPath('/help-center'), label: 'Help Center' },
       { href: 'https://calendly.com/admin-1ue9/30min', label: 'Request a Demo' },
     ],
   },
   {
     title: 'Features',
     links: [
-      { href: 'https://smoothhiring.com/all-features', label: 'All Features' },
-      { href: 'https://smoothhiring.com/job-distribution', label: 'Job Board Distribution' },
-      { href: 'https://smoothhiring.com/predictive-analytics', label: 'Predictive Analytics' },
-      { href: 'https://smoothhiring.com/applicant-tracking/', label: 'Applicant Tracking (ATS)' },
-      { href: 'https://smoothhiring.com/careers-pages/', label: 'Careers Page' },
-      { href: 'https://smoothhiring.com/onboarding/', label: 'Onboarding' },
+      { href: marketingPath('/all-features'), label: 'All Features' },
+      { href: marketingPath('/job-distribution-software'), label: 'Job Board Distribution' },
+      { href: marketingPath('/predictive-hiring'), label: 'Predictive Analytics' },
+      { href: marketingPath('/applicant-tracking-system'), label: 'Applicant Tracking (ATS)' },
+      { href: marketingPath('/careers-pages'), label: 'Careers Page' },
+      { href: marketingPath('/onboarding'), label: 'Onboarding' },
     ],
   },
   {
@@ -111,36 +148,56 @@ const footerSections = [
 ] as const;
 
 const socialLinks = [
-  { href: 'https://www.linkedin.com/company/smoothhiring', icon: <LinkedInIcon fontSize="small" />, label: 'LinkedIn' },
-  { href: 'https://www.facebook.com/smoothhiring', icon: <FacebookIcon fontSize="small" />, label: 'Facebook' },
+  {
+    href: 'https://www.linkedin.com/company/smoothhiring',
+    icon: <LinkedInIcon fontSize="small" />,
+    label: 'LinkedIn',
+  },
+  {
+    href: 'https://www.facebook.com/smoothhiring',
+    icon: <FacebookIcon fontSize="small" />,
+    label: 'Facebook',
+  },
   { href: 'https://twitter.com/smoothhiring', icon: <XIcon fontSize="small" />, label: 'Twitter' },
-  { href: 'https://www.instagram.com/smoothhiring', icon: <InstagramIcon fontSize="small" />, label: 'Instagram' },
-  { href: 'https://www.indeed.com/cmp/SmoothHiring', icon: <WorkIcon fontSize="small" />, label: 'Indeed' },
+  {
+    href: 'https://www.instagram.com/smoothhiring',
+    icon: <InstagramIcon fontSize="small" />,
+    label: 'Instagram',
+  },
+  {
+    href: 'https://www.indeed.com/cmp/SmoothHiring',
+    icon: <WorkIcon fontSize="small" />,
+    label: 'Indeed',
+  },
 ];
 
-export const ResourceFooter = () => {
+export function ResourceFooter() {
   return (
-    <FooterRoot>
-      <ShContainer maxWidth="xl">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={3}>
-            <Stack gap={1.5}>
-              <LogoImg
-                src="https://smoothhiring.com/wp-content/uploads/2024/07/SH_AI_Logo.png"
-                alt="SmoothHiring"
-              />
-              <Typography variant="body2" color="text.secondary">
-                SmoothHiring is an all-in-one hiring platform for small and mid-size businesses, built on
-                predictive analytics to help you hire with confidence.
-              </Typography>
+    <FooterRoot component="footer">
+      <FooterInner>
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} md={4} lg={3}>
+            <Stack gap={1.5} alignItems="center">
+              <ResourceMuiLink href={marketingPath('/')} noUnderline>
+                <LogoImg src="/images/logo.svg" alt="SmoothHiring" />
+              </ResourceMuiLink>
+              <FooterBlurb variant="body2" color="text.secondary">
+                SmoothHiring is an all-in-one hiring platform for small and mid-size businesses,
+                built on predictive analytics to help you hire with confidence.
+              </FooterBlurb>
             </Stack>
           </Grid>
           {footerSections.map((section) => (
-            <Grid key={section.title} item xs={6} sm={3} md={2.25}>
+            <Grid key={section.title} item xs={6} sm={4} md={2}>
               <FooterLinkGroup>
                 <FooterHeading variant="body2">{section.title}</FooterHeading>
                 {section.links.map((link) => (
-                  <ResourceMuiLink key={link.href} href={link.href} variant="body2" color="text.secondary">
+                  <ResourceMuiLink
+                    key={link.href}
+                    href={link.href}
+                    variant="body2"
+                    color="text.secondary"
+                  >
                     {link.label}
                   </ResourceMuiLink>
                 ))}
@@ -149,17 +206,29 @@ export const ResourceFooter = () => {
           ))}
         </Grid>
 
-        <Divider sx={{ mt: 4, mb: 0 }} />
+        <FooterDivider />
 
         <BottomBar>
           <ContactRow>
-            <Typography variant="caption" color="text.secondary">1 877 789 8767</Typography>
-            <Typography variant="caption" color="text.secondary">help@smoothhiring.com</Typography>
-            <Typography variant="caption" color="text.secondary">Suite #106, 6797 N High Street, Worthington, OH 43085</Typography>
+            <Typography variant="caption" color="text.secondary">
+              1 877 789 8767
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              help@smoothhiring.com
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              Suite #106, 6797 N High Street, Worthington, OH 43085
+            </Typography>
           </ContactRow>
           <SocialRow>
             {socialLinks.map((s) => (
-              <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+              >
                 <SocialButton size="small" aria-label={s.label}>
                   {s.icon}
                 </SocialButton>
@@ -167,12 +236,10 @@ export const ResourceFooter = () => {
             ))}
           </SocialRow>
         </BottomBar>
-        <Typography variant="caption" color="text.secondary" display="block" textAlign="center" pb={2}>
+        <Copyright variant="caption" color="text.secondary">
           © {new Date().getFullYear()} SmoothHiring. All rights reserved.
-        </Typography>
-      </ShContainer>
+        </Copyright>
+      </FooterInner>
     </FooterRoot>
   );
-};
-
-export default ResourceFooter;
+}

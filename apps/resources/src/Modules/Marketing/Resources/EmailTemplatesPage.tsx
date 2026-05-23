@@ -1,12 +1,13 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import { Box, Chip, Grid, Stack, Typography, styled } from '@mui/material';
+import { Box, Grid, Stack, Typography, styled } from '@mui/material';
 import { ResourceCTA } from './ResourceCTA';
-import { ShContainer, ShGreenBtn, ShPaper } from '@smoothhiring/smooth-ui';
-import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+import { ShGreenBtn, ShPaper } from '@smoothhiring/smooth-ui';
+import { EmailCategoryChip, EmailFeatureChip } from '@/components/resources/layout/EmailTemplateChips';
+import { MarketingHero, MarketingPage } from '@/components/resources/layout';
 
 const CategoryLabel = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
+  fontWeight: 500,
   color: theme.palette.text.primary,
 }));
 
@@ -16,6 +17,15 @@ const TemplatePreviewBox = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   padding: theme.spacing(1.75),
   marginTop: theme.spacing(0.75),
+}));
+
+const PreviewText = styled(Typography)(({ theme }) => ({
+  lineHeight: 1.7,
+  color: theme.palette.text.secondary,
+}));
+
+const EmailPromoPaper = styled(ShPaper)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
 }));
 
 const emailCategories = [
@@ -71,42 +81,27 @@ const emailCategories = [
 
 export const EmailTemplatesPage = () => {
   return (
-    <>
-      <TemplateHeroBox>
-        <TemplateHeroInner>
-          <TemplateHeroEyebrow>
-            <EmailOutlinedIcon sx={{ fontSize: '0.75rem' }} />
-            HR Templates
-          </TemplateHeroEyebrow>
-          <Typography
-            component='h1'
-            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
-          >
-            Hiring Email Templates
-          </Typography>
-          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 560, lineHeight: 1.65 }}>
-            Consistent candidate communication builds trust and protects your employer brand. These templates cover every stage — from the first acknowledgment to the welcome email on day one.
-          </Typography>
-        </TemplateHeroInner>
-      </TemplateHeroBox>
+    <MarketingPage maxWidth='xl'>
+      <MarketingHero
+        eyebrow={{ label: 'HR Templates', icon: EmailOutlinedIcon }}
+        title='Hiring Email Templates'
+        description='Consistent candidate communication builds trust and protects your employer brand. These templates cover every stage — from the first acknowledgment to the welcome email on day one.'
+      />
 
-      <ShContainer maxWidth='xl' margin='auto'>
-        <Grid container spacing={2} paddingBottom={3}>
+      <Grid container spacing={2} paddingBottom={3}>
           {emailCategories.map((cat, index) => (
             <Grid item xs={12} md={6} key={index}>
-              <ShPaper variant='outlined' sx={{ height: '100%' }}>
+              <ShPaper variant='outlined' height='100%'>
                 <Stack padding={3} gap={1} height='100%'>
                   <Stack direction='row' alignItems='center' justifyContent='space-between' gap={1}>
                     <CategoryLabel variant='subtitle2'>{cat.label}</CategoryLabel>
-                    <Chip label={cat.chip} color={cat.chipColor} size='small' variant='outlined' />
+                    <EmailCategoryChip label={cat.chip} color={cat.chipColor} />
                   </Stack>
-                  <Typography variant='caption' color='text.secondary' fontWeight={500}>
+                  <Typography variant='caption' color='text.secondary'>
                     Subject: {cat.subject}
                   </Typography>
                   <TemplatePreviewBox>
-                    <Typography variant='body2' color='text.secondary' sx={{ lineHeight: 1.7 }}>
-                      {cat.preview}
-                    </Typography>
+                    <PreviewText variant='body2'>{cat.preview}</PreviewText>
                   </TemplatePreviewBox>
                 </Stack>
               </ShPaper>
@@ -114,9 +109,9 @@ export const EmailTemplatesPage = () => {
           ))}
         </Grid>
 
-        <ShPaper variant='outlined' sx={{ marginBottom: 4 }}>
+        <EmailPromoPaper variant='outlined'>
           <Stack padding={3} gap={1.5}>
-            <Typography variant='subtitle1' fontWeight={600}>
+            <Typography variant='subtitle1'>
               Manage Email Templates Inside SmoothHiring
             </Typography>
             <Typography variant='body2' color='text.secondary'>
@@ -125,7 +120,7 @@ export const EmailTemplatesPage = () => {
             <Stack direction='row' flexWrap='wrap' gap={1} paddingTop={0.5}>
               {['Auto-send on stage change', 'Custom merge fields', 'Team shared templates', 'Mobile responsive'].map(
                 (feature) => (
-                  <Chip key={feature} label={feature} size='small' variant='outlined' color='primary' />
+                  <EmailFeatureChip key={feature} label={feature} />
                 )
               )}
             </Stack>
@@ -140,11 +135,10 @@ export const EmailTemplatesPage = () => {
               </ShGreenBtn>
             </Box>
           </Stack>
-        </ShPaper>
+        </EmailPromoPaper>
 
-        <ResourceCTA />
-      </ShContainer>
-    </>
+      <ResourceCTA />
+    </MarketingPage>
   );
 };
 

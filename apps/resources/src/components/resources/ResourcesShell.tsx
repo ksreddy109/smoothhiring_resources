@@ -2,11 +2,11 @@
 
 import EastIcon from '@mui/icons-material/East';
 import { Box, Link, Stack, Typography, styled } from '@mui/material';
-import { ResourceCTAColorBase, ShAppBar } from '@/integrations/smooth-hiring-ui';
-import { ResourcesWrapperBox } from '@/components/resources/Resources.styled';
-import { ResourceWrapperCTAConstantMessage } from '@/lib/resources-constants';
 import { ResourceFooter } from '@/components/resources/ResourceFooter';
 import { ResourcesMenu } from '@/components/resources/ResourcesMenu';
+import { ResourcesWrapperBox } from '@/Modules/Marketing/Resources/Resources.styled';
+import { ShAppBar, ShGreen } from '@/integrations/smooth-hiring-ui';
+import { ResourceWrapperCTAConstantMessage } from '@/lib/resources-constants';
 
 const TopBanner = styled(Stack)(({ theme }) => ({
   justifyContent: 'center',
@@ -18,16 +18,25 @@ const TopBanner = styled(Stack)(({ theme }) => ({
   marginLeft: '-50vw',
   marginRight: '-50vw',
   padding: theme.spacing(1.75),
-  backgroundColor: ResourceCTAColorBase,
+  backgroundColor: ShGreen,
+  color: '#fff',
 }));
 
-const TopBannerLink = styled(Link)(({ theme }) => ({
+const TopBannerText = styled(Typography)({
+  margin: 0,
+  color: 'inherit',
+}) as typeof Typography;
+
+const TopBannerLink = styled(Link)({
   color: 'inherit',
   textDecoration: 'none',
   display: 'inline-flex',
   alignItems: 'center',
-  gap: theme.spacing(0.5),
-}));
+  gap: 4,
+  fontWeight: 500,
+  marginLeft: 4,
+  '&:hover': { textDecoration: 'underline' },
+});
 
 const ShellLayout = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -50,31 +59,27 @@ const ShellContent = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const ResourcesShell = ({ children }: { children: React.ReactNode }) => {
+export function ResourcesShell({ children }: { children: React.ReactNode }) {
   return (
     <ResourcesWrapperBox>
       <TopBanner>
-        <Typography variant="body2" align="center" component="p">
+        <TopBannerText variant="body2" align="center" component="p">
           {ResourceWrapperCTAConstantMessage.message}
           <TopBannerLink href={ResourceWrapperCTAConstantMessage.redirection_url}>
-            <Box component="strong">
-              {ResourceWrapperCTAConstantMessage.messageCTA}
-            </Box>
+            {ResourceWrapperCTAConstantMessage.messageCTA}
             <Box component="span" display="inline-flex" alignItems="center">
               <EastIcon fontSize="small" />
             </Box>
           </TopBannerLink>
-        </Typography>
+        </TopBannerText>
       </TopBanner>
       <ShellLayout>
-        <ShAppBar position="sticky">
+        <ShAppBar position="sticky" elevation={0}>
           <ResourcesMenu />
         </ShAppBar>
-        <ShellContent>
-          {children}
-        </ShellContent>
+        <ShellContent>{children}</ShellContent>
         <ResourceFooter />
       </ShellLayout>
     </ResourcesWrapperBox>
   );
-};
+}

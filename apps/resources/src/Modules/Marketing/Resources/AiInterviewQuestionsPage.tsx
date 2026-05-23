@@ -7,7 +7,6 @@ import { Notification, useNotification } from 'Modules/Core/Notification';
 import { useAppDispatch, useAppSelector } from 'helpers/hooks';
 import { useEffect, useState } from 'react';
 import {
-  ResourceActionRowEnd,
   ResourceAiToolFormBody,
   ResourceAiToolFormRow,
   ShButton,
@@ -18,7 +17,8 @@ import {
 import { getAiInterviewQuestions } from 'store/slices/app/resources-slice';
 import { AI_TOOLS_DETAILS_INTERVIEW_KIT, AI_TOOLS_TITLE_INTERVIEW_KIT } from './ResourcesConstants';
 import { SHSignUpLink } from 'shared/constants';
-import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+import { MarketingFlushContainer, MarketingHero, MarketingPage } from '@/components/resources/layout';
+import { ResourceMarketingActionRow } from '@/components/resources/resource-buttons.styled';
 import { ResourceCTA } from './ResourceCTA';
 
 export const AiInterviewQuestionsPage = () => {
@@ -48,26 +48,14 @@ export const AiInterviewQuestionsPage = () => {
   };
 
   return (
-    <>
-      <TemplateHeroBox>
-        <TemplateHeroInner>
-          <TemplateHeroEyebrow>
-            <AutoAwesomeIcon sx={{ fontSize: '0.75rem' }} />
-            AI-Powered Tool
-          </TemplateHeroEyebrow>
-          <Typography
-            component='h1'
-            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
-          >
-            {AI_TOOLS_TITLE_INTERVIEW_KIT}
-          </Typography>
-          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 520, lineHeight: 1.65 }}>
-            {AI_TOOLS_DETAILS_INTERVIEW_KIT}
-          </Typography>
-        </TemplateHeroInner>
-      </TemplateHeroBox>
+    <MarketingPage maxWidth='lg'>
+      <MarketingHero
+        eyebrow={{ label: 'AI-Powered Tool', icon: AutoAwesomeIcon }}
+        title={AI_TOOLS_TITLE_INTERVIEW_KIT}
+        description={AI_TOOLS_DETAILS_INTERVIEW_KIT}
+      />
 
-      <Container maxWidth='lg'>
+      <MarketingFlushContainer maxWidth='lg' disableGutters>
         <Notification />
 
         <Box paddingTop={3} paddingBottom={2}>
@@ -108,18 +96,31 @@ export const AiInterviewQuestionsPage = () => {
         {aiInterviewQuestions && (
           <Box marginBottom={2}>
             <ShPaper variant='outlined'>
-              <ResourceActionRowEnd>
-                <ShGreenBtn href={SHSignUpLink} startIcon={<BookmarkAddIcon />} variant='contained' disableElevation>
+              <ResourceMarketingActionRow>
+                <ShGreenBtn
+                  href={SHSignUpLink}
+                  size='large'
+                  startIcon={<BookmarkAddIcon />}
+                  variant='contained'
+                  disableElevation
+                >
                   Post This Job to 100+ Boards Instantly!
                 </ShGreenBtn>
-                <ShButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />} variant='contained'>
+                <ShButton
+                  color='primary'
+                  size='large'
+                  onClick={handleCopyAllClick}
+                  startIcon={<ContentCopyOutlinedIcon />}
+                  variant='contained'
+                  disableElevation
+                >
                   Copy All
                 </ShButton>
-              </ResourceActionRowEnd>
+              </ResourceMarketingActionRow>
               <Stack>
                 {aiInterviewQuestions?.description?.questions?.map((q, index) => (
                   <Box padding={1} key={index + '_q_a_pair'}>
-                    <Typography variant='subtitle2' fontWeight={600} gutterBottom>
+                    <Typography variant='subtitle2' gutterBottom>
                       {q.question}
                     </Typography>
                     <Typography variant='body2' color='text.secondary' marginBottom={2}>
@@ -136,7 +137,7 @@ export const AiInterviewQuestionsPage = () => {
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} paddingY={3} alignItems='center' justifyContent='center'>
           <RecordVoiceOverOutlinedIcon color='primary' sx={{ fontSize: 40 }} />
           <Stack spacing={0.5} maxWidth={560}>
-            <Typography variant='subtitle1' fontWeight={600}>Go into every interview prepared</Typography>
+            <Typography variant='subtitle1'>Go into every interview prepared</Typography>
             <Typography variant='body2' color='text.secondary'>
               Each kit includes role-specific questions, suggested follow-ups, and evaluation guidance — so every interviewer on your team walks in ready.
             </Typography>
@@ -144,8 +145,8 @@ export const AiInterviewQuestionsPage = () => {
         </Stack>
 
         <ResourceCTA />
-      </Container>
-    </>
+      </MarketingFlushContainer>
+    </MarketingPage>
   );
 };
 

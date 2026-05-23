@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from 'helpers/hooks';
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
 import {
-  ResourceActionRowEnd,
   ResourceAiToolFormBody,
   ResourceAiToolFormRow,
   ShButton,
@@ -20,7 +19,8 @@ import { HtmlRegex, SHSignUpLink } from 'shared/constants';
 import { IAiJobDescriptionAndInterviewKitPayload } from 'store/slices/app/app-model';
 import { getAiJobDescriptionByTitle } from 'store/slices/app/resources-slice';
 import { AI_TOOLS_DETAILS_JOB_DESCRIPTION, AI_TOOLS_TITLE_JOB_DESCRIPTION, CUSTOMER_TESTIMONIAL } from './ResourcesConstants';
-import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+import { MarketingFlushContainer, MarketingHero, MarketingPage } from '@/components/resources/layout';
+import { ResourceMarketingActionRow } from '@/components/resources/resource-buttons.styled';
 import { ResourceCTA } from './ResourceCTA';
 
 const BulletListItem = styled(ListItem)({
@@ -43,7 +43,7 @@ export const AiJobDescriptionPage = () => {
       const isHeading = line.includes(':');
       const isListElement = /^\d+\./.test(line.trim()) || line.trim().includes('-');
       return isHeading ? (
-        <Typography key={index} variant='body2' fontWeight={600}>{line}</Typography>
+        <Typography key={index} variant='body2'>{line}</Typography>
       ) : isListElement ? (
         <BulletListItem key={index} dense>
           <ListItemText primary={line.replace(/^-|\d+\./, '•')} />
@@ -77,26 +77,14 @@ export const AiJobDescriptionPage = () => {
   };
 
   return (
-    <>
-      <TemplateHeroBox>
-        <TemplateHeroInner>
-          <TemplateHeroEyebrow>
-            <AutoAwesomeIcon sx={{ fontSize: '0.75rem' }} />
-            AI-Powered Tool
-          </TemplateHeroEyebrow>
-          <Typography
-            component='h1'
-            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
-          >
-            {AI_TOOLS_TITLE_JOB_DESCRIPTION}
-          </Typography>
-          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 520, lineHeight: 1.65 }}>
-            {AI_TOOLS_DETAILS_JOB_DESCRIPTION}
-          </Typography>
-        </TemplateHeroInner>
-      </TemplateHeroBox>
+    <MarketingPage maxWidth='lg'>
+      <MarketingHero
+        eyebrow={{ label: 'AI-Powered Tool', icon: AutoAwesomeIcon }}
+        title={AI_TOOLS_TITLE_JOB_DESCRIPTION}
+        description={AI_TOOLS_DETAILS_JOB_DESCRIPTION}
+      />
 
-      <Container maxWidth='lg'>
+      <MarketingFlushContainer maxWidth='lg' disableGutters>
         <Notification />
 
         <Box paddingTop={3} paddingBottom={2}>
@@ -154,14 +142,27 @@ export const AiJobDescriptionPage = () => {
         {aiJobDescription && (
           <Box marginBottom={2}>
             <ShPaper variant='outlined'>
-              <ResourceActionRowEnd>
-                <ShGreenBtn href={SHSignUpLink} startIcon={<BookmarkAddIcon />} variant='contained' disableElevation>
+              <ResourceMarketingActionRow>
+                <ShGreenBtn
+                  href={SHSignUpLink}
+                  size='large'
+                  startIcon={<BookmarkAddIcon />}
+                  variant='contained'
+                  disableElevation
+                >
                   Post This Job to 100+ Boards Instantly!
                 </ShGreenBtn>
-                <ShButton color='primary' onClick={handleCopyAllClick} startIcon={<ContentCopyOutlinedIcon />} variant='contained'>
+                <ShButton
+                  color='primary'
+                  size='large'
+                  onClick={handleCopyAllClick}
+                  startIcon={<ContentCopyOutlinedIcon />}
+                  variant='contained'
+                  disableElevation
+                >
                   Copy All
                 </ShButton>
-              </ResourceActionRowEnd>
+              </ResourceMarketingActionRow>
               <Container>{HtmlRegex.test(aiJobDescription ?? '') ? parse(aiJobDescription ?? '') : formatJobDescription(aiJobDescription)}</Container>
             </ShPaper>
           </Box>
@@ -170,7 +171,7 @@ export const AiJobDescriptionPage = () => {
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} paddingY={3} alignItems='center' justifyContent='center'>
           <WysiwygOutlinedIcon color='primary' sx={{ fontSize: 40 }} />
           <Stack spacing={0.5} maxWidth={560}>
-            <Typography variant='subtitle1' fontWeight={600}>Format that gets read</Typography>
+            <Typography variant='subtitle1'>Format that gets read</Typography>
             <Typography variant='body2' color='text.secondary'>
               Most candidates spend fewer than 15 seconds on a job description. Our tool creates well-structured, scannable postings that communicate the essentials quickly.
             </Typography>
@@ -178,8 +179,8 @@ export const AiJobDescriptionPage = () => {
         </Stack>
 
         <ResourceCTA />
-      </Container>
-    </>
+      </MarketingFlushContainer>
+    </MarketingPage>
   );
 };
 

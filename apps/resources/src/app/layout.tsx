@@ -17,7 +17,7 @@ const poppins = Poppins({
 });
 
 const rootDesc =
-  "Free hiring resources, interview kits, and HR templates to help teams hire better and faster.";
+  "Free job description templates, interview kits, offer letters, HR policies, and AI hiring tools for recruiters and HR teams.";
 
 const trailingSlashRedirectScript = `(function(){var p=location.pathname;if(p!=='/'&&!/\\.\\w+$/.test(p)&&!p.endsWith('/')){location.replace(p+'/'+location.search+location.hash);}})();`;
 

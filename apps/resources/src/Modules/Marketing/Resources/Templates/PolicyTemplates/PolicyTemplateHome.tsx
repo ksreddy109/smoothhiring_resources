@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { ResourceTemplateCardButton } from '@smoothhiring/smooth-ui';
 import { ResourceCTA } from '../../ResourceCTA';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
-import { ShContainer } from '@smoothhiring/smooth-ui';
 import { loadAllPolicyTemplates, policyTemplateSlug, resolveListLabelToPolicySlug } from '@/lib/policy-template-slug';
 import type { PolicyTemplate } from 'Modules/Marketing/Resources/Templates/TemplateModel';
 import {
@@ -15,7 +14,7 @@ import {
   ResourceTemplateFilterToolbar,
   ResourceTemplateSearchBox,
 } from 'Modules/Marketing/Resources/ResourceTemplatePages.styled';
-import { TemplateHeroEyebrow, TemplateHeroInner, TemplateHeroBox } from 'components/resources/Resources.styled';
+import { MarketingHero, MarketingPage } from '@/components/resources/layout';
 
 export const PolicyTemplateHome = () => {
   const router = useRouter();
@@ -64,27 +63,14 @@ export const PolicyTemplateHome = () => {
   };
 
   return (
-    <>
-      <TemplateHeroBox>
-        <TemplateHeroInner>
-          <TemplateHeroEyebrow>
-            <GavelOutlinedIcon sx={{ fontSize: '0.75rem' }} />
-            HR Templates
-          </TemplateHeroEyebrow>
-          <Typography
-            component='h1'
-            sx={{ fontWeight: 700, fontSize: { xs: '1.625rem', sm: '2.125rem' }, letterSpacing: '-0.02em', color: 'text.primary' }}
-          >
-            HR Company Policy Templates
-          </Typography>
-          <Typography variant='body1' color='text.secondary' sx={{ maxWidth: 560, lineHeight: 1.65 }}>
-            100+ HR policy templates covering compensation, leave, workplace conduct, and IT security. Use them as-is or adapt each one to fit your organization.
-          </Typography>
-        </TemplateHeroInner>
-      </TemplateHeroBox>
+    <MarketingPage maxWidth='xl'>
+      <MarketingHero
+        eyebrow={{ label: 'HR Templates', icon: GavelOutlinedIcon }}
+        title='HR Company Policy Templates'
+        description='100+ HR policy templates covering compensation, leave, workplace conduct, and IT security. Use them as-is or adapt each one to fit your organization.'
+      />
 
-      <ShContainer maxWidth='xl'>
-        <ResourceTemplateFilterToolbar>
+      <ResourceTemplateFilterToolbar>
           <ResourceTemplateSearchBox>
             <ShTextFieldV2 label='Search Company Policy Templates' variant='outlined' value={searchQuery} onChange={handleSearchChange} fullWidth size='small' />
           </ResourceTemplateSearchBox>
@@ -126,9 +112,8 @@ export const PolicyTemplateHome = () => {
             </Grid>
           </ResourceTemplateCategoryBlock>
         ))}
-        <ResourceCTA />
-      </ShContainer>
-    </>
+      <ResourceCTA />
+    </MarketingPage>
   );
 };
 

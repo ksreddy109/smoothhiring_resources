@@ -1,12 +1,40 @@
-export { ShContainer } from '@smoothhiring/smooth-ui';
-export { ShAppBar, ShPaper } from '@smoothhiring/smooth-ui';
+/**
+ * Single import surface for SmoothHiring UI in the resources app.
+ * Prefer these exports over duplicating styles in apps/resources.
+ */
 export {
-  ResourceCardDescription,
-  ResourceCTAStack,
-  ResourceHeroBody,
+  PrimaryThemeColor,
+  PrimaryWordpressThemeColor,
+  ResourceCTAColorBase,
+  ShGreen,
+  ShContainer,
+  ShAppBar,
+  ShPaper,
+  ShButton,
+  ShGreenBtn,
+  ShBlueBtn,
+  ShMuiLink,
+  ShTextFieldV2,
+  ShChip,
   ResourceHeroTitle,
+  ResourceHeroBody,
+  ResourceHeroCtaRow,
+  ResourceActionRow,
   ResourceSectionHeading,
   ResourceSectionHeadingSecondary,
   ResourceSectionSubtitle,
+  ResourceSectionStack,
+  ResourceGridSection,
+  ResourceCardDescription,
+  ResourceCardWrapper,
+  ResourceCTAStack,
+  ResourceCTAStack as ResourceCtaStack,
+  ResourceAiToolFormBody,
+  ResourceAiToolFormRow,
+  ResourceActionRowEnd,
+  ResourceActionRowInset,
+  ResourceStackPrimaryAction,
+  ResourceTemplateCardButton,
+  ResourceFormControl,
+  useIsSmScreen,
 } from '@smoothhiring/smooth-ui';
-export { PrimaryWordpressThemeColor, ResourceCTAColorBase } from '@smoothhiring/smooth-ui';

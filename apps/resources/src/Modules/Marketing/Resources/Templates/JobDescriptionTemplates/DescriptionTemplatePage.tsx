@@ -12,7 +12,8 @@ import { ResourceLink } from '@/components/resources/ResourceLink';
 import { templateSlugFromTitle } from '@/lib/resources/paths';
 import { useResourceParams } from '@/lib/resources/route-context';
 import { ResourceSocialShare } from '@/components/resources/ResourceSocialShare';
-import { ResourceActionRowInset, ResourceStackPrimaryAction, ShButton, ShContainer, ShGreenBtn, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
+import { ResourceStackPrimaryAction, ShButton, ShContainer, ShGreenBtn, ShMuiLink, ShPaper, PrimaryThemeColor } from '@smoothhiring/smooth-ui';
+import { ResourceMarketingActionRow } from '@/components/resources/resource-buttons.styled';
 import { getResourcesRedirect } from 'shared/utils';
 import { JobDescription, JobDescriptions } from '../TemplateModel';
 import { SHSignUpLink } from 'shared/constants';
@@ -134,14 +135,21 @@ export const DescriptionTemplatePage = () => {
             {jobRole}
           </Typography>
 
-          <ResourceActionRowInset>
+          <ResourceMarketingActionRow>
             <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
               Post this Job
             </ShGreenBtn>
-            <ShButton href={getResourcesRedirect('aiJobDescription')} size='large' color='info' variant='outlined' startIcon={<AutoAwesomeIcon />}>
+            <ShButton
+              href={getResourcesRedirect('aiJobDescription')}
+              size='large'
+              color='primary'
+              variant='outlined'
+              disableElevation
+              startIcon={<AutoAwesomeIcon />}
+            >
               Create AI Job Description
             </ShButton>
-          </ResourceActionRowInset>
+          </ResourceMarketingActionRow>
           <Stack margin={2} spacing={2} direction='row' alignContent='center'>
             <ShareIcon fontSize='small' />
             <Typography variant='subtitle2'> Share this Job Description</Typography>

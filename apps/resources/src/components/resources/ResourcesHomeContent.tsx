@@ -1,6 +1,5 @@
 'use client';
 
-import ArticleIcon from '@mui/icons-material/Article';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
@@ -8,290 +7,269 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
 import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
 import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
+import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import WysiwygOutlinedIcon from '@mui/icons-material/WysiwygOutlined';
-import { Button, Chip, Stack, Typography } from '@mui/material';
+import ArticleIcon from '@mui/icons-material/Article';
+import { Grid, Stack, Typography } from '@mui/material';
 import {
-  ResourceHeroBody,
-  ResourceHeroTitle,
-  ResourceSectionSubtitle,
-  ShContainer,
-  ShPaper,
-} from '@/integrations/smooth-hiring-ui';
-import { ResourceLink } from '@/components/resources/ResourceLink';
-import { SHSignUpLink } from '@/lib/resources-constants';
+  MarketingHero,
+  MarketingLinkCard,
+  MarketingPage,
+  MarketingSection,
+  MarketingStatStrip,
+  MarketingToolCard,
+} from '@/components/resources/layout';
 import {
-  FeatureList,
-  FeatureRow,
-  HomeHeroActions,
-  HomeHeroBox,
-  HomeHeroEyebrow,
-  HomeHeroInner,
-  HomeStatItem,
-  HomeStatsGrid,
-  PromoCardBody,
-  PromoCards,
-  SectionHeader,
-  TemplateCardAnchor,
-  TemplateCardBox,
-  TemplateCardContent,
-  TemplateCardsGrid,
-  TemplateIconBox,
-  ToolCardBody,
-  ToolCardsRow,
-  ToolIconBox,
-} from '@/components/resources/ResourcesHomeContent.styled';
+  MarketingCardActionRow,
+  MarketingCardPadding,
+  MarketingCardTitle,
+  MarketingCtaSection,
+  MarketingHeroFootnote,
+  MarketingIconWrapMd,
+} from '@/components/resources/layout/layout.styled';
+import { ShButton, ShPaper } from '@/integrations/smooth-hiring-ui';
+import { ResourceHeroCtaButtons } from '@/components/resources/layout';
 import { ResourceCTA } from '@/components/resources/ResourceCTA';
 
 const stats = [
-  { value: '500+', label: 'Job Description Templates' },
-  { value: '100+', label: 'Policy Templates' },
-  { value: '2', label: 'AI-Powered Tools' },
-  { value: 'Free', label: 'Always' },
+  { value: '500+', label: 'Job description templates' },
+  { value: '100+', label: 'HR policy templates' },
+  { value: '2', label: 'AI hiring tools' },
+  { value: 'Free', label: 'No account required' },
 ];
 
 const toolCards = [
   {
     title: 'AI Interview Kit Generator',
-    description: 'Build structured interview kits with role-specific questions and sample answers — ready in under 30 seconds.',
+    description:
+      'Structured questions, sample answers, and scoring notes for any role — built in under a minute.',
     href: '/resources/ai-interview-kit/',
-    buttonText: 'Generate Interview Kit',
-    buttonColor: 'primary' as const,
+    buttonText: 'Build interview kit',
+    variant: 'primary' as const,
     Icon: RecordVoiceOverOutlinedIcon,
-    features: ['Role-specific question banks', 'Sample answers included', 'Scoring guidance built in'],
+    features: ['Role-specific question banks', 'Sample answers included', 'Ready to share with your team'],
   },
   {
     title: 'AI Job Description Generator',
-    description: 'Enter a job title and get a complete, polished job description optimized for job boards in seconds.',
+    description:
+      'Turn a job title into a complete, board-ready description with the right tone for your industry.',
     href: '/resources/ai-job-description/',
-    buttonText: 'Generate Job Description',
-    buttonColor: 'success' as const,
+    buttonText: 'Write job description',
+    variant: 'success' as const,
     Icon: WysiwygOutlinedIcon,
-    features: ['SEO-optimized output', 'Industry-specific language', 'Post directly to job boards'],
+    features: ['Optimized for job boards', 'Industry-aware language', 'Edit and post in one flow'],
   },
 ];
 
 const templateCards = [
   {
-    title: 'Job Description Templates',
-    description: '500+ templates spanning every industry and seniority level.',
+    title: 'Job description templates',
+    description: 'Templates for every industry and seniority level.',
     href: '/resources/job-description-templates/',
     Icon: DescriptionOutlinedIcon,
   },
   {
-    title: 'Offer Letter Templates',
-    description: 'Professional offer letters for full-time, part-time, and contract roles.',
+    title: 'Offer letter templates',
+    description: 'Formal and informal offers for full-time, part-time, and contract hires.',
     href: '/resources/offer-letter-templates/',
     Icon: WorkOutlineOutlinedIcon,
   },
   {
-    title: 'Policy Templates',
-    description: '100+ HR policies covering conduct, leave, compensation, and safety.',
+    title: 'Policy templates',
+    description: 'HR policies for conduct, leave, compensation, and workplace safety.',
     href: '/resources/policy-templates/',
     Icon: GavelOutlinedIcon,
   },
   {
-    title: 'Rejection Letter Templates',
-    description: 'Keep candidate relationships positive with respectful decline letters.',
+    title: 'Rejection letter templates',
+    description: 'Respectful decline letters that protect your employer brand.',
     href: '/resources/rejection-letter-templates/',
     Icon: MarkEmailUnreadOutlinedIcon,
   },
   {
-    title: 'Interview Letter Templates',
-    description: 'Invitation templates for phone screens, technical rounds, and panels.',
+    title: 'Interview letter templates',
+    description: 'Invitations for phone screens, panels, and final rounds.',
     href: '/resources/interview-letter-templates/',
     Icon: ArticleIcon,
   },
   {
-    title: 'Email Templates',
-    description: 'Candidate email templates for every stage — outreach to onboarding.',
+    title: 'Email templates',
+    description: 'Candidate emails from first outreach through onboarding.',
     href: '/resources/email-templates/',
     Icon: EmailOutlinedIcon,
   },
 ];
 
+const valueProps = [
+  {
+    Icon: VerifiedOutlinedIcon,
+    title: 'Built for real hiring teams',
+    body: 'Templates and tools reflect how recruiters and HR actually work — not generic filler copy.',
+  },
+  {
+    Icon: SpeedOutlinedIcon,
+    title: 'Start fast, stay consistent',
+    body: 'Download, customize, and reuse the same standards across every role and hiring manager.',
+  },
+  {
+    Icon: AutoAwesomeIcon,
+    title: 'AI when you need a draft',
+    body: 'Generators give you a strong first version so you spend time refining, not starting from scratch.',
+  },
+];
+
 export const ResourcesHomeContent = () => {
   return (
-    <ShContainer maxWidth="lg" margin="auto">
+    <MarketingPage>
+      <MarketingHero
+        eyebrow={{ label: 'Free hiring resources', variant: 'strongFit' }}
+        title="Hire with templates and tools your team will actually use"
+        description="Job descriptions, interview kits, offer letters, and HR policies — free, practical, and ready to customize for your next role."
+      >
+        <ResourceHeroCtaButtons
+          primary={{
+            href: '/resources/ai-job-description/',
+            label: 'Generate a job description',
+            endIcon: <ArrowForwardIcon />,
+          }}
+          secondary={{
+            href: '/resources/job-description-templates/',
+            label: 'Browse templates',
+          }}
+        />
+        <MarketingHeroFootnote variant="body2">
+          No sign-up required · Trusted by 5,000+ employers · Updated regularly
+        </MarketingHeroFootnote>
+      </MarketingHero>
 
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <HomeHeroBox>
-        <HomeHeroInner>
-          <HomeHeroEyebrow>
-            <AutoAwesomeIcon sx={{ fontSize: '0.75rem' }} />
-            Free HR Resources
-          </HomeHeroEyebrow>
-          <Typography variant="h6" component="h1" gutterBottom>
-            Your Recruiting Resource Library
-          </Typography>
-          <ResourceHeroBody sx={{ maxWidth: 560 }}>
-            Job descriptions, offer letters, interview kits, policy templates, and more.
-            Everything your team needs to hire confidently — free and ready to use.
-          </ResourceHeroBody>
-          <HomeHeroActions>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={<ArrowForwardIcon />}
-              component={ResourceLink}
-              href="/resources/ai-job-description/"
-            >
-              Generate a Job Description
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="large"
-              component={ResourceLink}
-              href="/resources/job-description-templates/"
-            >
-              Browse Templates
-            </Button>
-          </HomeHeroActions>
-          <Stack direction="row" gap={1} flexWrap="wrap" justifyContent="center" pt={0.5}>
-            <Chip label="No sign-up required" size="small" variant="outlined" />
-            <Chip label="Trusted by 5,000+ employers" size="small" variant="outlined" />
-            <Chip label="Updated regularly" size="small" variant="outlined" />
-          </Stack>
-        </HomeHeroInner>
-      </HomeHeroBox>
+      <MarketingStatStrip stats={stats} aria-label="Resource library highlights" />
 
-      {/* ── Stats ─────────────────────────────────────────────────────────── */}
-      <HomeStatsGrid>
-        {stats.map((s) => (
-          <HomeStatItem key={s.label}>
-            <Typography sx={{ fontSize: '1.125rem', color: 'primary.main', lineHeight: 1 }}>
-              {s.value}
-            </Typography>
-            <Typography variant="caption" color="text.secondary" textAlign="center">
-              {s.label}
-            </Typography>
-          </HomeStatItem>
-        ))}
-      </HomeStatsGrid>
+      <MarketingSection
+        id="ai-tools"
+        overline="AI-powered tools"
+        title="Draft hiring content in minutes"
+        description="Use our generators when you need a strong starting point — then edit and publish on your terms."
+      >
+        <Stack direction={{ xs: 'column', md: 'row' }} gap={2.5}>
+          {toolCards.map(({ Icon, ...card }) => (
+            <MarketingToolCard key={card.href} icon={Icon} {...card} />
+          ))}
+        </Stack>
+      </MarketingSection>
 
-      {/* ── AI Tools ──────────────────────────────────────────────────────── */}
-      <SectionHeader>
-        <AutoAwesomeIcon color="primary" fontSize="small" />
-        <Typography variant="subtitle1">AI-Powered Tools</Typography>
-      </SectionHeader>
-      <ToolCardsRow>
-        {toolCards.map((card) => (
-          <ShPaper key={card.href} variant="outlined" sx={{ flex: 1 }}>
-            <ToolCardBody>
-              <Stack gap={1.5}>
-                <ToolIconBox>
-                  <card.Icon fontSize="small" />
-                </ToolIconBox>
-                <Typography variant="subtitle1">{card.title}</Typography>
-                <Typography variant="body2" color="text.secondary" lineHeight={1.65}>
-                  {card.description}
-                </Typography>
-                <FeatureList>
-                  {card.features.map((f) => (
-                    <FeatureRow key={f}>
-                      <span className="dot" />
-                      {f}
-                    </FeatureRow>
-                  ))}
-                </FeatureList>
-              </Stack>
-              <Button
-                variant="contained"
-                color={card.buttonColor}
-                size="small"
-                endIcon={<ArrowForwardIcon fontSize="small" />}
-                component={ResourceLink}
+      <MarketingSection
+        id="templates"
+        overline="Template library"
+        title="HR documents for every stage of hiring"
+        description="Pick a category, open a template, and adapt it to your company voice — no account required."
+      >
+        <Grid container spacing={2}>
+          {templateCards.map((card) => (
+            <Grid item xs={12} sm={6} md={4} key={card.href}>
+              <MarketingLinkCard
                 href={card.href}
-                sx={{ alignSelf: 'flex-start', mt: 1 }}
-              >
-                {card.buttonText}
-              </Button>
-            </ToolCardBody>
-          </ShPaper>
-        ))}
-      </ToolCardsRow>
+                title={card.title}
+                description={card.description}
+                icon={
+                  <MarketingIconWrapMd>
+                    <card.Icon aria-hidden />
+                  </MarketingIconWrapMd>
+                }
+                linkLabel="View templates"
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </MarketingSection>
 
-      {/* ── Template Library ──────────────────────────────────────────────── */}
-      <SectionHeader>
-        <WysiwygOutlinedIcon color="primary" fontSize="small" />
-        <Typography variant="subtitle1">HR Template Library</Typography>
-      </SectionHeader>
-      <TemplateCardsGrid>
-        {templateCards.map((card) => (
-          <TemplateCardAnchor key={card.href} href={card.href}>
-            <TemplateCardBox>
-              <TemplateCardContent>
-                <Stack gap={0.75}>
-                  <TemplateIconBox>
-                    <card.Icon sx={{ fontSize: '1rem' }} />
-                  </TemplateIconBox>
-                  <Typography variant="subtitle2" color="text.primary">
-                    {card.title}
+      <MarketingSection
+        id="why"
+        overline="Why teams use this library"
+        title="Practical resources, not generic AI filler"
+      >
+        <Grid container spacing={2}>
+          {valueProps.map(({ Icon, title, body }) => (
+            <Grid item xs={12} md={4} key={title}>
+              <ShPaper variant="outlined" height="100%" noPadding>
+                <MarketingCardPadding>
+                  <Icon color="primary" fontSize="small" aria-hidden />
+                  <Typography variant="subtitle1" component="h3">
+                    {title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8125rem', lineHeight: 1.55 }}>
-                    {card.description}
+                  <Typography variant="body2" color="text.secondary" lineHeight={1.65}>
+                    {body}
                   </Typography>
-                </Stack>
-                <Typography
-                  variant="caption"
-                  color="primary"
-                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 1 }}
-                >
-                  Browse <ArrowForwardIcon sx={{ fontSize: '0.75rem' }} />
+                </MarketingCardPadding>
+              </ShPaper>
+            </Grid>
+          ))}
+        </Grid>
+      </MarketingSection>
+
+      <MarketingSection overline="SmoothHiring ATS" title="From templates to hired" py={4}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <ShPaper variant="outlined" height="100%" noPadding>
+              <MarketingCardPadding>
+                <Typography variant="overline" color="primary">
+                  Post &amp; manage
                 </Typography>
-              </TemplateCardContent>
-            </TemplateCardBox>
-          </TemplateCardAnchor>
-        ))}
-      </TemplateCardsGrid>
+                <MarketingCardTitle variant="h3" component="h3">
+                  Post jobs and manage candidates in one place
+                </MarketingCardTitle>
+                <Typography variant="body2" color="text.secondary" lineHeight={1.65}>
+                  Distribute to 100+ boards, screen with predictive analytics, and keep your pipeline
+                  moving without switching tools.
+                </Typography>
+                <MarketingCardActionRow>
+                  <ShButton
+                    component="a"
+                    href="https://calendly.com/admin-1ue9/30min?month=2024-05"
+                    variant="contained"
+                    color="primary"
+                    endIcon={<ArrowForwardIcon />}
+                  >
+                    Schedule a demo
+                  </ShButton>
+                </MarketingCardActionRow>
+              </MarketingCardPadding>
+            </ShPaper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <ShPaper variant="outlined" height="100%" noPadding>
+              <MarketingCardPadding>
+                <Typography variant="overline" color="success.main">
+                  Predictive hiring
+                </Typography>
+                <MarketingCardTitle variant="h3" component="h3">
+                  Rank candidates by job fit, not guesswork
+                </MarketingCardTitle>
+                <Typography variant="body2" color="text.secondary" lineHeight={1.65}>
+                  SmoothHiring scores applicants so your team interviews the right people first —
+                  especially when volume is high.
+                </Typography>
+                <MarketingCardActionRow>
+                  <ShButton
+                    component="a"
+                    href="https://app.smoothhiring.com"
+                    variant="outlined"
+                    color="primary"
+                    endIcon={<ArrowForwardIcon />}
+                  >
+                    Try SmoothHiring free
+                  </ShButton>
+                </MarketingCardActionRow>
+              </MarketingCardPadding>
+            </ShPaper>
+          </Grid>
+        </Grid>
+      </MarketingSection>
 
-      {/* ── Promo ─────────────────────────────────────────────────────────── */}
-      <PromoCards>
-        <ShPaper variant="outlined" sx={{ flex: 1 }}>
-          <PromoCardBody>
-            <ResourceSectionSubtitle variant="body2">Explore SmoothHiring&apos;s ATS</ResourceSectionSubtitle>
-            <Typography variant="body2" color="text.secondary">
-              Post to 100+ job boards, screen candidates with predictive analytics, and manage your
-              entire pipeline in one place.
-            </Typography>
-            <Button
-              component="a"
-              href="https://calendly.com/admin-1ue9/30min?month=2024-05"
-              variant="text"
-              color="primary"
-              size="small"
-              endIcon={<ArrowForwardIcon fontSize="small" />}
-              sx={{ alignSelf: 'flex-start' }}
-            >
-              Schedule a free demo
-            </Button>
-          </PromoCardBody>
-        </ShPaper>
-        <ShPaper variant="outlined" sx={{ flex: 1 }}>
-          <PromoCardBody>
-            <ResourceSectionSubtitle variant="body2">Hire the Right People, Faster</ResourceSectionSubtitle>
-            <Typography variant="body2" color="text.secondary">
-              SmoothHiring&apos;s patented predictive analytics ranks candidates by job fit — so you
-              spend less time screening and more time interviewing.
-            </Typography>
-            <Button
-              component="a"
-              href="https://app.smoothhiring.com"
-              variant="text"
-              color="primary"
-              size="small"
-              endIcon={<ArrowForwardIcon fontSize="small" />}
-              sx={{ alignSelf: 'flex-start' }}
-            >
-              Try it free
-            </Button>
-          </PromoCardBody>
-        </ShPaper>
-      </PromoCards>
-
-      <ResourceCTA />
-    </ShContainer>
+      <MarketingCtaSection>
+        <ResourceCTA />
+      </MarketingCtaSection>
+    </MarketingPage>
   );
 };
