@@ -2,13 +2,14 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ResourceTemplateCardButton, ShGreenBtn } from '@smoothhiring/smooth-ui';
+import { ResourceLink } from '@/components/resources/ResourceLink';
+
+const JobTemplateCardLink = ResourceTemplateCardButton.withComponent(ResourceLink);
 import { JobDescriptions as templateDescriptions } from './DescriptionTemplateConstants';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
 import { SHSignUpLink } from 'shared/constants';
 import { templateSlugFromTitle } from '@/lib/resources/paths';
-import { getResourcesRedirect } from 'shared/utils';
 import { ResourceCTA } from '../../ResourceCTA';
 import {
   ResourceDescriptionHeroTextField,
@@ -22,7 +23,6 @@ import {
 import { MarketingHero, MarketingPage } from '@/components/resources/layout';
 
 export const DescriptionTemplateHome = () => {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
@@ -48,10 +48,6 @@ export const DescriptionTemplateHome = () => {
 
   const sortedJobDescriptions = filteredJobDescriptions.sort((a, b) => a.category.localeCompare(b.category));
 
-  const handleButtonClick = (description: string) => {
-    router.push(`${getResourcesRedirect('jobTemplatesHome')}/${templateSlugFromTitle(description)}/`);
-  };
-
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
@@ -61,7 +57,7 @@ export const DescriptionTemplateHome = () => {
       >
         <ResourceTemplateListHeroCtaRow>
           <ResourceDescriptionHeroTextField label='Enter Job Title' variant='outlined' size='small' />
-          <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+          <ShGreenBtn href={SHSignUpLink} size='medium' disableElevation variant='contained' startIcon={<NearMeIcon />}>
             Post this Job
           </ShGreenBtn>
         </ResourceTemplateListHeroCtaRow>
@@ -101,9 +97,12 @@ export const DescriptionTemplateHome = () => {
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <ResourceTemplateCardButton color='inherit' onClick={() => handleButtonClick(description)}>
+                  <JobTemplateCardLink
+                    color='inherit'
+                    href={`/resources/job-description-templates/${templateSlugFromTitle(description)}/`}
+                  >
                     {truncateText(description, 43)}
-                  </ResourceTemplateCardButton>
+                  </JobTemplateCardLink>
                 </Grid>
               ))}
             </Grid>

@@ -51,8 +51,7 @@ export const DescriptionTemplatePage = () => {
           const typedModule = module as Record<string, JobDescription>;
           Object.keys(typedModule).forEach(key => {
             const template = typedModule[key];
-            const formattedKey = key.toLowerCase();
-            acc[formattedKey] = template;
+            acc[templateSlugFromTitle(template.title)] = template;
           });
           return acc;
         }, {});
@@ -65,16 +64,10 @@ export const DescriptionTemplatePage = () => {
   }, []);
 
   useEffect(() => {
-    if (templateName) {
-      const formattedTemplateName = templateName.replace(/-/g, '').replace(/[()]/g, '').toLowerCase();
-      const matchedJobDescription = jobDescriptions[formattedTemplateName];
-      setJobDescription(matchedJobDescription ?? null);
-      // if (!matchedJobDescription) {
-      //     // Navigate to the error page if the job description is empty
-      //     navigate('/error');
-      //     return;
-      // }
+    if (!templateName || Object.keys(jobDescriptions).length === 0) {
+      return;
     }
+    setJobDescription(jobDescriptions[templateName] ?? null);
   }, [templateName, jobDescriptions]);
 
   const copyLink = () => {
@@ -136,12 +129,12 @@ export const DescriptionTemplatePage = () => {
           </Typography>
 
           <ResourceMarketingActionRow>
-            <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+            <ShGreenBtn href={SHSignUpLink} size='medium' disableElevation variant='contained' startIcon={<NearMeIcon />}>
               Post this Job
             </ShGreenBtn>
             <ShButton
               href={getResourcesRedirect('aiJobDescription')}
-              size='large'
+              size='medium'
               color='primary'
               variant='outlined'
               disableElevation
@@ -202,7 +195,7 @@ export const DescriptionTemplatePage = () => {
                         <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                       </Stack>
                       <ResourceStackPrimaryAction>
-                        <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+                        <ShGreenBtn href={SHSignUpLink} size='medium' disableElevation variant='contained' startIcon={<NearMeIcon />}>
                           Post this Job
                         </ShGreenBtn>
                       </ResourceStackPrimaryAction>

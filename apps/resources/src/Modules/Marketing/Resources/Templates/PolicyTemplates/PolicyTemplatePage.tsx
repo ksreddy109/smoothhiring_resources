@@ -7,7 +7,6 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import { Box, Chip, Divider, Grid, IconButton, List, ListItemText, Stack, Typography } from '@mui/material';
 import { IsSmScreen } from 'helpers/hooks';
 import { MouseEvent, Suspense, useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ResourceLink } from '@/components/resources/ResourceLink';
 import { useResourceParams } from '@/lib/resources/route-context';
 import { ResourceSocialShare } from '@/components/resources/ResourceSocialShare';
@@ -23,7 +22,6 @@ export const PolicyTemplatePage = () => {
   const [similarTemplates, setSimilarTemplates] = useState<string[]>([]);
   const [policyTemplate, setPolicyTemplate] = useState<PolicyTemplate | null>(null);
   const [currentUrl, setCurrentUrl] = useState('');
-  const router = useRouter();
   const [policyDescriptions, setPolicyDescriptions] = useState<PolicyTemplates>({});
 
   useEffect(() => {
@@ -58,16 +56,12 @@ export const PolicyTemplatePage = () => {
   };
 
   useEffect(() => {
-    if (templateName && Object.keys(policyDescriptions).length > 0) {
-      const formattedTemplateName = policyTemplateSlug(templateName ?? '');
-      const matchedPolicyTemplate = policyDescriptions[formattedTemplateName];
-      setPolicyTemplate(matchedPolicyTemplate ?? null);
-
-      if (!matchedPolicyTemplate) {
-        router.replace('/resources/policy-templates/');
-      }
+    if (!templateName || Object.keys(policyDescriptions).length === 0) {
+      return;
     }
-  }, [templateName, policyDescriptions, router]);
+    const matchedPolicyTemplate = policyDescriptions[templateName] ?? null;
+    setPolicyTemplate(matchedPolicyTemplate);
+  }, [templateName, policyDescriptions]);
 
   const copyLink = () => {
     navigator.clipboard.writeText(currentUrl);
@@ -209,7 +203,7 @@ export const PolicyTemplatePage = () => {
                           <Chip icon={<PlaylistAddIcon />} label='And Much More!' color='primary' />
                         </Stack>
                         <ResourceStackPrimaryAction>
-                          <ShGreenBtn href={SHSignUpLink} size='large' disableElevation variant='contained' startIcon={<NearMeIcon />}>
+                          <ShGreenBtn href={SHSignUpLink} size='medium' disableElevation variant='contained' startIcon={<NearMeIcon />}>
                             Get Qualified Candidates
                           </ShGreenBtn>
                         </ResourceStackPrimaryAction>
@@ -230,7 +224,14 @@ export const PolicyTemplatePage = () => {
               <Grid container spacing={1} paddingTop={2}>
                 {[...new Set(similarTemplates)].slice(0, 20).map((template, index) => (
                   <Grid item sm={12} md={6} key={index}>
-                    <ShMuiLink noWrap component={ResourceLink} href={`/resources/policy-templates/${policyTemplateSlug(template)}/`} variant='subtitle2' paddingTop={1} noUnderline>
+                    <ShMuiLink
+                      noWrap
+                      component={ResourceLink}
+                      href={`/resources/policy-templates/${policyTemplateSlug(template)}/`}
+                      variant='subtitle2'
+                      paddingTop={1}
+                      noUnderline
+                    >
                       {truncateString(template, 40)}
                     </ShMuiLink>
                   </Grid>

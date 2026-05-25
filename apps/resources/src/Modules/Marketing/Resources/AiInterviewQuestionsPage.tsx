@@ -78,7 +78,7 @@ export const AiInterviewQuestionsPage = () => {
                 />
                 <ShGreenBtn
                   className='resource-ai-tool-submit'
-                  size='large'
+                  size='medium'
                   disableElevation
                   disabled={getAiInterviewQuestionsStatus === 'pending'}
                   startIcon={<AutoAwesomeIcon />}
@@ -99,7 +99,7 @@ export const AiInterviewQuestionsPage = () => {
               <ResourceMarketingActionRow>
                 <ShGreenBtn
                   href={SHSignUpLink}
-                  size='large'
+                  size='medium'
                   startIcon={<BookmarkAddIcon />}
                   variant='contained'
                   disableElevation
@@ -108,7 +108,7 @@ export const AiInterviewQuestionsPage = () => {
                 </ShGreenBtn>
                 <ShButton
                   color='primary'
-                  size='large'
+                  size='medium'
                   onClick={handleCopyAllClick}
                   startIcon={<ContentCopyOutlinedIcon />}
                   variant='contained'

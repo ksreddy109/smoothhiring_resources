@@ -56,6 +56,16 @@ export const muiTheme = responsiveFontSizes(
       button: { fontSize: "0.9375rem", fontWeight: 500 },
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            WebkitFontSmoothing: "auto",
+            MozOsxFontSmoothing: "auto",
+          },
+          strong: { fontWeight: 600 },
+          b: { fontWeight: 600 },
+        },
+      },
       MuiPaper: {
         defaultProps: { elevation: 0 },
         styleOverrides: {
@@ -69,13 +79,37 @@ export const muiTheme = responsiveFontSizes(
       MuiButton: {
         defaultProps: { disableElevation: true },
         styleOverrides: {
-          root: {
+          root: ({ theme }) => ({
             textTransform: "none",
             borderRadius: 8,
             fontWeight: 500,
-            paddingLeft: 20,
-            paddingRight: 20,
-          },
+            paddingLeft: 16,
+            paddingRight: 16,
+            [theme.breakpoints.up("sm")]: {
+              paddingLeft: 20,
+              paddingRight: 20,
+            },
+          }),
+          sizeMedium: ({ theme }) => ({
+            [theme.breakpoints.down("sm")]: {
+              minHeight: 40,
+              height: 40,
+              maxHeight: 40,
+              padding: "8px 16px",
+              fontSize: "0.9375rem",
+              lineHeight: 1.25,
+            },
+          }),
+          sizeLarge: ({ theme }) => ({
+            [theme.breakpoints.down("sm")]: {
+              minHeight: 40,
+              height: 40,
+              maxHeight: 40,
+              padding: "8px 16px",
+              fontSize: "0.9375rem",
+              lineHeight: 1.25,
+            },
+          }),
           containedPrimary: {
             "&:hover": { backgroundColor: "#2f5fb8" },
           },

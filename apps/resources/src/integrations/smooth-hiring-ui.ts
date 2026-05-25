@@ -36,5 +36,6 @@ export {
   ResourceStackPrimaryAction,
   ResourceTemplateCardButton,
   ResourceFormControl,
+  ShLogo,
   useIsSmScreen,
 } from '@smoothhiring/smooth-ui';

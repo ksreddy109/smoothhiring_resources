@@ -8,7 +8,14 @@ import {
   alpha,
   styled,
 } from '@mui/material';
+import { ResourceLink } from '@/components/resources/ResourceLink';
 import { ResourceHeroBody, ResourceHeroTitle, ShPaper } from '@/integrations/smooth-hiring-ui';
+
+export const MarketingLinkCardRoot = styled(ResourceLink)({
+  display: 'block',
+  height: '100%',
+  textDecoration: 'none',
+});
 
 /** Hero title — lighter than default ResourceHeroTitle (700). */
 export const MarketingHeroTitle = styled(ResourceHeroTitle)({
@@ -37,23 +44,28 @@ export const MarketingIconWrapMd = styled(MarketingIconWrap)({
 });
 
 export const MarketingHeroPaper = styled(ShPaper)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  marginBottom: theme.spacing(4),
+  marginTop: theme.spacing(1.5),
+  marginBottom: theme.spacing(3),
   borderRadius: theme.shape.borderRadius * 2,
   backgroundColor: theme.palette.grey[50],
   borderColor: theme.palette.divider,
   overflow: 'hidden',
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+  },
 }));
 
 export const MarketingHeroInner = styled(Stack)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
-  gap: theme.spacing(2),
+  gap: theme.spacing(1.5),
   maxWidth: 720,
   marginLeft: 'auto',
   marginRight: 'auto',
-  padding: theme.spacing(4, 2.5),
+  padding: theme.spacing(3, 2),
   [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(2),
     padding: theme.spacing(6, 4),
   },
 }));
@@ -79,8 +91,12 @@ export const MarketingHeroSearchRow = styled(Stack)(({ theme }) => ({
 export const MarketingSectionRoot = styled('section', {
   shouldForwardProp: (prop) => prop !== 'sectionPy',
 })<{ sectionPy?: number }>(({ theme, sectionPy = 5 }) => ({
-  paddingTop: theme.spacing(sectionPy),
-  paddingBottom: theme.spacing(sectionPy),
+  paddingTop: theme.spacing(Math.min(sectionPy, 4)),
+  paddingBottom: theme.spacing(Math.min(sectionPy, 4)),
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(sectionPy),
+    paddingBottom: theme.spacing(sectionPy),
+  },
 }));
 
 export const MarketingSectionHeader = styled(Stack)(({ theme }) => ({
@@ -134,10 +150,13 @@ export const MarketingStatLabel = styled(Typography)(({ theme }) => ({
 }));
 
 export const MarketingLinkCardBody = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(3),
+  padding: theme.spacing(2.5),
   height: '100%',
   justifyContent: 'space-between',
   gap: theme.spacing(1.5),
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(3),
+  },
 }));
 
 export const MarketingLinkCardIconBox = styled(Stack)(({ theme }) => ({
@@ -172,10 +191,14 @@ export const MarketingToolCardRoot = styled(Stack)({
 });
 
 export const MarketingToolCardBody = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(3.5),
+  padding: theme.spacing(2.5),
   height: '100%',
   justifyContent: 'space-between',
-  gap: theme.spacing(2),
+  gap: theme.spacing(1.5),
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(3.5),
+    gap: theme.spacing(2),
+  },
 }));
 
 export const MarketingToolCardIcon = styled(Stack)(({ theme }) => ({
@@ -217,18 +240,45 @@ export const MarketingFeatureBullet = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(0.85),
 }));
 
-export const MarketingToolCardButtonRow = styled(Box)({
+export const MarketingToolCardButtonRow = styled(Box)(({ theme }) => ({
   alignSelf: 'flex-start',
-});
+  width: '100%',
+  '& .MuiButton-root': {
+    width: '100%',
+    minHeight: 40,
+    height: 40,
+    maxHeight: 40,
+    padding: '8px 16px',
+    whiteSpace: 'normal',
+    boxSizing: 'border-box',
+  },
+  [theme.breakpoints.up('sm')]: {
+    alignSelf: 'flex-start',
+    width: 'auto',
+    '& .MuiButton-root': {
+      width: 'auto',
+      minHeight: 36,
+      height: 36,
+      maxHeight: 'none',
+      whiteSpace: 'nowrap',
+    },
+  },
+}));
 
 export const MarketingCtaSection = styled(Box)(({ theme }) => ({
-  paddingTop: theme.spacing(2),
+  paddingTop: theme.spacing(1),
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(2),
+  },
 }));
 
 export const MarketingCardPadding = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(3),
+  padding: theme.spacing(2.5),
   height: '100%',
   gap: theme.spacing(1.25),
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(3),
+  },
 }));
 
 export const MarketingCardTitle = styled(Typography)({
@@ -237,6 +287,28 @@ export const MarketingCardTitle = styled(Typography)({
 }) as typeof Typography;
 
 export const MarketingCardActionRow = styled(Box)(({ theme }) => ({
-  alignSelf: 'flex-start',
+  alignSelf: 'stretch',
   marginTop: theme.spacing(0.5),
+  width: '100%',
+  '& .MuiButton-root, & a': {
+    width: '100%',
+    minHeight: 40,
+    height: 40,
+    maxHeight: 40,
+    padding: '8px 16px',
+    justifyContent: 'flex-start',
+    whiteSpace: 'normal',
+    boxSizing: 'border-box',
+  },
+  [theme.breakpoints.up('sm')]: {
+    alignSelf: 'flex-start',
+    width: 'auto',
+    '& .MuiButton-root, & a': {
+      width: 'auto',
+      minHeight: 36,
+      height: 36,
+      maxHeight: 'none',
+      whiteSpace: 'nowrap',
+    },
+  },
 }));

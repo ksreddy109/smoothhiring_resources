@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     title: "Hiring Resources and Templates | SmoothHiring",
     description: rootDesc,
   },
+  icons: {
+    icon: "/resources/icon.png",
+  },
   robots: {
     index: true,
     follow: true,

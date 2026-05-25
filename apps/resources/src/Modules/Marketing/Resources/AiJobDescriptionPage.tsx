@@ -114,7 +114,7 @@ export const AiJobDescriptionPage = () => {
                 />
                 <ShGreenBtn
                   className='resource-ai-tool-submit'
-                  size='large'
+                  size='medium'
                   disableElevation
                   disabled={getAiJobDescStatus === 'pending'}
                   startIcon={<AutoAwesomeIcon />}
@@ -145,7 +145,7 @@ export const AiJobDescriptionPage = () => {
               <ResourceMarketingActionRow>
                 <ShGreenBtn
                   href={SHSignUpLink}
-                  size='large'
+                  size='medium'
                   startIcon={<BookmarkAddIcon />}
                   variant='contained'
                   disableElevation
@@ -154,7 +154,7 @@ export const AiJobDescriptionPage = () => {
                 </ShGreenBtn>
                 <ShButton
                   color='primary'
-                  size='large'
+                  size='medium'
                   onClick={handleCopyAllClick}
                   startIcon={<ContentCopyOutlinedIcon />}
                   variant='contained'

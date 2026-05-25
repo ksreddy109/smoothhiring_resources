@@ -77,6 +77,28 @@ const context = await browser.newContext();
 const failures = [];
 let done = 0;
 
+async function expectTemplateNav({ from, clickText, expectUrlIncludes, expectBodyIncludes }) {
+  const page = await context.newPage();
+  const full = `${baseUrl.replace(/\/$/, "")}${from}`;
+  try {
+    await page.goto(full, { waitUntil: "networkidle", timeout: 30000 });
+    const card = page.getByRole("link", { name: new RegExp(clickText, "i") }).first();
+    await card.click();
+    await page.waitForTimeout(2500);
+    const url = page.url();
+    const body = await page.locator("body").innerText();
+    if (!url.includes(expectUrlIncludes)) {
+      failures.push({ url: from, error: `nav URL expected *${expectUrlIncludes}*, got ${url}` });
+    } else if (!body.includes(expectBodyIncludes)) {
+      failures.push({ url: from, error: `nav body missing "${expectBodyIncludes}"` });
+    }
+  } catch (e) {
+    failures.push({ url: from, error: String(e) });
+  } finally {
+    await page.close();
+  }
+}
+
 for (const url of urls) {
   const page = await context.newPage();
   const full = `${baseUrl.replace(/\/$/, "")}${url === "/" ? "/" : url}`;
@@ -101,6 +123,21 @@ for (const url of urls) {
   }
   done++;
   if (done % 50 === 0) console.log(`  ${done}/${urls.length}`);
+}
+
+if (!checkAll) {
+  await expectTemplateNav({
+    from: "/resources/job-description-templates/",
+    clickText: "Accounts Receivable Clerk",
+    expectUrlIncludes: "accounts-receivable-clerk-job-description",
+    expectBodyIncludes: "Accounts Receivable Clerk",
+  });
+  await expectTemplateNav({
+    from: "/resources/policy-templates/",
+    clickText: "Employee Payroll Advance",
+    expectUrlIncludes: "employee-payroll-advance-policy-template",
+    expectBodyIncludes: "Payroll Advance",
+  });
 }
 
 await browser.close();

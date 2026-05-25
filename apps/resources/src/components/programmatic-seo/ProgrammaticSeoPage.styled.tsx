@@ -11,7 +11,10 @@ export const ProgrammaticContentGrid = styled(Grid)(({ theme }) => ({
 }));
 
 export const ProgrammaticFeaturesPaper = styled(ShPaper)(({ theme }) => ({
-  padding: theme.spacing(3),
+  padding: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(3),
+  },
 }));
 
 export const ProgrammaticFeaturesList = styled(Box)(({ theme }) => ({

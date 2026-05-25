@@ -34,7 +34,7 @@ export const ResourceCTASideContainer = () => {
               <SiGlassdoor size={20} color={ShGreen} />
               <SiIndeed size={20} color={PrimaryThemeColor} />
             </Stack>
-            <ShGreenBtn href={SHSignUpLink} variant='contained' disableElevation size='large' startIcon={<ArrowForwardIcon />}>
+            <ShGreenBtn href={SHSignUpLink} variant='contained' disableElevation size='medium' startIcon={<ArrowForwardIcon />}>
               Post your job
             </ShGreenBtn>
           </Stack>

@@ -27,7 +27,11 @@ export const ResourceCTA = ({
   return (
     <ResourceCTAStack>
       <ResourceCtaPaper variant="outlined">
-        <ResourceCtaRow>
+        <ResourceCtaRow
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'stretch', sm: 'center' }}
+          justifyContent={{ xs: 'flex-start', sm: 'space-between' }}
+        >
           <ResourceCtaCopy>
             <ResourceCtaTitle variant="h3" component="h2">
               {title}
@@ -38,7 +42,7 @@ export const ResourceCTA = ({
           </ResourceCtaCopy>
           <ResourceCtaButton
             href={SHSignUpLink}
-            size="large"
+            size="medium"
             variant="contained"
             disableElevation
             endIcon={<ArrowForwardIcon />}

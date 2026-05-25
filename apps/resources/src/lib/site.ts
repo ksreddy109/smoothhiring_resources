@@ -23,3 +23,9 @@ export function withTrailingSlash(path: string): string {
   if (/\.\w+$/.test(path.split("?")[0] ?? path)) return path;
   return path.endsWith("/") ? path : `${path}/`;
 }
+
+/** Static files under `/resources/…` (matches export paths + CloudFront `/resources/*`). */
+export function resourcesAssetPath(assetPath: string): string {
+  const p = assetPath.startsWith("/") ? assetPath : `/${assetPath}`;
+  return `/resources${p}`;
+}

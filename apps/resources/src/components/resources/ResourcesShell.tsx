@@ -17,15 +17,23 @@ const TopBanner = styled(Stack)(({ theme }) => ({
   right: '50%',
   marginLeft: '-50vw',
   marginRight: '-50vw',
-  padding: theme.spacing(1.75),
+  padding: theme.spacing(1.25, 1.5),
   backgroundColor: ShGreen,
   color: '#fff',
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(1.75),
+  },
 }));
 
-const TopBannerText = styled(Typography)({
+const TopBannerText = styled(Typography)(({ theme }) => ({
   margin: 0,
   color: 'inherit',
-}) as typeof Typography;
+  fontSize: theme.typography.caption.fontSize,
+  lineHeight: 1.45,
+  [theme.breakpoints.up('sm')]: {
+    fontSize: theme.typography.body2.fontSize,
+  },
+})) as typeof Typography;
 
 const TopBannerLink = styled(Link)({
   color: 'inherit',
@@ -46,9 +54,14 @@ const ShellLayout = styled(Stack)(({ theme }) => ({
 
 const ShellContent = styled(Box)(({ theme }) => ({
   flex: 1,
-  paddingTop: theme.spacing(1),
-  paddingLeft: theme.spacing(2),
-  paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(0.5),
+  paddingLeft: theme.spacing(1.5),
+  paddingRight: theme.spacing(1.5),
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
   [theme.breakpoints.up('md')]: {
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),

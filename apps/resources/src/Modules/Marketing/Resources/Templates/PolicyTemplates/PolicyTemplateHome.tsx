@@ -1,11 +1,14 @@
 import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
 import { Grid, MenuItem, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 import { ResourceTemplateCardButton } from '@smoothhiring/smooth-ui';
+import { ResourceLink } from '@/components/resources/ResourceLink';
+
+const PolicyTemplateCardLink = ResourceTemplateCardButton.withComponent(ResourceLink);
+import { templateSlugFromTitle } from '@/lib/resources/paths';
 import { ResourceCTA } from '../../ResourceCTA';
 import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
-import { loadAllPolicyTemplates, policyTemplateSlug, resolveListLabelToPolicySlug } from '@/lib/policy-template-slug';
+import { loadAllPolicyTemplates, resolveListLabelToPolicySlug } from '@/lib/policy-template-slug';
 import type { PolicyTemplate } from 'Modules/Marketing/Resources/Templates/TemplateModel';
 import {
   ResourceTemplateCategoryBlock,
@@ -17,7 +20,6 @@ import {
 import { MarketingHero, MarketingPage } from '@/components/resources/layout';
 
 export const PolicyTemplateHome = () => {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [CompanyPolicies, setCompanyPolicies] = useState<Record<string, string[]>>({});
@@ -55,12 +57,19 @@ export const PolicyTemplateHome = () => {
 
   const sortedPolicyTemplates = filteredPolicyTemplates.sort((a, b) => a.category.localeCompare(b.category));
 
-  const handleButtonClick = async (description: string) => {
-    const templates = allPolicyTemplates.length > 0 ? allPolicyTemplates : await loadAllPolicyTemplates();
-    if (allPolicyTemplates.length === 0) setAllPolicyTemplates(templates);
-    const resolved = resolveListLabelToPolicySlug(description, templates) ?? policyTemplateSlug(description);
-    router.push(`/resources/policy-templates/${resolved}/`);
-  };
+  const policySlugByLabel = useMemo(() => {
+    const map = new Map<string, string>();
+    if (allPolicyTemplates.length === 0) return map;
+    for (const list of Object.values(CompanyPolicies)) {
+      for (const label of list) {
+        map.set(
+          label,
+          resolveListLabelToPolicySlug(label, allPolicyTemplates) ?? templateSlugFromTitle(label)
+        );
+      }
+    }
+    return map;
+  }, [CompanyPolicies, allPolicyTemplates]);
 
   return (
     <MarketingPage maxWidth='xl'>
@@ -104,9 +113,12 @@ export const PolicyTemplateHome = () => {
             <Grid container spacing={1.5}>
               {descriptions.map((description, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <ResourceTemplateCardButton color='inherit' onClick={() => handleButtonClick(description)}>
+                  <PolicyTemplateCardLink
+                    color='inherit'
+                    href={`/resources/policy-templates/${policySlugByLabel.get(description) ?? templateSlugFromTitle(description)}/`}
+                  >
                     {truncateText(description, 40)}
-                  </ResourceTemplateCardButton>
+                  </PolicyTemplateCardLink>
                 </Grid>
               ))}
             </Grid>

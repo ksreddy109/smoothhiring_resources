@@ -6,6 +6,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import WorkIcon from '@mui/icons-material/Work';
 import XIcon from '@mui/icons-material/X';
 import { Box, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material';
+import { ShLogo } from '@/integrations/smooth-hiring-ui';
 import { getMarketingSiteUrl } from '@/lib/site';
 import { ResourceMuiLink } from './Resources.styled';
 
@@ -31,9 +32,17 @@ const FooterInner = styled(Box)(({ theme }) => ({
   },
 }));
 
-const LogoImg = styled('img')({
-  height: 32,
-  objectFit: 'contain',
+const FooterLogoLink = styled(ResourceMuiLink)({
+  display: 'block',
+  height: 'auto',
+});
+
+const FooterLogoBox = styled(Box)({
+  width: 200,
+  maxWidth: '100%',
+  height: 40,
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const FooterLinkGroup = styled(Stack)(({ theme }) => ({
@@ -178,9 +187,11 @@ export function ResourceFooter() {
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={4} lg={3}>
             <Stack gap={1.5} alignItems="center">
-              <ResourceMuiLink href={marketingPath('/')} noUnderline>
-                <LogoImg src="/images/logo.svg" alt="SmoothHiring" />
-              </ResourceMuiLink>
+              <FooterLogoLink href={marketingPath('/')} noUnderline>
+                <FooterLogoBox>
+                  <ShLogo />
+                </FooterLogoBox>
+              </FooterLogoLink>
               <FooterBlurb variant="body2" color="text.secondary">
                 SmoothHiring is an all-in-one hiring platform for small and mid-size businesses,
                 built on predictive analytics to help you hire with confidence.

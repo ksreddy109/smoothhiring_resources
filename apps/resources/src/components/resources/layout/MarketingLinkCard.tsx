@@ -3,12 +3,12 @@
 import type { ReactNode } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { ResourceCardWrapper, ShPaper } from '@/integrations/smooth-hiring-ui';
-import { ResourceLink } from '@/components/resources/ResourceLink';
 import {
   MarketingLinkArrow,
   MarketingLinkCardBody,
   MarketingLinkCardFooter,
   MarketingLinkCardIconBox,
+  MarketingLinkCardRoot,
 } from './layout.styled';
 
 type Props = {
@@ -27,7 +27,7 @@ export function MarketingLinkCard({
   linkLabel = 'View',
 }: Props) {
   return (
-    <ResourceLink href={href} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+    <MarketingLinkCardRoot href={href}>
       <ResourceCardWrapper>
         <ShPaper variant="outlined" cursor="pointer" transElevateOnHover height="100%" noPadding>
           <MarketingLinkCardBody>
@@ -47,6 +47,6 @@ export function MarketingLinkCard({
           </MarketingLinkCardBody>
         </ShPaper>
       </ResourceCardWrapper>
-    </ResourceLink>
+    </MarketingLinkCardRoot>
   );
 }
