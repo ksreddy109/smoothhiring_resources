@@ -3,8 +3,8 @@ import { SHSignUpLink } from 'shared/constants';
 // ResourceHome.tsx content
 export const AI_TOOLS_TITLE_JOB_DESCRIPTION = 'Free AI Job Description Generator';
 export const AI_TOOLS_TITLE_INTERVIEW_KIT = 'Free AI Interview Kit Generator';
-export const AI_TOOLS_DETAILS_JOB_DESCRIPTION = 'Enter a job title and let our AI generate a complete, polished job description in seconds — optimized for job boards and ready to post.';
-export const AI_TOOLS_DETAILS_INTERVIEW_KIT = 'Enter a role and let AI build you a structured interview kit — complete with questions and sample answers tailored to the position.';
+export const AI_TOOLS_DETAILS_JOB_DESCRIPTION = 'Write better job descriptions in seconds with SmoothHiring\'s free AI job description generator. Just enter a job title and a few details, and our AI job description writer creates a clear, inclusive, and optimized job description that attracts qualified candidates. No sign-up, no cost — generate, edit, and copy your job description in one click.';
+export const AI_TOOLS_DETAILS_INTERVIEW_KIT = 'Run better, fairer interviews with SmoothHiring\'s free AI interview kit generator. Enter a job title and our AI builds a complete, structured interview kit — role-specific questions, evaluation criteria, and a scorecard your whole panel can use. No sign-up, no cost. Generate consistent interview kits in seconds and make every hiring decision more objective.';
 export const EXPLORE_SMOOTH_HIRING = "Explore SmoothHiring's ATS Software";
 export const EXPLORE_SMOOTH_HIRING_DETAILS = "Seamlessly navigate the hiring process with precision and reach thousands of qualified candidates effortlessly through SmoothHiring's comprehensive hiring suite.";
 export const HIRE_BEST_CANDIDATES = 'Hire the Best Candidates';

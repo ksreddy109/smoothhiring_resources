@@ -144,6 +144,29 @@ export const AiInterviewQuestionsPage = () => {
           </Stack>
         </Stack>
 
+        <Box paddingY={4}>
+          <Typography variant='h5' component='h2' gutterBottom fontWeight={600}>
+            What Is an Interview Kit?
+          </Typography>
+          <Typography variant='body1' color='text.secondary' paragraph>
+            An interview kit is a structured set of materials that helps a hiring team run consistent, fair interviews for a specific role. A complete interview kit includes role-specific questions mapped to the skills and competencies that matter, suggested follow-ups, evaluation criteria, and a scorecard for rating each candidate the same way. Instead of every interviewer improvising, an interview kit makes sure each candidate is assessed against the same standard — which reduces bias and makes hiring decisions easier to compare and defend.
+          </Typography>
+
+          <Typography variant='h5' component='h2' gutterBottom fontWeight={600} marginTop={4}>
+            How to Build a Structured Interview Kit
+          </Typography>
+          <Typography variant='body1' color='text.secondary' paragraph>
+            Start by identifying the four or five core competencies the role actually requires — a mix of technical skills, behavioral traits, and role-specific knowledge. Write two to three questions for each competency, using behavioral and situational formats ("Tell me about a time…", "How would you handle…") that reveal real experience rather than rehearsed answers. Define what a strong, average, and weak answer looks like for each question, then capture those ratings on a shared scorecard. SmoothHiring's AI interview kit generator does all of this automatically — you get a structured interview kit, ready to use, in seconds.
+          </Typography>
+
+          <Typography variant='h5' component='h2' gutterBottom fontWeight={600} marginTop={4}>
+            Why Use an AI Interview Kit Generator
+          </Typography>
+          <Typography variant='body1' color='text.secondary' paragraph>
+            Building interview kits by hand is slow, and inconsistent kits lead to inconsistent hiring. An AI interview kit generator removes both problems. It produces role-specific questions instantly, keeps the structure consistent across every interviewer and every candidate, and includes a scorecard so feedback is objective and comparable. The result is faster interview prep, fairer evaluations, and better hiring decisions — without the manual work of writing questions from scratch for every role.
+          </Typography>
+        </Box>
+
         <ResourceCTA />
       </MarketingFlushContainer>
     </MarketingPage>

@@ -178,6 +178,37 @@ export const AiJobDescriptionPage = () => {
           </Stack>
         </Stack>
 
+        <Box paddingY={4}>
+          <Typography variant='h5' component='h2' gutterBottom fontWeight={600}>
+            How to Write a Job Description
+          </Typography>
+          <Typography variant='body1' color='text.secondary' paragraph>
+            Writing a clear job description starts with knowing exactly what the role needs to accomplish. Begin with an accurate job title, then write a short summary that explains the role's purpose and how it fits into your team. List the core responsibilities as bullet points, separate the "must-have" requirements from the "nice-to-have" ones, and be specific about skills, experience, and qualifications. Finish with details candidates actually care about — location, work arrangement, salary range, and benefits. The clearer and more honest your job description, the better the quality of applicants you'll attract.
+          </Typography>
+
+          <Typography variant='h5' component='h2' gutterBottom fontWeight={600} marginTop={4}>
+            What Makes a Great Job Description
+          </Typography>
+          <Typography variant='body1' color='text.secondary' paragraph>
+            A great job description is specific, inclusive, and easy to scan. The strongest postings share a few common elements:
+          </Typography>
+          <List dense>
+            <ListItem><ListItemText primary="A clear, searchable job title — use the title candidates actually search for, not an internal or creative one" /></ListItem>
+            <ListItem><ListItemText primary="A compelling role summary — two to three sentences on what the person will do and why it matters" /></ListItem>
+            <ListItem><ListItemText primary="Focused responsibilities — five to eight key duties, not an exhaustive list of every task" /></ListItem>
+            <ListItem><ListItemText primary="Realistic requirements — separate essentials from preferences so you don't deter qualified applicants" /></ListItem>
+            <ListItem><ListItemText primary="Inclusive language — neutral wording that welcomes a diverse range of candidates" /></ListItem>
+            <ListItem><ListItemText primary="Transparency — salary range, location, and work model build trust and improve apply rates" /></ListItem>
+          </List>
+
+          <Typography variant='h5' component='h2' gutterBottom fontWeight={600} marginTop={4}>
+            Why Use an AI Job Description Generator
+          </Typography>
+          <Typography variant='body1' color='text.secondary' paragraph>
+            An AI job description generator removes the blank-page problem. Instead of starting from scratch, you enter a job title and a few details, and the tool produces a structured, professional draft in seconds. It keeps your formatting consistent across every role, suggests inclusive language automatically, and helps you avoid the vague or biased phrasing that quietly narrows your applicant pool. For busy hiring managers and recruiters, that means less time writing and more time talking to candidates — without sacrificing quality or consistency.
+          </Typography>
+        </Box>
+
         <ResourceCTA />
       </MarketingFlushContainer>
     </MarketingPage>

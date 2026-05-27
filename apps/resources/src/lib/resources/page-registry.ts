@@ -15,14 +15,14 @@ import { pathKey, resourcePath } from "./paths";
 export const RESOURCE_HUB_ITEMS = [
   {
     slug: "ai-job-description",
-    title: "AI Job Description Generator",
-    description: "Generate optimized job descriptions that attract qualified candidates.",
+    title: "Free AI Job Description Generator",
+    description: "Use SmoothHiring's free AI job description generator to create optimized, inclusive job descriptions in seconds. Attract qualified candidates — Free Trial.",
     pageKey: "generator:ai-job-description",
   },
   {
     slug: "ai-interview-kit",
-    title: "AI Interview Kit Generator",
-    description: "Build structured interview kits with role-specific questions and scorecards.",
+    title: "Free AI Interview Kit Generator — Questions & Scorecards",
+    description: "Use SmoothHiring's free AI interview kit generator to build structured interview kits with role-specific questions and scorecards in seconds.",
     pageKey: "generator:ai-interview-kit",
   },
   {
@@ -94,7 +94,7 @@ const HUB_PAGE: ResourcePageDefinition = {
   pageKey: "hub",
   title: "Free Hiring Resources, Templates & AI Tools",
   description:
-    "Free job description templates, interview kits, offer letters, HR policies, and AI generators. Practical hiring resources for recruiters and HR teams — no sign-up required.",
+    "Free job description templates, interview kits, offer letters & AI generators. Practical hiring resources for recruiters — Free Trial, no credit card required.",
   params: {},
 };
 
