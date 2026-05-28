@@ -124,7 +124,7 @@ export const ResourcesHomeContent = () => {
   return (
     <MarketingPage>
       <MarketingHero
-        eyebrow={{ label: 'Free hiring resources', variant: 'strongFit' }}
+        eyebrow={{ label: 'Free hiring resources' }}
         title="Free Hiring Resources, Templates & AI Tools"
         description="Everything you need to hire faster, all in one place — and completely free. Browse SmoothHiring's library of job description templates, interview kits, offer letters, HR policy templates, and AI-powered generators built for recruiters and HR teams. No sign-up, no paywall. Just practical hiring resources you can use today."
       >

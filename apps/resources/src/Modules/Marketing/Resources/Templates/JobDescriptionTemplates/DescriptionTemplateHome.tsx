@@ -1,4 +1,3 @@
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { Box, Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
@@ -75,7 +74,7 @@ export const DescriptionTemplateHome = () => {
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
-        eyebrow={{ label: 'HR Templates', icon: DescriptionOutlinedIcon }}
+        eyebrow={{ label: 'HR Templates' }}
         title={JOB_DESCRIPTION_TEMPLATES_TITLE}
         description={JOB_DESCRIPTION_TEMPLATES_INTRO}
       >

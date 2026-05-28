@@ -1,5 +1,4 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Grid, Stack, Typography, styled } from '@mui/material';
 import {
   MarketingHero,
@@ -48,7 +47,7 @@ export const EmailTemplatesPage = () => {
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
-        eyebrow={{ label: 'HR Templates', icon: EmailOutlinedIcon }}
+        eyebrow={{ label: 'HR Templates' }}
         title={EMAIL_TEMPLATES_TITLE}
         description={EMAIL_TEMPLATES_INTRO}
       />

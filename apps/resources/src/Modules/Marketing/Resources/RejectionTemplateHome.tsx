@@ -1,4 +1,3 @@
-import ArticleIcon from '@mui/icons-material/Article';
 import { Box, Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import {
   MarketingHero,
@@ -34,7 +33,7 @@ export const RejectionTemplateHome = () => {
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
-        eyebrow={{ label: 'HR Templates', icon: ArticleIcon }}
+        eyebrow={{ label: 'HR Templates' }}
         title={REJECTION_TEMPLATES_TITLE}
         description={REJECTION_TEMPLATES_INTRO}
       />

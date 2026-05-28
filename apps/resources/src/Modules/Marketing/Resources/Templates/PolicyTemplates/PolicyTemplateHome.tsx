@@ -1,4 +1,3 @@
-import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
 import { Box, Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { ResourceTemplateCardButton } from '@smoothhiring/smooth-ui';
@@ -107,7 +106,7 @@ export const PolicyTemplateHome = () => {
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
-        eyebrow={{ label: 'HR Templates', icon: GavelOutlinedIcon }}
+        eyebrow={{ label: 'HR Templates' }}
         title={POLICY_TEMPLATES_TITLE}
         description={POLICY_TEMPLATES_INTRO}
       />

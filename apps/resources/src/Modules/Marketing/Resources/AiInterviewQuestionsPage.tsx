@@ -69,7 +69,7 @@ export const AiInterviewQuestionsPage = () => {
   return (
     <MarketingPage maxWidth='lg'>
       <MarketingHero
-        eyebrow={{ label: 'AI-Powered Tool', icon: AutoAwesomeIcon }}
+        eyebrow={{ label: 'AI-Powered Tool' }}
         title={AI_TOOLS_TITLE_INTERVIEW_KIT}
         description={AI_TOOLS_DETAILS_INTERVIEW_KIT}
       />

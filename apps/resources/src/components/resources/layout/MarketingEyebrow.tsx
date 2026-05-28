@@ -12,7 +12,8 @@ type Props = {
   variant?: 'default' | 'strongFit';
 };
 
-export function MarketingEyebrow({ label, icon: Icon, variant = 'default' }: Props) {
+/** Default chip uses the circular SmoothHiring badge (same as the resources home hero). */
+export function MarketingEyebrow({ label, icon: Icon, variant = 'strongFit' }: Props) {
   if (variant === 'strongFit') {
     return (
       <Chip

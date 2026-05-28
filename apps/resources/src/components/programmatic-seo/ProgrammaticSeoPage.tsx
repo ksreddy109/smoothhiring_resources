@@ -39,7 +39,7 @@ type Props = {
 export function ProgrammaticSeoPage({ page, h1, subheadline }: Props) {
   const headline = h1 ?? page.h1;
   const heroSubtext = subheadline ?? page.metaDesc;
-  const eyebrow = page.kind === "industry" ? "Industry hiring software" : "ATS by use case";
+  const eyebrowLabel = page.kind === "industry" ? "Industry hiring software" : "ATS by use case";
   const focusLabel = page.kind === "industry" ? page.industryName : page.usecaseName;
   const focusDetail =
     page.kind === "industry"
@@ -48,7 +48,7 @@ export function ProgrammaticSeoPage({ page, h1, subheadline }: Props) {
 
   return (
     <MarketingPage maxWidth="lg">
-      <MarketingHero eyebrow={eyebrow} title={headline} description={heroSubtext}>
+      <MarketingHero eyebrow={{ label: eyebrowLabel }} title={headline} description={heroSubtext}>
         <ResourceHeroCtaButtons
           primaryVariant="green"
           primary={{
