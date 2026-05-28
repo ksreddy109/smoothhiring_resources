@@ -2,30 +2,30 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import WysiwygOutlinedIcon from '@mui/icons-material/WysiwygOutlined';
-import { Box, CircularProgress, Container, List, ListItem, ListItemText, Rating, Stack, Typography, styled } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Rating, Stack, Typography } from '@mui/material';
 import { Notification, useNotification } from 'Modules/Core/Notification';
 import { useAppDispatch, useAppSelector } from 'helpers/hooks';
-import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
-import {
-  ResourceAiToolFormBody,
-  ResourceAiToolFormRow,
-  ShButton,
-  ShGreenBtn,
-  ShPaper,
-  ShTextFieldV2,
-} from '@smoothhiring/smooth-ui';
-import { HtmlRegex, SHSignUpLink } from 'shared/constants';
+import { SHSignUpLink } from 'shared/constants';
 import { IAiJobDescriptionAndInterviewKitPayload } from 'store/slices/app/app-model';
 import { getAiJobDescriptionByTitle } from 'store/slices/app/resources-slice';
 import { AI_TOOLS_DETAILS_JOB_DESCRIPTION, AI_TOOLS_TITLE_JOB_DESCRIPTION, CUSTOMER_TESTIMONIAL } from './ResourcesConstants';
 import { MarketingFlushContainer, MarketingHero, MarketingPage } from '@/components/resources/layout';
-import { ResourceMarketingActionRow } from '@/components/resources/resource-buttons.styled';
 import { ResourceCTA } from './ResourceCTA';
-
-const BulletListItem = styled(ListItem)({
-  listStyleType: 'disc',
-});
+import {
+  ResourceActionRowEnd,
+  ResourceAiToolFormBody,
+  ResourceAiToolFormRow,
+  ShButton,
+  ShGreenBtn,
+  ShLoader,
+  ShPaper,
+  ShTextFieldV2,
+  ThemeColorDivider,
+} from '@/integrations/smooth-hiring-ui';
+import { AiJobDescriptionEditor } from './AiJobDescriptionEditor';
+import { AiJobDescriptionGeneratingPanel } from './AiJobDescriptionGeneratingPanel';
+import { jobDescriptionToQuillHtml, quillHtmlToPlainText } from './jobDescriptionContent';
 
 export const AiJobDescriptionPage = () => {
   const dispatch = useAppDispatch();
@@ -35,26 +35,16 @@ export const AiJobDescriptionPage = () => {
   const [industry, setIndustry] = useState<string>('');
   const [jobCompany, setJobCompany] = useState<string>('');
   const [role, setRole] = useState<string>('');
+  const [editorHtml, setEditorHtml] = useState('');
   const { getAiJobDescStatus, getAiJobDescResponse } = useAppSelector(state => state.app.resources);
+  const isGenerating = getAiJobDescStatus === 'pending';
+  const showResultPanel = isGenerating || Boolean(aiJobDescription);
 
-  const formatJobDescription = (jobDescription: string) => {
-    const lines = jobDescription.split('\n');
-    return lines.map((line, index) => {
-      const isHeading = line.includes(':');
-      const isListElement = /^\d+\./.test(line.trim()) || line.trim().includes('-');
-      return isHeading ? (
-        <Typography key={index} variant='body2'>{line}</Typography>
-      ) : isListElement ? (
-        <BulletListItem key={index} dense>
-          <ListItemText primary={line.replace(/^-|\d+\./, '•')} />
-        </BulletListItem>
-      ) : (
-        <List key={index} dense>
-          <ListItemText primary={line} />
-        </List>
-      );
-    });
-  };
+  useEffect(() => {
+    if (getAiJobDescStatus === 'success' && aiJobDescription) {
+      setEditorHtml(jobDescriptionToQuillHtml(aiJobDescription));
+    }
+  }, [aiJobDescription, getAiJobDescStatus]);
 
   useEffect(() => {
     if (copiedToClipboard) {
@@ -70,7 +60,8 @@ export const AiJobDescriptionPage = () => {
   }, [getAiJobDescStatus, getAiJobDescResponse, notification]);
 
   const handleCopyAllClick = () => {
-    navigator.clipboard.writeText(aiJobDescription ?? '').then(() => setCopiedToClipboard(true));
+    const text = quillHtmlToPlainText(editorHtml || aiJobDescription || '');
+    navigator.clipboard.writeText(text).then(() => setCopiedToClipboard(true));
   };
 
   const handleSubmit = () => {
@@ -137,13 +128,14 @@ export const AiJobDescriptionPage = () => {
                   className='resource-ai-tool-submit'
                   size='medium'
                   disableElevation
-                  disabled={getAiJobDescStatus === 'pending'}
-                  startIcon={<AutoAwesomeIcon />}
+                  disabled={isGenerating}
+                  startIcon={isGenerating ? undefined : <AutoAwesomeIcon />}
+                  endIcon={isGenerating ? <ShLoader size={18} thickness={4} /> : undefined}
                   variant='contained'
                   onClick={handleSubmit}
+                  sx={{ minWidth: 148, gap: 1 }}
                 >
-                  Generate
-                  {getAiJobDescStatus === 'pending' && <CircularProgress size='1.25rem' color='inherit' />}
+                  {isGenerating ? 'Generating…' : 'Generate'}
                 </ShGreenBtn>
               </ResourceAiToolFormRow>
             </ResourceAiToolFormBody>
@@ -160,31 +152,41 @@ export const AiJobDescriptionPage = () => {
           </Stack>
         </Stack>
 
-        {aiJobDescription && (
+        {showResultPanel && (
           <Box marginBottom={2}>
             <ShPaper variant='outlined'>
-              <ResourceMarketingActionRow>
-                <ShGreenBtn
-                  href={SHSignUpLink}
-                  size='medium'
-                  startIcon={<BookmarkAddIcon />}
-                  variant='contained'
-                  disableElevation
-                >
-                  Post This Job to 100+ Boards Instantly!
-                </ShGreenBtn>
-                <ShButton
-                  color='primary'
-                  size='medium'
-                  onClick={handleCopyAllClick}
-                  startIcon={<ContentCopyOutlinedIcon />}
-                  variant='contained'
-                  disableElevation
-                >
-                  Copy All
-                </ShButton>
-              </ResourceMarketingActionRow>
-              <Container>{HtmlRegex.test(aiJobDescription ?? '') ? parse(aiJobDescription ?? '') : formatJobDescription(aiJobDescription)}</Container>
+              {isGenerating ? (
+                <AiJobDescriptionGeneratingPanel role={role} />
+              ) : (
+                <>
+                  <ResourceActionRowEnd>
+                    <ShGreenBtn
+                      href={SHSignUpLink}
+                      size='medium'
+                      startIcon={<BookmarkAddIcon />}
+                      variant='contained'
+                      disableElevation
+                    >
+                      Post This Job to 100+ Boards Instantly!
+                    </ShGreenBtn>
+                    <ShButton
+                      color='primary'
+                      size='medium'
+                      onClick={handleCopyAllClick}
+                      startIcon={<ContentCopyOutlinedIcon />}
+                      variant='contained'
+                      disableElevation
+                    >
+                      Copy All
+                    </ShButton>
+                  </ResourceActionRowEnd>
+                  <ThemeColorDivider />
+                  <Typography variant='caption' color='text.secondary' sx={{ px: 2, pt: 1.5, pb: 0, display: 'block' }}>
+                    Edit below before you copy or post — formatting is ready to go.
+                  </Typography>
+                  <AiJobDescriptionEditor value={editorHtml} onChange={setEditorHtml} />
+                </>
+              )}
             </ShPaper>
           </Box>
         )}

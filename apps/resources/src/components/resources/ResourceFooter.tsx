@@ -150,7 +150,7 @@ const footerSections = [
       { href: '/resources/offer-letter-templates/', label: 'Offer Letter Templates' },
       { href: '/resources/policy-templates/', label: 'Policy Templates' },
       { href: '/resources/rejection-letter-templates/', label: 'Rejection Letter Templates' },
-      { href: '/resources/interview-letter-templates/', label: 'Interview Letter Templates' },
+      { href: '/resources/interview-letter-templates/', label: 'Interview Invitation Templates' },
       { href: '/resources/ai-job-description/', label: 'AI Job Description Generator' },
     ],
   },

@@ -91,6 +91,11 @@ const EmailTemplatesPage = dynamic(
   () => import("Modules/Marketing/Resources/EmailTemplatesPage").then((m) => m.EmailTemplatesPage),
   { loading: () => null, ssr: false }
 );
+const RecruitingEmailTemplatePage = dynamic(
+  () =>
+    import("Modules/Marketing/Resources/RecruitingEmailTemplatePage").then((m) => m.RecruitingEmailTemplatePage),
+  { loading: () => null, ssr: false }
+);
 const EmployerRejectionTemplateSinglePage = dynamic(
   () =>
     import("Modules/Core/EmployerResources/EmployerRejectionTemplates/EmployerRejectionTemplateSinglePage").then(
@@ -120,6 +125,7 @@ const PAGE_COMPONENTS: Record<string, ComponentType> = {
   "template-hub:rejection": RejectionTemplateHome,
   "template-hub:interview": InterviewTemplateHome,
   "template-hub:email": EmailTemplatesPage,
+  "detail:email": RecruitingEmailTemplatePage,
   "detail:job-description": DescriptionTemplatePage,
   "detail:policy": PolicyTemplatePage,
   "detail:interview": EmployerInterviewTemplateSinglePage,

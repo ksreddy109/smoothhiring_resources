@@ -43,25 +43,25 @@ export const offerTemplatesByEmploymentType: OfferTemplateCard[] = [
     title: 'Part-Time Offer Letter Template',
     description:
       'An offer letter sample for part-time roles with hours, hourly or prorated pay, and key benefits.',
-    path: '/general-job-offer-template',
+    path: '/part-time-offer-letter-template',
   },
   {
     title: 'Internship Offer Letter Template',
     description:
       'A professional internship offer letter with duration, stipend or pay, and program expectations.',
-    path: '/informal-job-offer-template',
+    path: '/internship-offer-letter-template',
   },
   {
     title: 'Contract / Freelance Offer Letter Template',
     description:
       'An offer letter format for contract and freelance engagements — scope, rate, and term length.',
-    path: '/general-job-offer-template',
+    path: '/contract-freelance-offer-letter-template',
   },
   {
     title: 'Remote Employee Offer Letter Template',
     description:
       'Extend a remote job offer with location, work arrangement, compensation, and benefits clearly spelled out.',
-    path: '/general-job-offer-template',
+    path: '/remote-employee-offer-letter-template',
   },
 ];
 
@@ -76,7 +76,7 @@ export const offerTemplatesByRole: OfferTemplateCard[] = [
     title: 'Software Engineer Offer Letter Template',
     description:
       'A technical role offer letter example covering title, salary, equity or bonus, and engineering benefits.',
-    path: '/general-job-offer-template',
+    path: '/software-engineer-offer-letter-template',
   },
   {
     title: 'Executive / Senior Offer Letter Template',
@@ -88,13 +88,13 @@ export const offerTemplatesByRole: OfferTemplateCard[] = [
     title: 'Entry-Level Offer Letter Template',
     description:
       'A welcoming offer letter format for early-career hires — clear role, pay, and growth expectations.',
-    path: '/informal-job-offer-template',
+    path: '/entry-level-offer-letter-template',
   },
   {
     title: 'Hourly / Retail Offer Letter Template',
     description:
       'An offer letter template for hourly and frontline roles with rate, schedule, and benefits summary.',
-    path: '/general-job-offer-template',
+    path: '/hourly-retail-offer-letter-template',
   },
 ];
 
@@ -103,13 +103,13 @@ export const jobOfferEmailTemplates: OfferTemplateCard[] = [
     title: 'Job Offer Email Template',
     description:
       'A short-form job offer email template to confirm the offer quickly before sending the full letter.',
-    path: '/informal-job-offer-template',
+    path: '/job-offer-email-template',
   },
   {
     title: 'Verbal Offer Follow-Up Letter Template',
     description:
       'Put a verbal offer in writing with a concise follow-up letter candidates can review and accept.',
-    path: '/informal-job-offer-template',
+    path: '/verbal-offer-follow-up-letter-template',
   },
 ];
 

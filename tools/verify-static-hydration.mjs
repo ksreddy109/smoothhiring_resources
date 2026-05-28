@@ -58,6 +58,11 @@ const sampleUrls = [
   "/resources/interview-letter-templates/",
   "/resources/interview-letter-templates/formal-interview-letter-template/",
   "/resources/email-templates/",
+  "/resources/email-templates/candidate-outreach-email/",
+  "/resources/email-templates/assessment-task-invite-email/",
+  "/resources/rejection-letter-templates/formal-rejection-after-interview/",
+  "/resources/interview-letter-templates/informal-phone-interview-invitation/",
+  "/resources/offer-letter-templates/part-time-offer-letter-template/",
   "/resources/hiring-software-for-healthcare/",
   "/resources/ats-for-small-business/",
 ];

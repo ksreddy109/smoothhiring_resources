@@ -1,10 +1,14 @@
-import { offerTemplates } from "@/lib/marketing-data/OfferTemplateConstants";
+import { emailTemplateBySlug } from "@/lib/marketing-data/emailTemplateCatalog";
 import { allProgrammaticSeoSlugs, getProgrammaticSeoPageBySlug } from "@/lib/programmatic-seo-data";
 import {
+  emailTemplateSlugs,
   interviewTemplateSlugs,
   interviewTitleBySlug,
   jobDescriptionTemplateSlugs,
   jobDescriptionTitleBySlug,
+  offerSlugToBaseSlug,
+  offerTemplateSlugs,
+  offerTitleBySlug,
   policyLabelBySlug,
   policyTemplateSlugs,
   rejectionTemplateSlugs,
@@ -78,6 +82,7 @@ export type ResourcePageKind =
   | "offer-detail"
   | "interview-detail"
   | "rejection-detail"
+  | "email-detail"
   | "programmatic";
 
 export type ResourcePageDefinition = {
@@ -160,15 +165,28 @@ function buildRegistryPages(): ResourcePageDefinition[] {
     });
   }
 
-  for (const t of offerTemplates) {
-    const slug = t.path.replace(/^\//, "");
+  for (const slug of offerTemplateSlugs) {
+    const title = offerTitleBySlug.get(slug) ?? slug;
+    const baseSlug = offerSlugToBaseSlug[slug] ?? slug;
     pages.push({
       path: ["offer-letter-templates", slug],
       kind: "offer-detail",
-      pageKey: `offer:${slug}`,
-      title: t.title,
-      description: t.description,
+      pageKey: `offer:${baseSlug}`,
+      title,
+      description: `${title}. Free, editable offer letter template from SmoothHiring.`,
       params: {},
+    });
+  }
+
+  for (const slug of emailTemplateSlugs) {
+    const def = emailTemplateBySlug.get(slug);
+    pages.push({
+      path: ["email-templates", slug],
+      kind: "email-detail",
+      pageKey: "detail:email",
+      title: def?.title ?? slug,
+      description: def?.metaDescription ?? "Free recruiting email template from SmoothHiring.",
+      params: { emailTemplateName: slug },
     });
   }
 

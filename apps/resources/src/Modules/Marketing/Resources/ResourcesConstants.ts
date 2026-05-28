@@ -29,7 +29,7 @@ export const CUSTOMER_TESTIMONIAL = {
   rating: 5,
 };
 
-export const JOB_DESCRIPTION_TEMPLATES_TITLE = 'Free Job Description Templates & Examples';
+export const JOB_DESCRIPTION_TEMPLATES_TITLE = 'Free Job Description Templates & Examples for Every Role';
 export const JOB_DESCRIPTION_TEMPLATES_INTRO =
   'Find free, ready-to-use job description templates for every role and department. Each template includes a role summary, key responsibilities, requirements, and skills — written to attract qualified candidates and easy to customize for your company. Browse by role or department below, copy the template you need, and post your job in minutes.';
 

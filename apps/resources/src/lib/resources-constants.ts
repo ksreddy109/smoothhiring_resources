@@ -1,4 +1,6 @@
 export const SHSignUpLink = "https://app.smoothhiring.com/accounts/login";
+export const SHSignUpUrl = "https://app.smoothhiring.com/accounts/sign-up";
+export const SHPostJobUrl = "https://app.smoothhiring.com/accounts/sign-up";
 
 export const EXPLORE_SMOOTH_HIRING = "Explore SmoothHiring's ATS";
 export const EXPLORE_SMOOTH_HIRING_DETAILS =

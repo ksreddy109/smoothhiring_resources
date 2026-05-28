@@ -19,25 +19,29 @@ const apiKey = process.env.PAYLOAD_API_KEY || ''
 const hubPages = [
   {
     urlPath: '',
-    title: 'Hiring Resources and Templates',
+    title: 'Free Hiring Resources, Templates & AI Tools',
     pageType: 'hub',
     description:
-      'Free hiring resources, interview kits, and HR templates to help teams hire better and faster.',
-    h1: 'Hiring Resources and Templates',
+      'Free job description templates, interview kits, offer letters & AI generators. Practical hiring resources for recruiters — Free Trial, no credit card required.',
+    h1: 'Free Hiring Resources, Templates & AI Tools',
     status: 'published',
   },
   {
     urlPath: 'ai-job-description',
-    title: 'AI Job Description Generator',
+    title: 'Free AI Job Description Generator',
     pageType: 'generator',
-    description: 'Generate optimized job descriptions that attract qualified candidates.',
+    description:
+      "Use SmoothHiring's free AI job description generator to create optimized, inclusive job descriptions in seconds. Attract qualified candidates — Free Trial.",
+    h1: 'Free AI Job Description Generator',
     status: 'published',
   },
   {
     urlPath: 'ai-interview-kit',
-    title: 'AI Interview Kit Generator',
+    title: 'Free AI Interview Kit Generator — Questions & Scorecards',
     pageType: 'generator',
-    description: 'Build structured interview kits with role-specific questions and scorecards.',
+    description:
+      "Use SmoothHiring's free AI interview kit generator to build structured interview kits with role-specific questions and scorecards in seconds.",
+    h1: 'Free AI Interview Kit Generator',
     status: 'published',
   },
   {

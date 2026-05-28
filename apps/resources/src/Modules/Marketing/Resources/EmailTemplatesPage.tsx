@@ -21,6 +21,7 @@ import {
   EMAIL_TEMPLATES_TITLE,
 } from './ResourcesConstants';
 import { ResourceCTA } from './ResourceCTA';
+import { EmailTypeMapSection } from './EmailTypeMapSection';
 
 const EmailPromoPaper = styled(ShPaper)(({ theme }) => ({
   marginBottom: theme.spacing(4),
@@ -87,6 +88,8 @@ export const EmailTemplatesPage = () => {
       >
         <TemplateGrid templates={recruitingEmailsOnboarding} />
       </MarketingSection>
+
+      <EmailTypeMapSection />
 
       <Box paddingY={4} paddingX={{ xs: 0, sm: 1 }}>
         <Typography variant='h5' component='h2' gutterBottom fontWeight={600}>

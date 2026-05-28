@@ -15,7 +15,12 @@ import {
   ShTextFieldV2,
 } from '@smoothhiring/smooth-ui';
 import { getAiInterviewQuestions } from 'store/slices/app/resources-slice';
-import { AI_TOOLS_DETAILS_INTERVIEW_KIT, AI_TOOLS_TITLE_INTERVIEW_KIT } from './ResourcesConstants';
+import {
+  AI_TOOLS_DETAILS_INTERVIEW_KIT,
+  AI_TOOLS_TITLE_INTERVIEW_KIT,
+  JOB_INTERVIEW_KIT_DESC_CARD_2,
+  JOB_INTERVIEW_KIT_TITLE_CARD_2,
+} from './ResourcesConstants';
 import { SHSignUpLink } from 'shared/constants';
 import { MarketingFlushContainer, MarketingHero, MarketingPage } from '@/components/resources/layout';
 import { ResourceMarketingActionRow } from '@/components/resources/resource-buttons.styled';
@@ -108,12 +113,17 @@ export const AiInterviewQuestionsPage = () => {
                   size='medium'
                   disableElevation
                   disabled={getAiInterviewQuestionsStatus === 'pending'}
-                  startIcon={<AutoAwesomeIcon />}
+                  startIcon={getAiInterviewQuestionsStatus === 'pending' ? undefined : <AutoAwesomeIcon />}
+                  endIcon={
+                    getAiInterviewQuestionsStatus === 'pending' ? (
+                      <CircularProgress size={18} color='inherit' />
+                    ) : undefined
+                  }
                   variant='contained'
                   onClick={handleSubmit}
+                  sx={{ minWidth: 148, gap: 1 }}
                 >
-                  Generate
-                  {getAiInterviewQuestionsStatus === 'pending' && <CircularProgress size='1.25rem' color='inherit' />}
+                  {getAiInterviewQuestionsStatus === 'pending' ? 'Generating…' : 'Generate'}
                 </ShGreenBtn>
               </ResourceAiToolFormRow>
             </ResourceAiToolFormBody>
@@ -161,13 +171,25 @@ export const AiInterviewQuestionsPage = () => {
           </Box>
         )}
 
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} paddingY={3} alignItems='center' justifyContent='center'>
-          <RecordVoiceOverOutlinedIcon color='primary' sx={{ fontSize: 40 }} />
-          <Stack spacing={0.5} maxWidth={560}>
-            <Typography variant='subtitle1'>Go into every interview prepared</Typography>
-            <Typography variant='body2' color='text.secondary'>
-              Each kit includes role-specific questions, suggested follow-ups, and evaluation guidance — so every interviewer on your team walks in ready.
-            </Typography>
+        <Stack spacing={3} paddingY={3}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems='center' justifyContent='center'>
+            <RecordVoiceOverOutlinedIcon color='primary' sx={{ fontSize: 40 }} />
+            <Stack spacing={0.5} maxWidth={560}>
+              <Typography variant='subtitle1'>Go into every interview prepared</Typography>
+              <Typography variant='body2' color='text.secondary'>
+                Each kit includes role-specific questions, suggested follow-ups, and evaluation guidance — so every
+                interviewer on your team walks in ready.
+              </Typography>
+            </Stack>
+          </Stack>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems='center' justifyContent='center'>
+            <AutoAwesomeIcon color='success' sx={{ fontSize: 40 }} />
+            <Stack spacing={0.5} maxWidth={560}>
+              <Typography variant='subtitle1'>{JOB_INTERVIEW_KIT_TITLE_CARD_2}</Typography>
+              <Typography variant='body2' color='text.secondary'>
+                {JOB_INTERVIEW_KIT_DESC_CARD_2}
+              </Typography>
+            </Stack>
           </Stack>
         </Stack>
 
