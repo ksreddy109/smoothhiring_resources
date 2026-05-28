@@ -35,7 +35,7 @@ export const AiJobDescriptionPage = () => {
   const [industry, setIndustry] = useState<string>('');
   const [jobCompany, setJobCompany] = useState<string>('');
   const [role, setRole] = useState<string>('');
-  const { getAiJobDescStatus } = useAppSelector(state => state.app.resources);
+  const { getAiJobDescStatus, getAiJobDescResponse } = useAppSelector(state => state.app.resources);
 
   const formatJobDescription = (jobDescription: string) => {
     const lines = jobDescription.split('\n');
@@ -63,17 +63,30 @@ export const AiJobDescriptionPage = () => {
     }
   }, [copiedToClipboard, notification]);
 
+  useEffect(() => {
+    if (getAiJobDescStatus === 'failed' && getAiJobDescResponse) {
+      notification.displayNotification({ open: true, type: 'error', message: getAiJobDescResponse });
+    }
+  }, [getAiJobDescStatus, getAiJobDescResponse, notification]);
+
   const handleCopyAllClick = () => {
     navigator.clipboard.writeText(aiJobDescription ?? '').then(() => setCopiedToClipboard(true));
   };
 
   const handleSubmit = () => {
-    if (role) {
-      let payload: IAiJobDescriptionAndInterviewKitPayload = { role };
-      if (industry) payload.industry = industry;
-      if (jobCompany) payload.jobCompany = jobCompany;
-      dispatch(getAiJobDescriptionByTitle(payload));
+    const trimmedRole = role.trim();
+    if (!trimmedRole) {
+      notification.displayNotification({
+        open: true,
+        type: 'error',
+        message: 'Please enter a job role to generate a description.',
+      });
+      return;
     }
+    const payload: IAiJobDescriptionAndInterviewKitPayload = { role: trimmedRole };
+    if (industry.trim()) payload.industry = industry.trim();
+    if (jobCompany.trim()) payload.jobCompany = jobCompany.trim();
+    dispatch(getAiJobDescriptionByTitle(payload));
   };
 
   return (
@@ -110,7 +123,15 @@ export const AiJobDescriptionPage = () => {
                   label='Job Role'
                   variant='outlined'
                   fullWidth
+                  required
+                  value={role}
                   onChange={e => setRole(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSubmit();
+                    }
+                  }}
                 />
                 <ShGreenBtn
                   className='resource-ai-tool-submit'

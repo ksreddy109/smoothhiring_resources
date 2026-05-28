@@ -27,40 +27,44 @@ export const RESOURCE_HUB_ITEMS = [
   },
   {
     slug: "job-description-templates",
-    title: "Job Description Templates",
-    description: "Browse hiring-ready templates for common roles and departments.",
+    title: "Free Job Description Templates & Examples for Every Role",
+    description:
+      "Browse free job description templates and examples for 100+ roles. Copy, customize, and post hiring-ready job descriptions in minutes.",
     pageKey: "template-hub:job-description",
   },
   {
     slug: "offer-letter-templates",
-    title: "Offer Letter Templates",
-    description: "Use editable offer letter formats to speed up candidate close workflows.",
+    title: "Free Offer Letter Templates & Examples",
+    description:
+      "Free, editable offer letter templates and examples for every role and employment type. Copy, customize, and send a professional job offer letter in minutes.",
     pageKey: "template-hub:offer",
   },
   {
     slug: "policy-templates",
-    title: "Policy Templates",
-    description: "Access policy templates to standardize HR communication and operations.",
+    title: "Free HR Policy Templates & Examples",
+    description:
+      "Free HR policy templates and examples — PTO, remote work, code of conduct, and more. Download, customize, and standardize your company policies in minutes.",
     pageKey: "template-hub:policy",
   },
   {
     slug: "rejection-letter-templates",
-    title: "Rejection Letter Templates",
+    title: "Candidate Rejection Email & Letter Templates (Free)",
     description:
-      "Streamline your rejection process with our collection of rejection letter templates.",
+      "Free candidate rejection email and letter templates for every stage of hiring — from application to final interview. Reject candidates professionally and kindly in minutes. No sign-up required.",
     pageKey: "template-hub:rejection",
   },
   {
     slug: "interview-letter-templates",
-    title: "Interview Letter Templates",
+    title: "Interview Invitation Email Templates (Free)",
     description:
-      "Streamline your interview process with our collection of interview letter templates.",
+      "Free interview invitation email templates for phone, video, panel, and in-person interviews. Invite candidates professionally and schedule faster — copy, customize, and send.",
     pageKey: "template-hub:interview",
   },
   {
     slug: "email-templates",
-    title: "Email Templates",
-    description: "Use ready-to-send hiring email templates for outreach, interviews, and follow-ups.",
+    title: "Free Recruiting & Hiring Email Templates",
+    description:
+      "Free recruiting and hiring email templates for every stage — candidate outreach, interview invitations, follow-ups, offers, and rejections. Copy, customize, and send in seconds.",
     pageKey: "template-hub:email",
   },
 ] as const;

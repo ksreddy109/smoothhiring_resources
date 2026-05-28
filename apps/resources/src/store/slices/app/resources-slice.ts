@@ -23,9 +23,17 @@ const initialResourcesState: IResourcesState = {
   getAiApplicantSuggestionsResponse: '',
   getAiApplicantSuggestionsStatus: 'idle',
 };
-export const getAiJobDescriptionByTitle = createAsyncThunk<{ description: string }, IAiJobDescriptionAndInterviewKitPayload, { rejectValue: IBaseResponse }>('getAiJobDescriptionByTitle', async ({ role, industry, jobCompany }, { rejectWithValue }) => {
+function buildRoleIndustryQuery({ role, industry, jobCompany }: IAiJobDescriptionAndInterviewKitPayload): string {
+  const params = new URLSearchParams({ role: role.trim() });
+  if (industry?.trim()) params.set('industry', industry.trim());
+  if (jobCompany?.trim()) params.set('company', jobCompany.trim());
+  return params.toString();
+}
+
+export const getAiJobDescriptionByTitle = createAsyncThunk<{ description: string }, IAiJobDescriptionAndInterviewKitPayload, { rejectValue: IBaseResponse }>('getAiJobDescriptionByTitle', async (payload, { rejectWithValue }) => {
+  const query = buildRoleIndustryQuery(payload);
   return await httpAdapterInstance
-    .get(`${EmployerApiEndpoints.AI_JOB_DESCRIPTION}?role=${role}&industry=${industry}&company=${jobCompany}`)
+    .get(`${EmployerApiEndpoints.AI_JOB_DESCRIPTION}?${query}`)
     .then(
       (
         response: AxiosResponse<{
@@ -34,16 +42,17 @@ export const getAiJobDescriptionByTitle = createAsyncThunk<{ description: string
       ) => response?.data
     )
     .catch(error => {
-      throw rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data ?? { message: DefaultAPIErrorMsg });
     });
 });
 
-export const getAiInterviewQuestions = createAsyncThunk<IAiInterviewQuestions, IAiJobDescriptionAndInterviewKitPayload, { rejectValue: IBaseResponse }>('getAiInterviewQuestions', async ({ role, industry }, { rejectWithValue }) => {
+export const getAiInterviewQuestions = createAsyncThunk<IAiInterviewQuestions, IAiJobDescriptionAndInterviewKitPayload, { rejectValue: IBaseResponse }>('getAiInterviewQuestions', async (payload, { rejectWithValue }) => {
+  const query = buildRoleIndustryQuery(payload);
   return await httpAdapterInstance
-    .get(`${EmployerApiEndpoints.AI_INTERVIEW_QUESTIONS}?role=${role}&industry=${industry}`)
+    .get(`${EmployerApiEndpoints.AI_INTERVIEW_QUESTIONS}?${query}`)
     .then((response: AxiosResponse<IAiInterviewQuestions>) => response?.data)
     .catch(error => {
-      throw rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data ?? { message: DefaultAPIErrorMsg });
     });
 });
 
@@ -110,7 +119,7 @@ const resourcesSlice = createSlice({
       state.aiInterviewQuestions = action.payload;
     });
     builder.addCase(getAiInterviewQuestions.rejected, (state, action) => {
-      state.getAiJobDescStatus = 'failed';
+      state.getAiInterviewQuestionsStatus = 'failed';
       state.getAiInterviewQuestionsResponse = action?.payload?.message ?? DefaultAPIErrorMsg;
     });
 

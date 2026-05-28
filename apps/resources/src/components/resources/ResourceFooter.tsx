@@ -137,7 +137,7 @@ const footerSections = [
     links: [
       { href: marketingPath('/all-features'), label: 'All Features' },
       { href: marketingPath('/job-distribution-software'), label: 'Job Board Distribution' },
-      { href: marketingPath('/predictive-hiring'), label: 'Predictive Analytics' },
+      { href: marketingPath('/predictive-hiring'), label: 'Predictive Hiring' },
       { href: marketingPath('/applicant-tracking-system'), label: 'Applicant Tracking (ATS)' },
       { href: marketingPath('/careers-pages'), label: 'Careers Page' },
       { href: marketingPath('/onboarding'), label: 'Onboarding' },
@@ -194,7 +194,7 @@ export function ResourceFooter() {
               </FooterLogoLink>
               <FooterBlurb variant="body2" color="text.secondary">
                 SmoothHiring is an all-in-one hiring platform for small and mid-size businesses,
-                built on predictive analytics to help you hire with confidence.
+                built on predictive hiring to help you hire with confidence.
               </FooterBlurb>
             </Stack>
           </Grid>

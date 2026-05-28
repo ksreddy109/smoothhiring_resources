@@ -1,64 +1,94 @@
 import ArticleIcon from '@mui/icons-material/Article';
-import SearchIcon from '@mui/icons-material/Search';
-import { Grid, InputAdornment } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { Box, Grid, Typography } from '@mui/material';
 import {
   MarketingHero,
-  MarketingHeroSearchRow,
   MarketingLinkCard,
   MarketingPage,
+  MarketingSection,
 } from '@/components/resources/layout';
+import {
+  interviewRelatedEmailTemplates,
+  interviewTemplatesByStage,
+  interviewTemplatesByType,
+} from 'Modules/Marketing/Resources/Templates/InterviewTemplates/InterviewTemplateConstants';
+import type { InterviewTemplateCard } from 'Modules/Marketing/Resources/Templates/InterviewTemplates/InterviewTemplateConstants';
+import {
+  INTERVIEW_TEMPLATES_HOW_TO_WRITE,
+  INTERVIEW_TEMPLATES_INTRO,
+  INTERVIEW_TEMPLATES_TITLE,
+  INTERVIEW_TEMPLATES_WHAT_TO_INCLUDE,
+} from './ResourcesConstants';
 import { ResourceCTA } from './ResourceCTA';
-import { ShTextFieldV2 } from '@smoothhiring/smooth-ui';
-import { interviewTemplates } from 'Modules/Marketing/Resources/Templates/InterviewTemplates/InterviewTemplateConstants';
+
+function TemplateGrid({ templates }: { templates: InterviewTemplateCard[] }) {
+  return (
+    <Grid container spacing={2}>
+      {templates.map((template) => (
+        <Grid item xs={12} sm={6} md={4} key={`${template.path}-${template.title}`}>
+          <MarketingLinkCard
+            href={`/resources/interview-letter-templates${template.path}/`}
+            title={template.title}
+            description={template.description}
+            linkLabel='Open template'
+          />
+        </Grid>
+      ))}
+    </Grid>
+  );
+}
 
 export const InterviewTemplateHome = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const filteredTemplates = interviewTemplates.filter(t =>
-    t.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
         eyebrow={{ label: 'HR Templates', icon: ArticleIcon }}
-        title='Interview Letter Templates'
-        description='Clear, professional interview invitations set candidates up for a great experience from the start. Browse templates for phone screens, technical rounds, and panel interviews.'
-      >
-        <MarketingHeroSearchRow>
-          <ShTextFieldV2
-            label='Search templates'
-            variant='outlined'
-            fullWidth
-            value={searchQuery}
-            onChange={handleSearchChange}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <SearchIcon fontSize='small' />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </MarketingHeroSearchRow>
-      </MarketingHero>
+        title={INTERVIEW_TEMPLATES_TITLE}
+        description={INTERVIEW_TEMPLATES_INTRO}
+      />
 
-      <Grid container spacing={2} pb={4}>
-        {filteredTemplates.map((template) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={template.path}>
-            <MarketingLinkCard
-              href={`/resources/interview-letter-templates${template.path}/`}
-              title={template.title}
-              description={template.description}
-              linkLabel='Open template'
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <MarketingSection
+        id='interview-by-type'
+        title='Interview Invitation Emails by Type'
+        description='Free interview invitation email templates for phone, video, in-person, panel, and async interviews.'
+        py={4}
+      >
+        <TemplateGrid templates={interviewTemplatesByType} />
+      </MarketingSection>
+
+      <MarketingSection
+        id='interview-by-stage'
+        title='Interview Invitation Emails by Stage'
+        description='Invitation to interview email templates for first, second, and final rounds.'
+        py={4}
+      >
+        <TemplateGrid templates={interviewTemplatesByStage} />
+      </MarketingSection>
+
+      <MarketingSection
+        id='interview-related-emails'
+        title='Related Interview Emails'
+        description='Self-scheduling invites, reschedule messages, and interview confirmation templates.'
+        py={4}
+      >
+        <TemplateGrid templates={interviewRelatedEmailTemplates} />
+      </MarketingSection>
+
+      <Box paddingY={4} paddingX={{ xs: 0, sm: 1 }}>
+        <Typography variant='h5' component='h2' gutterBottom fontWeight={600}>
+          What to Include in an Interview Invitation Email
+        </Typography>
+        <Typography variant='body1' color='text.secondary' paragraph>
+          {INTERVIEW_TEMPLATES_WHAT_TO_INCLUDE}
+        </Typography>
+
+        <Typography variant='h5' component='h2' gutterBottom fontWeight={600} marginTop={4}>
+          How to Write an Interview Invitation Email
+        </Typography>
+        <Typography variant='body1' color='text.secondary' paragraph>
+          {INTERVIEW_TEMPLATES_HOW_TO_WRITE}
+        </Typography>
+      </Box>
+
       <ResourceCTA />
     </MarketingPage>
   );

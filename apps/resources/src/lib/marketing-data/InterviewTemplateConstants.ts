@@ -1,4 +1,10 @@
-export const interviewTemplates = [
+export type InterviewTemplateCard = {
+  title: string;
+  description: string;
+  path: string;
+};
+
+export const interviewTemplates: InterviewTemplateCard[] = [
   {
     title: 'Formal Interview Letter Template',
     description: 'Customized for formally inviting applicants for interviews',
@@ -15,6 +21,12 @@ export const interviewTemplates = [
     path: '/auto-interview-templates',
   },
 ];
+
+export {
+  interviewRelatedEmailTemplates,
+  interviewTemplatesByStage,
+  interviewTemplatesByType,
+} from './InterviewHubConstants';
 
 export const jobInterviewTemplateData = {
   companyName: 'Sample Company Inc.',

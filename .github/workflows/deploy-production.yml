@@ -46,6 +46,7 @@ jobs:
       - name: Install and build resources (no CMS)
         env:
           NEXT_PUBLIC_SITE_URL: https://smoothhiring.com
+          NEXT_PUBLIC_REACT_APP_BASE_URL: https://api.smoothhiring.com/
         run: |
           pnpm install --frozen-lockfile
           pnpm build:resources

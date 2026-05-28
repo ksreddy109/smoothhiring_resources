@@ -1,141 +1,130 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Grid, Stack, Typography, styled } from '@mui/material';
-import { ResourceCTA } from './ResourceCTA';
+import {
+  MarketingHero,
+  MarketingLinkCard,
+  MarketingPage,
+  MarketingSection,
+} from '@/components/resources/layout';
+import {
+  recruitingEmailsApplicationInterview,
+  recruitingEmailsDecisionFollowUp,
+  recruitingEmailsOnboarding,
+  recruitingEmailsOutreach,
+} from '@/lib/marketing-data/EmailHubConstants';
+import type { RecruitingEmailCard } from '@/lib/marketing-data/EmailHubConstants';
 import { ShGreenBtn, ShPaper } from '@smoothhiring/smooth-ui';
-import { EmailCategoryChip, EmailFeatureChip } from '@/components/resources/layout/EmailTemplateChips';
-import { MarketingHero, MarketingPage } from '@/components/resources/layout';
-
-const CategoryLabel = styled(Typography)(({ theme }) => ({
-  fontWeight: 500,
-  color: theme.palette.text.primary,
-}));
-
-const TemplatePreviewBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.grey[50],
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
-  padding: theme.spacing(1.75),
-  marginTop: theme.spacing(0.75),
-}));
-
-const PreviewText = styled(Typography)(({ theme }) => ({
-  lineHeight: 1.7,
-  color: theme.palette.text.secondary,
-}));
+import { EmailFeatureChip } from '@/components/resources/layout/EmailTemplateChips';
+import {
+  EMAIL_TEMPLATES_HOW_TO_WRITE,
+  EMAIL_TEMPLATES_INTRO,
+  EMAIL_TEMPLATES_TITLE,
+} from './ResourcesConstants';
+import { ResourceCTA } from './ResourceCTA';
 
 const EmailPromoPaper = styled(ShPaper)(({ theme }) => ({
   marginBottom: theme.spacing(4),
 }));
 
-const emailCategories = [
-  {
-    label: 'Application Received',
-    chip: 'Acknowledgment',
-    chipColor: 'primary' as const,
-    subject: 'We received your application — [Job Title] at [Company]',
-    preview:
-      "Hi [Candidate Name], thank you for applying to [Job Title]. We've received your application and our team will review it shortly. We'll be in touch within [X] business days.",
-  },
-  {
-    label: 'Interview Invitation',
-    chip: 'Scheduling',
-    chipColor: 'success' as const,
-    subject: 'Interview Invitation — [Job Title] at [Company]',
-    preview:
-      "Hi [Candidate Name], we were impressed with your background and would love to learn more. We'd like to invite you to interview for the [Job Title] role. Please use the link below to select a time that works for you.",
-  },
-  {
-    label: 'Post-Interview Follow-Up',
-    chip: 'Follow-Up',
-    chipColor: 'primary' as const,
-    subject: 'Thank you for meeting with us — [Job Title]',
-    preview:
-      "Hi [Candidate Name], thank you for taking the time to speak with us about the [Job Title] position. It was great learning more about your experience. We'll be in touch with next steps shortly.",
-  },
-  {
-    label: 'Offer Letter',
-    chip: 'Offer',
-    chipColor: 'success' as const,
-    subject: "We'd love to have you join the team — [Job Title] Offer",
-    preview:
-      "Hi [Candidate Name], we're excited to extend an offer for the [Job Title] position at [Company]. Please find your formal offer letter attached. We'd love for you to join us and look forward to your response.",
-  },
-  {
-    label: 'Rejection Notice',
-    chip: 'Declination',
-    chipColor: 'default' as const,
-    subject: 'Your application to [Company] — [Job Title]',
-    preview:
-      "Hi [Candidate Name], thank you for your interest in the [Job Title] position and for the time you invested in your application. After careful consideration, we've decided to move forward with other candidates. We appreciate your interest and wish you well.",
-  },
-  {
-    label: 'Onboarding Welcome',
-    chip: 'Onboarding',
-    chipColor: 'success' as const,
-    subject: "Welcome to the team! Here's what to expect on day one",
-    preview:
-      "Hi [Name], we're thrilled to have you joining us as [Job Title] on [Start Date]. Here's everything you need to know before your first day, including where to report, who to ask for, and what to bring.",
-  },
-];
+function TemplateGrid({ templates }: { templates: RecruitingEmailCard[] }) {
+  return (
+    <Grid container spacing={2}>
+      {templates.map((template) => (
+        <Grid item xs={12} sm={6} md={4} key={`${template.href}-${template.title}`}>
+          <MarketingLinkCard
+            href={template.href}
+            title={template.title}
+            description={template.description}
+            linkLabel='View template'
+          />
+        </Grid>
+      ))}
+    </Grid>
+  );
+}
 
 export const EmailTemplatesPage = () => {
   return (
     <MarketingPage maxWidth='xl'>
       <MarketingHero
         eyebrow={{ label: 'HR Templates', icon: EmailOutlinedIcon }}
-        title='Hiring Email Templates'
-        description='Consistent candidate communication builds trust and protects your employer brand. These templates cover every stage — from the first acknowledgment to the welcome email on day one.'
+        title={EMAIL_TEMPLATES_TITLE}
+        description={EMAIL_TEMPLATES_INTRO}
       />
 
-      <Grid container spacing={2} paddingBottom={3}>
-          {emailCategories.map((cat, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <ShPaper variant='outlined' height='100%'>
-                <Stack padding={3} gap={1} height='100%'>
-                  <Stack direction='row' alignItems='center' justifyContent='space-between' gap={1}>
-                    <CategoryLabel variant='subtitle2'>{cat.label}</CategoryLabel>
-                    <EmailCategoryChip label={cat.chip} color={cat.chipColor} />
-                  </Stack>
-                  <Typography variant='caption' color='text.secondary'>
-                    Subject: {cat.subject}
-                  </Typography>
-                  <TemplatePreviewBox>
-                    <PreviewText variant='body2'>{cat.preview}</PreviewText>
-                  </TemplatePreviewBox>
-                </Stack>
-              </ShPaper>
-            </Grid>
-          ))}
-        </Grid>
+      <MarketingSection
+        id='outreach-sourcing'
+        title='Candidate Outreach & Sourcing Emails'
+        description='Recruiting email templates for cold outreach, passive candidates, referrals, and talent-pool re-engagement.'
+        py={4}
+      >
+        <TemplateGrid templates={recruitingEmailsOutreach} />
+      </MarketingSection>
 
-        <EmailPromoPaper variant='outlined'>
-          <Stack padding={3} gap={1.5}>
-            <Typography variant='subtitle1'>
-              Manage Email Templates Inside SmoothHiring
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              SmoothHiring's built-in email template system lets you create, personalize, and send candidate emails automatically as they move through your pipeline. Trigger emails based on stage changes, add custom fields, and keep your entire team aligned.
-            </Typography>
-            <Stack direction='row' flexWrap='wrap' gap={1} paddingTop={0.5}>
-              {['Auto-send on stage change', 'Custom merge fields', 'Team shared templates', 'Mobile responsive'].map(
-                (feature) => (
-                  <EmailFeatureChip key={feature} label={feature} />
-                )
-              )}
-            </Stack>
-            <Box paddingTop={0.5}>
-              <ShGreenBtn
-                href='https://app.smoothhiring.com/employer/settings/tools/templates/application-received'
-                disableElevation
-                variant='contained'
-                endIcon={<ArrowForwardIcon fontSize='small' />}
-              >
-                Manage Email Templates
-              </ShGreenBtn>
-            </Box>
+      <MarketingSection
+        id='application-interview'
+        title='Application & Interview Emails'
+        description='Hiring email templates from application acknowledgement through interview invitations, confirmations, and reminders.'
+        py={4}
+      >
+        <TemplateGrid templates={recruitingEmailsApplicationInterview} />
+      </MarketingSection>
+
+      <MarketingSection
+        id='decision-follow-up'
+        title='Decision & Follow-Up Emails'
+        description='Offer emails, rejection emails, candidate follow-ups, and reference requests for the decision stage.'
+        py={4}
+      >
+        <TemplateGrid templates={recruitingEmailsDecisionFollowUp} />
+      </MarketingSection>
+
+      <MarketingSection
+        id='onboarding'
+        title='Onboarding Emails'
+        description='Welcome and first-day email templates to onboard new hires before they start.'
+        py={4}
+      >
+        <TemplateGrid templates={recruitingEmailsOnboarding} />
+      </MarketingSection>
+
+      <Box paddingY={4} paddingX={{ xs: 0, sm: 1 }}>
+        <Typography variant='h5' component='h2' gutterBottom fontWeight={600}>
+          How to Write Effective Recruiting Emails
+        </Typography>
+        <Typography variant='body1' color='text.secondary' paragraph>
+          {EMAIL_TEMPLATES_HOW_TO_WRITE}
+        </Typography>
+      </Box>
+
+      <EmailPromoPaper variant='outlined'>
+        <Stack padding={3} gap={1.5}>
+          <Typography variant='subtitle1'>Manage Email Templates Inside SmoothHiring</Typography>
+          <Typography variant='body2' color='text.secondary'>
+            SmoothHiring&apos;s built-in email template system lets you create, personalize, and send candidate emails
+            automatically as they move through your pipeline. Trigger emails based on stage changes, add custom fields,
+            and keep your entire team aligned.
+          </Typography>
+          <Stack direction='row' flexWrap='wrap' gap={1} paddingTop={0.5}>
+            {['Auto-send on stage change', 'Custom merge fields', 'Team shared templates', 'Mobile responsive'].map(
+              (feature) => (
+                <EmailFeatureChip key={feature} label={feature} />
+              )
+            )}
           </Stack>
-        </EmailPromoPaper>
+          <Box paddingTop={0.5}>
+            <ShGreenBtn
+              href='https://app.smoothhiring.com/employer/settings/tools/templates/application-received'
+              disableElevation
+              variant='contained'
+              endIcon={<ArrowForwardIcon fontSize='small' />}
+            >
+              Manage Email Templates
+            </ShGreenBtn>
+          </Box>
+        </Stack>
+      </EmailPromoPaper>
 
       <ResourceCTA />
     </MarketingPage>

@@ -5,6 +5,7 @@ env:
     S3_RESOURCES_BUCKET: smoothhiring-resources-production
     CLOUDFRONT_DISTRIBUTION_ID: E2O2WRCWTC6KI6
     NEXT_PUBLIC_SITE_URL: https://smoothhiring.com
+    NEXT_PUBLIC_REACT_APP_BASE_URL: https://api.smoothhiring.com/
   git-credential-helper: yes
 
 phases:

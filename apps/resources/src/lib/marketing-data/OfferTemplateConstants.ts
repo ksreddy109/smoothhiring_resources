@@ -1,4 +1,10 @@
-export const offerTemplates = [
+export type OfferTemplateCard = {
+  title: string;
+  description: string;
+  path: string;
+};
+
+export const offerTemplates: OfferTemplateCard[] = [
   {
     title: 'General Job Offer Template',
     description: 'Versatile structure for various job positions, including job title, salary, benefits, and employment terms.',
@@ -23,6 +29,87 @@ export const offerTemplates = [
     title: 'Sales Job Offer Template',
     description: 'Customized for sales roles, detailing performance incentives, commission structures, and sales targets.',
     path: '/sales-job-offer-template',
+  },
+];
+
+export const offerTemplatesByEmploymentType: OfferTemplateCard[] = [
+  {
+    title: 'Full-Time Offer Letter Template',
+    description:
+      'A complete job offer letter format for full-time hires — salary, benefits, start date, and employment terms.',
+    path: '/formal-job-offer-template',
+  },
+  {
+    title: 'Part-Time Offer Letter Template',
+    description:
+      'An offer letter sample for part-time roles with hours, hourly or prorated pay, and key benefits.',
+    path: '/general-job-offer-template',
+  },
+  {
+    title: 'Internship Offer Letter Template',
+    description:
+      'A professional internship offer letter with duration, stipend or pay, and program expectations.',
+    path: '/informal-job-offer-template',
+  },
+  {
+    title: 'Contract / Freelance Offer Letter Template',
+    description:
+      'An offer letter format for contract and freelance engagements — scope, rate, and term length.',
+    path: '/general-job-offer-template',
+  },
+  {
+    title: 'Remote Employee Offer Letter Template',
+    description:
+      'Extend a remote job offer with location, work arrangement, compensation, and benefits clearly spelled out.',
+    path: '/general-job-offer-template',
+  },
+];
+
+export const offerTemplatesByRole: OfferTemplateCard[] = [
+  {
+    title: 'Sales Manager Offer Letter Template',
+    description:
+      'A job offer letter template with commission structure, targets, and sales-specific compensation details.',
+    path: '/sales-job-offer-template',
+  },
+  {
+    title: 'Software Engineer Offer Letter Template',
+    description:
+      'A technical role offer letter example covering title, salary, equity or bonus, and engineering benefits.',
+    path: '/general-job-offer-template',
+  },
+  {
+    title: 'Executive / Senior Offer Letter Template',
+    description:
+      'A formal offer letter sample for leadership roles with detailed terms and corporate language.',
+    path: '/formal-job-offer-template',
+  },
+  {
+    title: 'Entry-Level Offer Letter Template',
+    description:
+      'A welcoming offer letter format for early-career hires — clear role, pay, and growth expectations.',
+    path: '/informal-job-offer-template',
+  },
+  {
+    title: 'Hourly / Retail Offer Letter Template',
+    description:
+      'An offer letter template for hourly and frontline roles with rate, schedule, and benefits summary.',
+    path: '/general-job-offer-template',
+  },
+];
+
+export const jobOfferEmailTemplates: OfferTemplateCard[] = [
+  {
+    title: 'Job Offer Email Template',
+    description:
+      'A short-form job offer email template to confirm the offer quickly before sending the full letter.',
+    path: '/informal-job-offer-template',
+  },
+  {
+    title: 'Verbal Offer Follow-Up Letter Template',
+    description:
+      'Put a verbal offer in writing with a concise follow-up letter candidates can review and accept.',
+    path: '/informal-job-offer-template',
   },
 ];
 
